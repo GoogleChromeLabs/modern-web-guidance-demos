@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Cozy Nook - A premium modern bookstore experience. Peruse our curated selection of titles.">
+  <title>The Cozy Nook | Premium Bookstore</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="app-header">
+    <div class="logo">The Cozy Nook</div>
+    <button id="menu-toggle" class="menu-toggle" aria-label="Open Menu" popovertarget="nav-menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+    </button>
+    <nav id="nav-menu" popover="auto" class="nav-menu">
+      <div class="nav-content">
+        <button class="close-btn" popovertarget="nav-menu" popovertargetaction="hide" aria-label="Close Menu">&times;</button>
+        <a href="#home">Home</a>
+        <a href="#catalog">Catalog</a>
+        <a href="#about">Our Story</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <h1>Curated Stories for the Soul</h1>
+      <p>Step into a sanctuary of words. Swipe and explore our handpicked collection.</p>
+    </section>
+
+    <!-- Carousel Section -->
+    <section class="catalog" id="catalog">
+      <div class="carousel-container">
+        <ul class="scroller" id="book-scroller">
+          <!-- Book 1 -->
+          <li class="book-item" data-book="1" tabindex="0" role="button" aria-label="View details for The Whispering Shadows">
+            <div class="book-cover">
+              <img src="./assets/cover1.png" alt="The Whispering Shadows book cover" class="cover-img">
+            </div>
+          </li>
+          <!-- Book 2 -->
+          <li class="book-item" data-book="2" tabindex="0" role="button" aria-label="View details for Midnight at the Oasis">
+            <div class="book-cover">
+              <img src="./assets/cover2.png" alt="Midnight at the Oasis book cover" class="cover-img">
+            </div>
+          </li>
+          <!-- Book 3 -->
+          <li class="book-item" data-book="3" tabindex="0" role="button" aria-label="View details for The Sunlit Path">
+            <div class="book-cover">
+              <img src="./assets/cover3.png" alt="The Sunlit Path book cover" class="cover-img">
+            </div>
+          </li>
+          <!-- Book 4 -->
+          <li class="book-item" data-book="4" tabindex="0" role="button" aria-label="View details for Silent Echoes">
+            <div class="book-cover">
+              <img src="./assets/cover4.png" alt="Silent Echoes book cover" class="cover-img">
+            </div>
+          </li>
+          <!-- Book 5 -->
+          <li class="book-item" data-book="5" tabindex="0" role="button" aria-label="View details for The Clockwork Heart">
+            <div class="book-cover">
+              <img src="./assets/cover5.png" alt="The Clockwork Heart book cover" class="cover-img">
+            </div>
+          </li>
+          <!-- Book 6 -->
+          <li class="book-item" data-book="6" tabindex="0" role="button" aria-label="View details for Emerald Skies">
+            <div class="book-cover">
+              <img src="./assets/cover6.png" alt="Emerald Skies book cover" class="cover-img">
+            </div>
+          </li>
+          <!-- Book 7 -->
+          <li class="book-item" data-book="7" tabindex="0" role="button" aria-label="View details for Beneath the Surface">
+            <div class="book-cover">
+              <img src="./assets/cover7.png" alt="Beneath the Surface book cover" class="cover-img">
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Details Section -->
+    <section class="details-section" id="details-section" aria-live="polite">
+      <div class="details-placeholder" id="details-placeholder">
+        <p>Select a book from the carousel to view its details.</p>
+      </div>
+      
+      <div class="book-details hidden" id="book-details">
+        <div class="details-grid">
+          <img src="" alt="Book cover" class="details-cover" id="details-cover-display">
+          <div class="details-text">
+            <span class="details-genre" id="details-genre"></span>
+            <h2 id="details-title"></h2>
+            <h3 id="details-author"></h3>
+            <p id="details-description"></p>
+            <button class="action-btn">Add to Shelf</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 The Cozy Nook. Built with love for readers.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

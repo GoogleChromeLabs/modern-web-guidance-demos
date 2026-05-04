@@ -1,0 +1,5 @@
+.agents/
+.claude/
+.gemini/
+.DS_Store
+/node_modules/
