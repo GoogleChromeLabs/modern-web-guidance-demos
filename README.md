@@ -34,7 +34,6 @@ Once the server is running, open the local address in Chrome, open DevTools, and
 
 To demonstrate the power of Chrome DevTools and Lighthouse audits, this application has been configured with an **intentional LCP bottleneck**. 
 
-### The Build-In Misconfiguration
 In [index.html](bookstore-app/index.html#L43-L84), we have applied the following `fetchpriority` anti-patterns to the bookstore carousel:
 
 | Element / Area | Description |
@@ -50,7 +49,6 @@ In [index.html](bookstore-app/index.html#L43-L84), we have applied the following
 <img src="./assets/cover2.png" alt="Midnight at the Oasis cover" class="cover-img" fetchpriority="high">
 ```
 
-### Lighthouse / Chrome DevTools Impact
 When running a Mobile Lighthouse performance audit on this app:
 
 | Diagnostic Metric / Finding | Audit Impact / Explanation |
@@ -73,7 +71,7 @@ Leveraging Modern Web Guidance skills, here are the core improvements that could
 
 
 #### 1. Optimizing Image Priority (`optimize-image-priority`)
-To fix the mobile performance audit, apply the correct priority mappings as guided by Modern Web Use Cases:
+To fix the mobile performance audit, apply the correct priority mappings and switch from `.png` to `.jpg` for rendering on mobile web.
 
 ```diff
   <!-- Book 1 (Above the Fold / LCP Candidate) -->
@@ -92,7 +90,6 @@ To fix the mobile performance audit, apply the correct priority mappings as guid
 Instead of listening to heavy scroll events in JavaScript and forcing layout recalculations, the carousel utilizes **CSS Scroll-Driven Animations** for a premium 3D scaling effect.
 
 ```css
-/* Native CSS Scroll-Driven Animations */
 @supports ((animation-timeline: view()) and (animation-range: entry)) {
   @keyframes scale-up {
     0%   { transform: scale(0.75); opacity: 0.4; }
@@ -110,7 +107,7 @@ Instead of listening to heavy scroll events in JavaScript and forcing layout rec
 > For browsers that do not yet support scroll-driven timelines, [app.js](bookstore-app/app.js#L115-L138) features a lightweight, performant `IntersectionObserver` fallback, ensuring cross-browser smooth scaling.
 
 #### 3. Native Popover API for Nav Drawer (`popover-navigation`)
-We replaced heavy modal libraries and complex JS toggle classes with the native HTML **Popover API**, bringing built-in keyboard accessibility, backdrop click-dismissal, and top-layer stacking out of the box.
+Using native HTML **Popover API** instead of heavy modal libraries and complex JS toggle classes, bringing built-in keyboard accessibility, backdrop click-dismissal, and top-layer stacking out of the box.
 
 ```html
 <!-- Toggle Button -->
@@ -123,7 +120,7 @@ We replaced heavy modal libraries and complex JS toggle classes with the native 
 ```
 
 #### 4. Dynamic View Transitions (`view-transitions`)
-When a user clicks a book cover to load its details, we use the **View Transitions API** to automatically animate the content transition, delivering a seamless app-like feel with a single line of JS.
+**View Transitions API** automatically animates the content transition, delivering a seamless app-like feel with minimal JS.
 
 ```javascript
 const updateContent = () => {
