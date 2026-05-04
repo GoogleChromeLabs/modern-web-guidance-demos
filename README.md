@@ -1,10 +1,7 @@
-# 📖 The Cozy Nook: Modern Web Guidance Demo
+# 📖 The Legacy Cozy Nook: Modern Web Guidance Demo
 
-Welcome to **The Legacy Cozy Nook**, a legacy web bookstore application built as a live demonstration of [Modern Web Guidance](https://github.com/GoogleChromeLabs/modern-web-guidance) and browser-native optimization techniques. 
-
----
-
-## 🎯 Modern Web Guidance Demo Purpose
+Welcome to **The Legacy Cozy Nook**, a legacy web bookstore application built as a live demonstration of [Modern Web Guidance](https://github.com/GoogleChrome/modern-web-guidance) and browser-native optimization techniques. 
+This is an accompaniment to the [Modern Web Guidance codelab](https://codelabs.developers.google.com/codelabs/modern-web-guidance-101).
 
 This application is designed to demonstrate:
 1. **The Performance Cost of Optimization Anti-Patterns**: We have intentionally misconfigured image loading priorities to showcase how poor heuristics degrade Largest Contentful Paint (LCP) on mobile networks.
@@ -37,7 +34,7 @@ Once the server is running, open the local address in Chrome, open DevTools, and
 
 To demonstrate the power of Chrome DevTools and Lighthouse audits, this application has been configured with an **intentional LCP bottleneck**. 
 
-### The Misconfiguration
+### The Build-In Misconfiguration
 In [index.html](bookstore-app/index.html#L43-L84), we have applied the following `fetchpriority` anti-patterns to the bookstore carousel:
 
 | Element / Area | Description |
@@ -88,7 +85,7 @@ To fix the mobile performance audit, apply the correct priority mappings as guid
 + <img src="./assets/cover2.png" class="cover-img" loading="lazy">
 ```
 > [!TIP]
-> Set `fetchpriority="high"` only on the primary LCP image. For hidden or offscreen carousel slides, omit `fetchpriority` and let native `loading="lazy"` defer their requests until they enter the viewport.
+> Here we could set `fetchpriority="high"` only on the primary LCP image. For hidden or offscreen carousel slides, omit `fetchpriority` and let native `loading="lazy"` defer their requests until they enter the viewport.
 
 
 #### 2. Progressive Scroll-Driven Animations (`scroll-driven-animations`)
