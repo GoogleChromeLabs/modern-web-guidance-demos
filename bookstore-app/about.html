@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Our Story - Learn how The Cozy Nook helps developers test and learn Modern Web Guidance.">
+  <title>Our Story | The Cozy Nook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- Navigation Header -->
+  <header class="app-header">
+    <a href="index.html" class="logo" style="text-decoration: none;">The Cozy Nook</a>
+    <button id="menu-toggle" class="menu-toggle" aria-label="Open Menu" popovertarget="nav-menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 12h18M3 6h18M3 18h18" />
+      </svg>
+    </button>
+    <nav id="nav-menu" popover="auto" class="nav-menu">
+      <div class="nav-content">
+        <button class="close-btn" popovertarget="nav-menu" popovertargetaction="hide"
+          aria-label="Close Menu">&times;</button>
+        <a href="index.html#home">Home</a>
+        <a href="index.html#catalog">Catalog</a>
+        <a href="about.html">Our Story</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Our Story</h1>
+      <p>A legacy bookstore designed for testing <strong>Modern Web Guidance</strong>.</p>
+    </section>
+
+    <!-- Story Content Section -->
+    <section class="story-section">
+      <div class="story-container">
+        <div class="story-card">
+          <h2>The Legacy Playground</h2>
+          <p>
+            Welcome to the Cozy Nook! While it looks like a peaceful place to find books,
+            this application is actually built to be slow and outdated.
+            It is a sandbox where developers can find common web performance mistakes
+            and fix them using modern techniques.
+          </p>
+        </div>
+
+        <div class="story-card featured">
+          <h2>Test Modern Web Guidance</h2>
+          <p>
+            Use <a href="https://goo.gle/modern-web-guidance" target="_blank" rel="noopener"><strong>Modern Web
+                Guidance</strong></a> and <a href="https://developer.chrome.com/docs/devtools/agents" target="_blank"
+              rel="noopener"><strong>Chrome DevTools for agents</strong></a> to audit this site.
+            Run a Lighthouse performance audit on mobile, locate the loading bottlenecks,
+            and practice upgrading this legacy code to modern, native browser features!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Highlights Section -->
+    <section class="tech-highlights">
+      <h2>Identify and Fix the Bottlenecks</h2>
+      <div class="tech-grid">
+        <div class="tech-card">
+          <div class="tech-icon">🐌</div>
+          <h3>Slow Image Priority</h3>
+          <p>The main book cover is deprioritized, while offscreen books load eagerly. Can you fix this LCP bottleneck?
+          </p>
+        </div>
+        <div class="tech-card">
+          <div class="tech-icon">⚙️</div>
+          <h3>Heavy JavaScript Animations</h3>
+          <p>The carousel uses custom JavaScript for motion. Upgrade it to native CSS Scroll-Driven Animations.</p>
+        </div>
+        <div class="tech-card">
+          <div class="tech-icon">🚪</div>
+          <h3>Legacy Menu Toggles</h3>
+          <p>The sidebar drawer is ripe for modernization. Replace custom JavaScript toggles with the native Popover
+            API.</p>
+        </div>
+        <div class="tech-card">
+          <div class="tech-icon">🪄</div>
+          <h3>Missing Page Transitions</h3>
+          <p>Book details load instantly without any flare. Integrate the View Transitions API for smooth layout
+            changes.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 The Cozy Nook. Built with love for readers.</p>
+  </footer>
+
+</body>
+
+</html>

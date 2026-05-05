@@ -339,3 +339,123 @@ footer {
   .details-cover { height: 250px; width: 160px; margin: 0 auto; }
   .scroller { padding: 2rem 30%; }
 }
+
+/* Story & About Page Styles */
+.story-section {
+  max-width: 900px;
+  margin: 0 auto 4rem;
+  padding: 0 2rem;
+}
+
+.story-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.story-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 2.5rem;
+  transition: var(--transition-smooth);
+}
+
+.story-card:hover {
+  border-color: rgba(212, 175, 55, 0.3);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.05);
+}
+
+.story-card.featured {
+  background: linear-gradient(145deg, var(--bg-secondary), rgba(198, 138, 76, 0.1));
+  border-color: rgba(198, 138, 76, 0.3);
+}
+
+.story-card h2 {
+  font-size: 2rem;
+  color: var(--accent-gold);
+  margin-bottom: 1rem;
+}
+
+.story-card p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.story-card strong {
+  color: var(--text-primary);
+}
+
+.story-card a {
+  color: var(--accent-gold);
+  text-decoration: underline;
+  transition: var(--transition-smooth);
+}
+
+.story-card a:hover {
+  color: #fff;
+}
+
+.tech-highlights {
+  max-width: 1000px;
+  margin: 0 auto 6rem;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.tech-highlights h2 {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  background: linear-gradient(to right, var(--text-primary), var(--accent-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.tech-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: var(--transition-smooth);
+  text-align: left;
+}
+
+.tech-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 15px 30px rgba(212, 175, 55, 0.1);
+}
+
+.tech-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.tech-card h3 {
+  font-size: 1.3rem;
+  color: var(--text-primary);
+  margin-bottom: 0.8rem;
+}
+
+.tech-card p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .story-card {
+    padding: 1.8rem;
+  }
+  .tech-highlights h2 {
+    font-size: 2rem;
+  }
+}
+
