@@ -317,6 +317,8 @@ main {
   border-radius: 8px;
   cursor: pointer;
   transition: var(--transition-smooth);
+  display: inline-block;
+  text-decoration: none;
 }
 
 .action-btn:hover {
@@ -387,13 +389,13 @@ footer {
   color: var(--text-primary);
 }
 
-.story-card a {
+.story-link {
   color: var(--accent-gold);
   text-decoration: underline;
   transition: var(--transition-smooth);
 }
 
-.story-card a:hover {
+.story-link:hover {
   color: #fff;
 }
 
