@@ -89,12 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
       bookDetails.style.opacity = '1';
     };
 
-    // Use View Transitions if supported
-    if (document.startViewTransition) {
-      document.startViewTransition(() => updateContent());
-    } else {
-      updateContent();
-    }
+    // TODO MWG: Modernize the page transitions when updating book details.
+    updateContent();
 
     // Smoothly scroll to details
     detailsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -117,28 +113,40 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Intersection Observer fallback for Scroll-Driven Animations
-  if (!CSS.supports('(animation-timeline: view()) and (animation-range: entry)')) {
-    console.log('Scroll-driven animations not supported, applying JS fallback.');
-    
-    const options = {
-      root: scroller,
-      rootMargin: '0px',
-      threshold: [0, 0.5, 1]
-    };
+  // Legacy navigation toggling
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuClose = document.getElementById('menu-close');
+  const navMenu = document.getElementById('nav-menu');
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const ratio = entry.intersectionRatio;
-        // Scale between 0.75 and 1.05 based on visibility
-        const scale = 0.75 + (0.3 * ratio);
-        const opacity = 0.4 + (0.6 * ratio);
-        
-        entry.target.style.transform = `scale(${scale})`;
-        entry.target.style.opacity = opacity;
-      });
-    }, options);
-
-    bookItems.forEach(item => observer.observe(item));
+  if (menuToggle && menuClose && navMenu) {
+    menuToggle.addEventListener('click', () => {
+      navMenu.classList.add('show');
+    });
+    menuClose.addEventListener('click', () => {
+      navMenu.classList.remove('show');
+    });
   }
+
+  // TODO MWG: Modernize the scroll effects on the book items.
+  console.log('Applying JS IntersectionObserver scroll scaling effect.');
+  
+  const options = {
+    root: scroller,
+    rootMargin: '0px',
+    threshold: [0, 0.5, 1]
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const ratio = entry.intersectionRatio;
+      // Scale between 0.75 and 1.05 based on visibility
+      const scale = 0.75 + (0.3 * ratio);
+      const opacity = 0.4 + (0.6 * ratio);
+      
+      entry.target.style.transform = `scale(${scale})`;
+      entry.target.style.opacity = opacity;
+    });
+  }, options);
+
+  bookItems.forEach(item => observer.observe(item));
 });

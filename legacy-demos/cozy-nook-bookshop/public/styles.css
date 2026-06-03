@@ -77,20 +77,23 @@ h1, h2, h3 {
   color: var(--accent-gold);
 }
 
-/* Nav Menu (Popover) */
+/* Nav Menu (Legacy Sidebar Drawer) */
 .nav-menu {
-  border: none;
-  background: var(--bg-secondary);
-  color: var(--text-primary);
+  position: fixed;
+  top: 0;
+  right: 0;
   width: 300px;
   height: 100vh;
-  margin-left: auto;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   box-shadow: -5px 0 25px rgba(0,0,0,0.5);
+  transform: translateX(100%);
+  transition: var(--transition-smooth);
+  z-index: 1000;
 }
 
-.nav-menu::backdrop {
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
+.nav-menu.show {
+  transform: translateX(0);
 }
 
 .nav-content {
@@ -148,6 +151,7 @@ main {
   margin-bottom: 1rem;
   background: linear-gradient(to right, var(--text-primary), var(--accent-amber));
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -172,7 +176,6 @@ main {
   gap: 3rem;
   padding: 2rem 50%;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
   list-style: none;
   scrollbar-width: none; /* Firefox */
 }
@@ -184,33 +187,9 @@ main {
 .book-item {
   flex: 0 0 250px;
   height: 380px;
-  scroll-snap-align: center;
   cursor: pointer;
   outline: none;
   border-radius: 12px;
-}
-
-/* Modern Scroll-Driven Animations */
-@supports ((animation-timeline: view()) and (animation-range: entry)) {
-  @keyframes scale-up {
-    0% {
-      transform: scale(0.75);
-      opacity: 0.4;
-    }
-    50% {
-      transform: scale(1.05);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(0.75);
-      opacity: 0.4;
-    }
-  }
-
-  .book-item {
-    animation: scale-up auto linear both;
-    animation-timeline: view(inline);
-  }
 }
 
 /* Fallback for lack of Scroll-Driven Animations */

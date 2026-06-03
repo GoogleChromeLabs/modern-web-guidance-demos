@@ -19,12 +19,13 @@
   <!-- Navigation Header -->
   <header class="app-header">
     <div class="logo">The Cozy Nook</div>
-    <button id="menu-toggle" class="menu-toggle" aria-label="Open Menu" popovertarget="nav-menu">
+    <!-- TODO MWG: Modernize this navigation menu -->
+    <button id="menu-toggle" class="menu-toggle" aria-label="Open Menu">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
     </button>
-    <nav id="nav-menu" popover="auto" class="nav-menu">
+    <nav id="nav-menu" class="nav-menu">
       <div class="nav-content">
-        <button class="close-btn" popovertarget="nav-menu" popovertargetaction="hide" aria-label="Close Menu">&times;</button>
+        <button id="menu-close" class="close-btn" aria-label="Close Menu">&times;</button>
         <a href="#home">Home</a>
         <a href="#catalog">Catalog</a>
         <a href="about.html">Our Story</a>
@@ -43,47 +44,49 @@
     <!-- Carousel Section -->
     <section class="catalog" id="catalog">
       <div class="carousel-container">
+        <!-- TODO MWG: Optimize the performance of image loading in index.html -->
+        <!-- TODO MWG: Improve the scrolling behavior of the book carousel -->
         <ul class="scroller" id="book-scroller">
           <!-- Book 1 -->
           <li class="book-item" data-book="1" tabindex="0" role="button" aria-label="View details for The Whispering Shadows">
             <div class="book-cover">
-              <img src="./assets/cover1.png" alt="The Whispering Shadows book cover" class="cover-img" fetchpriority="high">
+              <img src="./assets/cover1.png" alt="The Whispering Shadows book cover" class="cover-img">
             </div>
           </li>
           <!-- Book 2 -->
           <li class="book-item" data-book="2" tabindex="0" role="button" aria-label="View details for Midnight at the Oasis">
             <div class="book-cover">
-              <img src="./assets/cover2.png" alt="Midnight at the Oasis book cover" class="cover-img" loading="lazy">
+              <img src="./assets/cover2.png" alt="Midnight at the Oasis book cover" class="cover-img">
             </div>
           </li>
           <!-- Book 3 -->
           <li class="book-item" data-book="3" tabindex="0" role="button" aria-label="View details for The Sunlit Path">
             <div class="book-cover">
-              <img src="./assets/cover3.png" alt="The Sunlit Path book cover" class="cover-img" loading="lazy">
+              <img src="./assets/cover3.png" alt="The Sunlit Path book cover" class="cover-img">
             </div>
           </li>
           <!-- Book 4 -->
           <li class="book-item" data-book="4" tabindex="0" role="button" aria-label="View details for Silent Echoes">
             <div class="book-cover">
-              <img src="./assets/cover4.png" alt="Silent Echoes book cover" class="cover-img" loading="lazy">
+              <img src="./assets/cover4.png" alt="Silent Echoes book cover" class="cover-img">
             </div>
           </li>
           <!-- Book 5 -->
           <li class="book-item" data-book="5" tabindex="0" role="button" aria-label="View details for The Clockwork Heart">
             <div class="book-cover">
-              <img src="./assets/cover5.png" alt="The Clockwork Heart book cover" class="cover-img" loading="lazy">
+              <img src="./assets/cover5.png" alt="The Clockwork Heart book cover" class="cover-img">
             </div>
           </li>
           <!-- Book 6 -->
           <li class="book-item" data-book="6" tabindex="0" role="button" aria-label="View details for Emerald Skies">
             <div class="book-cover">
-              <img src="./assets/cover6.png" alt="Emerald Skies book cover" class="cover-img" loading="lazy">
+              <img src="./assets/cover6.png" alt="Emerald Skies book cover" class="cover-img">
             </div>
           </li>
           <!-- Book 7 -->
           <li class="book-item" data-book="7" tabindex="0" role="button" aria-label="View details for Beneath the Surface">
             <div class="book-cover">
-              <img src="./assets/cover7.png" alt="Beneath the Surface book cover" class="cover-img" loading="lazy">
+              <img src="./assets/cover7.png" alt="Beneath the Surface book cover" class="cover-img">
             </div>
           </li>
         </ul>
