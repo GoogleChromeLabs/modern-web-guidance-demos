@@ -18,7 +18,7 @@ At this stage, the repository contains the following self-contained mini-app und
 ├── legacy-demos/
 │   └── cozy-nook-bookshop/      # Vanilla JS mini-app (Baseline 2024 target)
 │       ├── README.md            # Details: App description and legacy patterns
-│       ├── bookstore-app/       # Legacy HTML, CSS, and JS source files
+│       ├── public/              # Legacy HTML, CSS, and JS source files
 │       └── package.json         # Development and bundling scripts (Vite)
 └── examples.md                  # Index linking to live deployments and references
 ```
