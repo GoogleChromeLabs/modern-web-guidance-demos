@@ -1,0 +1,51 @@
+{
+  "1": {
+    "title": "The Whispering Shadows",
+    "author": "Elara Vance",
+    "genre": "Fantasy",
+    "description": "A gripping tale of an ancient forest that holds the echoes of forgotten magic. Elara Vance takes you on a perilous journey with a rogue mage seeking to uncover the truth behind the shadows that whisper in the dark.",
+    "coverImage": "assets/cover1.png"
+  },
+  "2": {
+    "title": "Midnight at the Oasis",
+    "author": "Sarah J. Reed",
+    "genre": "Mystery",
+    "description": "When a wealthy archaeologist goes missing in the Sahara, a cynical detective is called to the scene. Beneath the desert stars, secrets are buried deep. A classic whodunit with a modern, atmospheric twist.",
+    "coverImage": "assets/cover2.png"
+  },
+  "3": {
+    "title": "The Sunlit Path",
+    "author": "Aurora Chandler",
+    "genre": "Romance",
+    "description": "A heartwarming story about second chances. Evelyn returns to her childhood cottage, hoping to heal from a broken past. She finds that the path to love and belonging is paved with golden sunlight and unexpected friendships.",
+    "coverImage": "assets/cover3.png"
+  },
+  "4": {
+    "title": "Silent Echoes",
+    "author": "Kaelen Flynn",
+    "genre": "Sci-Fi",
+    "description": "In a city of perpetual neon, the silence is deafening. A rogue hacker discovers a hidden signal buried in the city's mainframe—a message from a forgotten past.",
+    "coverImage": "assets/cover4.png"
+  },
+  "5": {
+    "title": "The Clockwork Heart",
+    "author": "Jasper Thorne",
+    "genre": "Steampunk",
+    "description": "A thrilling adventure in an empire driven by steam and gears. A young mechanist must uncover the secret of a legendary artifact to save her father.",
+    "coverImage": "assets/cover5.png"
+  },
+  "6": {
+    "title": "Emerald Skies",
+    "author": "Talia Thorne",
+    "genre": "Adventure",
+    "description": "A sweeping epic across undiscovered archipelagos. Talia Thorne guides you through storms, forgotten ruins, and dangerous alliances.",
+    "coverImage": "assets/cover6.png"
+  },
+  "7": {
+    "title": "Beneath the Surface",
+    "author": "Julian Vance",
+    "genre": "Thriller",
+    "description": "A chilling psychological thriller. When a small town's lake recedes, it reveals a long-buried truth that threatens to tear the community apart.",
+    "coverImage": "assets/cover7.png"
+  }
+}
