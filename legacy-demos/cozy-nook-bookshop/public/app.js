@@ -4,7 +4,7 @@
  */
 
 import books from "./books.json" with { type: "json" };
- 
+
 /**
  * @function showBookDetails
  * @description Displays the details of a specific book and smoothly scrolls the details section into view.
@@ -41,9 +41,9 @@ function showBookDetails(bookId) {
     detailsPlaceholder.classList.add("hidden");
     bookDetails.classList.remove("hidden");
     bookDetails.style.opacity = "1";
-  };;
+  };
 
-  // TODO MWG: Modernize the page transitions when updating book details.
+  // TODO(MWG 💖): Modernize the page transitions when updating book details.
   updateContent();
 
   // Smoothly scroll to details
@@ -93,7 +93,7 @@ function main() {
     });
   }
 
-  // TODO MWG: Modernize the scroll effects on the book items.
+  // TODO(MWG 💖): Improve the smoothness of the book carousel scroll and zoom animations.
   console.log("Applying JS IntersectionObserver scroll scaling effect.");
 
   const options = {
