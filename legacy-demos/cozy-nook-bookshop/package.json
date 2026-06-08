@@ -11,5 +11,8 @@
   },
   "devDependencies": {
     "vite": "^5.2.11"
-  }
+  },
+  "browserslist": [
+    "baseline 2024"
+  ]
 }
