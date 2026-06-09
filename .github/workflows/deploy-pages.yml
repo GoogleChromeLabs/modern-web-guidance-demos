@@ -1,0 +1,54 @@
+name: Deploy Demos to GitHub Pages
+
+on:
+  push:
+    branches:
+      - solutions
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: solutions
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build All Demo Applications
+        run: |
+          mkdir -p _site
+          for app in legacy-demos/*/; do
+            if [ -f "$app/package.json" ]; then
+              app_name=$(basename "$app")
+              echo "Building $app_name..."
+              (cd "$app" && npm install && npm run build)
+              cp -r "$app/dist" "_site/$app_name"
+            fi
+          done
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
