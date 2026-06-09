@@ -1,6 +1,6 @@
 # 🚀 Modern Web Guidance Demos
 
-Welcome to the **Modern Web Guidance Demos** repository! This project is a curated collection of "brownfield" (legacy) web applications designed to showcase how using **[Modern Web Guidance (MWG)](https://github.com/GoogleChrome/modern-web-guidance)** with your AI agent can transform legacy web patterns into modern, performant, accessible, and highly premium user experiences.
+Welcome to the **Modern Web Guidance Demos** repository! This project is a curated collection of legacy web applications designed to showcase how using **[Modern Web Guidance (MWG)](https://developer.chrome.com/docs/modern-web-guidance)** with your AI agent can transform legacy web patterns into modern, performant, accessible, and highly premium user experiences.
 
 These demos serve as interactive playground environments designed with AI-assisted workflows in mind. By cloning these mini-apps, you can work with your AI coding assistant to identify common bottlenecks and practice upgrading legacy code using native web platform APIs.
 
@@ -16,9 +16,9 @@ At this stage, the repository contains the following self-contained mini-app und
 ├── LICENSE                      # Apache 2.0 License
 ├── CONTRIBUTING.md              # Google CLA and contribution guidelines
 ├── legacy-demos/
-│   └── cozy-nook-bookshop/      # Vanilla JS mini-app (Baseline 2024 target)
-│       ├── README.md            # Details: App description and legacy patterns
-│       ├── public/              # Legacy HTML, CSS, and JS source files
+│   └── cozy-nook-bookshop/      # Vanilla JS mini-app (Baseline widely available)
+│       ├── README.md            # App information and an overivew of legacy patterns
+│       ├── public/              # HTML, CSS, and JS source files
 │       └── package.json         # Development and bundling scripts (Vite)
 └── examples.md                  # Index linking to live deployments and references
 ```
@@ -29,8 +29,8 @@ At this stage, the repository contains the following self-contained mini-app und
 
 To protect the learning experience from context-sniffing by AI coding assistants, this repository uses a two-branch strategy:
 
-*   **`main` branch**: Contains only the **legacy, "brownfield"** states of the mini-apps. It contains absolutely no solution code or test assertions.
-*   **`solution` branch**: Contains the **fully modernized and optimized** versions of the code. If you get stuck or need to compare your implementation with the recommended modern standards, you can checkout this branch to view the reference architecture.
+*   **`main` branch**: Contains only the **legacy** states of the mini-apps. It contains no solution code or test assertions.
+*   **`solution` branch**: Contains the **modernized and optimized** versions of the code. If you get stuck or need to compare your implementation with the recommended modern standards, you can checkout this branch to view the reference architecture.
 
 To explore the solutions:
 ```bash
