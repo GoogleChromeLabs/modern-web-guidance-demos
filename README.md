@@ -29,8 +29,8 @@ At this stage, the repository contains the following self-contained mini-app und
 
 To protect the learning experience from context-sniffing by AI coding assistants, this repository uses a two-branch strategy:
 
-*   **`main` branch**: Contains only the **legacy** states of the mini-apps. It contains no solution code or test assertions.
-*   **`solution` branch**: Contains the **modernized and optimized** versions of the code. If you get stuck or need to compare your implementation with the recommended modern standards, you can checkout this branch to view the reference architecture.
+*   **[`main`](https://github.com/GoogleChromeLabs/modern-web-guidance-demos/tree/main)** branch: Contains only the **legacy** states of the mini-apps. It contains no solution code or test assertions.
+*   **[`solution`](https://github.com/GoogleChromeLabs/modern-web-guidance-demos/tree/solution)** branch: Contains the **modernized and optimized** versions of the code. If you get stuck or need to compare your implementation with the recommended modern standards, you can checkout this branch to view the reference architecture.
 
 To explore the solutions:
 ```bash
