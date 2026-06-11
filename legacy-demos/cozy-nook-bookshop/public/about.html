@@ -107,6 +107,25 @@
   </main>
 
   <footer>
+    <form id="newsletter-form" class="newsletter-form">
+      <h3>Join Our Book Club</h3>
+      <p>Receive weekly curated lists and cozy reading recommendations.</p>
+      <div class="field">
+        <label for="newsletter-email">Email Address *</label>
+        <input
+          type="email"
+          id="newsletter-email"
+          name="newsletter-email"
+          required
+          aria-errormessage="email-error"
+          placeholder="reader@example.com"
+        >
+        <div id="email-error" class="error-msg">
+          <span aria-hidden="true">❌</span> Please enter a valid email address.
+        </div>
+      </div>
+      <button type="submit" class="action-btn" style="width: 100%; text-align: center;">Subscribe</button>
+    </form>
     <p>&copy; 2026 The Cozy Nook. Built with love for readers.</p>
   </footer>
 
