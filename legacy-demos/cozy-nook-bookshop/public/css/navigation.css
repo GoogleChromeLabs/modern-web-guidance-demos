@@ -1,0 +1,100 @@
+/**
+ * Copyright 2026 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* Header & Navigation */
+.app-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--glass-border);
+  z-index: 100;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+  letter-spacing: 1px;
+}
+
+.menu-toggle {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.menu-toggle:hover {
+  color: var(--accent-gold);
+}
+
+/* Nav Menu (Legacy Sidebar Drawer) */
+.nav-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100vh;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  box-shadow: -5px 0 25px rgba(0,0,0,0.5);
+  transform: translateX(100%);
+  transition: var(--transition-smooth);
+  z-index: 1000;
+}
+
+.nav-menu.show {
+  transform: translateX(0);
+}
+
+.nav-content {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 2rem;
+  gap: 1.5rem;
+  height: 100%;
+}
+
+.nav-content .close-btn {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 2rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.nav-content .close-btn:hover {
+  color: var(--accent-gold);
+}
+
+.nav-content a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 300;
+  transition: var(--transition-smooth);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid transparent;
+}
+
+.nav-content a:hover {
+  color: var(--accent-gold);
+  border-bottom-color: var(--accent-gold);
+  padding-left: 0.5rem;
+}

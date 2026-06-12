@@ -1,0 +1,97 @@
+/**
+ * Copyright 2026 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+/* Newsletter Form & :user-invalid Verification Styles */
+.newsletter-form {
+  max-width: 450px;
+  margin: 0 auto 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  text-align: left;
+  background: var(--bg-secondary);
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+}
+
+.newsletter-form h3 {
+  font-size: 1.5rem;
+  color: var(--accent-gold);
+  text-align: center;
+}
+
+.newsletter-form p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.newsletter-form .field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.newsletter-form label {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.newsletter-form input[type="email"] {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  outline: none;
+  transition: var(--transition-smooth);
+}
+
+.newsletter-form input[type="email"]:focus {
+  border-color: var(--accent-gold);
+}
+
+.newsletter-submit {
+  width: 100%;
+  text-align: center;
+}
+
+.error-msg {
+  display: none;
+  color: #d93025;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* :user-invalid styles and fallback */
+input:user-invalid,
+input.user-invalid-fallback {
+  border-color: #d93025;
+  background-color: #fce8e6;
+  color: #12100e;
+}
+
+input:user-invalid + .error-msg,
+input.user-invalid-fallback + .error-msg {
+  display: block;
+}
+
+input:required:user-valid,
+input:required.user-valid-fallback {
+  border-color: #188038;
+  border-width: 2px;
+}

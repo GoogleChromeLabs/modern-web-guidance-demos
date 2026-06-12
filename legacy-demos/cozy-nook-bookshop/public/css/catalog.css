@@ -1,0 +1,72 @@
+/**
+ * Copyright 2026 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* Carousel */
+.catalog {
+  padding: 2rem 0;
+  position: relative;
+}
+
+.carousel-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.scroller {
+  display: flex;
+  gap: 3rem;
+  padding: 2rem 50%;
+  overflow-x: auto;
+  list-style: none;
+  scrollbar-width: none; /* Firefox */
+}
+
+.scroller::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.book-item {
+  flex: 0 0 250px;
+  height: 380px;
+  cursor: pointer;
+  outline: none;
+  border-radius: 12px;
+}
+
+/* Fallback for lack of Scroll-Driven Animations */
+@media (prefers-reduced-motion: reduce) {
+  .book-item {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Book Covers */
+.book-cover {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+  transition: var(--transition-smooth);
+}
+
+.book-item:hover .book-cover,
+.book-item:focus .book-cover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+}
+
+.cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .scroller { padding: 2rem 30%; }
+}
