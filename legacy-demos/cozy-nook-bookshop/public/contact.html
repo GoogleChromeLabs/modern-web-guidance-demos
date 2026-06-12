@@ -84,29 +84,38 @@
         </div>
       </div>
     </section>
-  </main>
-
-  <footer>
-    <form id="newsletter-form" class="newsletter-form">
-      <h3>Join Our Book Club</h3>
-      <p>Receive weekly curated lists and cozy reading recommendations.</p>
-      <div class="field">
-        <label for="newsletter-email">Email Address *</label>
-        <input
-          type="email"
-          id="newsletter-email"
-          name="newsletter-email"
-          required
-          aria-errormessage="email-error"
-          placeholder="reader@example.com"
-        >
-        <div id="email-error" class="error-msg">
-          <span aria-hidden="true">❌</span> Please enter a valid email address.
-        </div>
+    <!-- Newsletter / Shop Update (Letters from the Shop) -->
+    <section class="newsletter">
+      <div class="newsletter-text">
+        <h2 class="newsletter-title">Letters from the Shop</h2>
+        <p class="newsletter-subtitle">New arrivals and slow-reading tips delivered to your letterbox monthly.</p>
       </div>
-      <button type="submit" class="action-btn" style="width: 100%; text-align: center;">Subscribe</button>
-    </form>
-    <p>&copy; 2026 The Cozy Nook. Built with love for readers.</p>
+      <div class="newsletter-form-wrapper">
+        <form id="newsletter-form" class="newsletter-form">
+          <div class="form-inputs">
+            <div class="field">
+              <label for="newsletter-email">Email Address *</label>
+              <input type="email" id="newsletter-email" name="newsletter-email" required aria-errormessage="email-error"
+                placeholder="Your cozy email...">
+              <div id="email-error" class="error-msg">
+                <span aria-hidden="true">❌</span> Please enter a valid email address.
+              </div>
+              </div>
+            <button type="submit" class="newsletter-submit">Subscribe</button>
+            </div>
+            </form>
+      </div>
+      </section>
+      </main>
+      
+      <!-- Footer Section -->
+      <footer class="app-footer">
+        <div class="footer">
+          <div class="footer-info">
+            <span class="footer-brand">The Cozy Nook</span>
+            <p class="footer-copyright">&copy; 2026 The Cozy Nook &bull; Crafted for slow reading</p>
+          </div>
+        </div>
   </footer>
 
   <!-- Bottom Nav for Mobile -->
