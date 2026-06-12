@@ -3,25 +3,29 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/* Story & About Page Styles */
+/* Story & About Page Styles (Mobile-First) */
 .story-section {
   max-width: 900px;
-  margin: 0 auto 4rem;
-  padding: 0 2rem;
+  margin-bottom: 4rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .story-container {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  width: 100%;
 }
 
 .story-card {
-  background: var(--bg-secondary);
-  border: 1px solid var(--glass-border);
+  background: var(--surface-container);
+  border: 1px solid var(--outline-variant);
   border-radius: 16px;
-  padding: 2.5rem;
+  padding: 1.8rem;
   transition: var(--transition-smooth);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .story-card:hover {
@@ -30,70 +34,74 @@
 }
 
 .story-card.featured {
-  background: linear-gradient(145deg, var(--bg-secondary), rgba(198, 138, 76, 0.1));
+  background: linear-gradient(145deg, var(--surface-container), rgba(198, 138, 76, 0.1));
   border-color: rgba(198, 138, 76, 0.3);
 }
 
 .story-card h2 {
-  font-size: 2rem;
-  color: var(--accent-gold);
+  font-size: 1.75rem;
+  color: var(--tertiary);
   margin-bottom: 1rem;
 }
 
 .story-card p {
-  color: var(--text-secondary);
-  font-size: 1.1rem;
+  color: var(--on-surface-variant);
+  font-size: 1.05rem;
   line-height: 1.8;
 }
 
 .story-card strong {
-  color: var(--text-primary);
+  color: var(--on-surface);
 }
 
 .story-link {
-  color: var(--accent-gold);
+  color: var(--tertiary);
   text-decoration: underline;
   transition: var(--transition-smooth);
 }
 
 .story-link:hover {
-  color: #fff;
+  color: var(--primary);
 }
 
 .tech-highlights {
   max-width: 1000px;
   margin: 0 auto 6rem;
-  padding: 0 2rem;
+  padding: 0 1rem;
   text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .tech-highlights h2 {
-  font-size: 2.5rem;
-  margin-bottom: 3rem;
-  background: linear-gradient(to right, var(--text-primary), var(--accent-gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 2rem;
+  margin-bottom: 2.5rem;
+  color: var(--on-surface);
 }
 
 .tech-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  width: 100%;
 }
 
 .tech-card {
-  background: var(--bg-secondary);
-  border: 1px solid var(--glass-border);
+  background: var(--surface-container);
+  border: 1px solid var(--outline-variant);
   border-radius: 16px;
-  padding: 2rem;
+  padding: 1.8rem;
   transition: var(--transition-smooth);
   text-align: left;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .tech-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(212, 175, 55, 0.4);
-  box-shadow: 0 15px 30px rgba(212, 175, 55, 0.1);
+  border-color: rgba(112, 88, 56, 0.4);
+  box-shadow: 0 15px 30px rgba(112, 88, 56, 0.1);
 }
 
 .tech-icon {
@@ -103,21 +111,38 @@
 
 .tech-card h3 {
   font-size: 1.3rem;
-  color: var(--text-primary);
+  color: var(--on-surface);
   margin-bottom: 0.8rem;
 }
 
 .tech-card p {
-  color: var(--text-secondary);
+  color: var(--on-surface-variant);
   font-size: 0.95rem;
   line-height: 1.6;
 }
 
-@media (max-width: 768px) {
+/* Desktop Expansion */
+@media (min-width: 768px) {
+  .story-section {
+    padding: 0 2rem;
+  }
+  .tech-highlights {
+    padding: 0 2rem;
+  }
   .story-card {
-    padding: 1.8rem;
+    padding: 2.5rem;
+  }
+  .story-card h2 {
+    font-size: 2rem;
   }
   .tech-highlights h2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
+  }
+  .tech-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+  }
+  .tech-card {
+    padding: 2rem;
   }
 }

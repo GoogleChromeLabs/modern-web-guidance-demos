@@ -74,15 +74,16 @@
 
 .newsletter-form input[type="email"] {
   width: 100%;
-  padding: 1rem 1.5rem;
+  height: 3.25rem;
+  padding: 0 1.5rem;
   font-size: 1rem;
   background-color: var(--surface);
-    color: var(--on-surface);
-    border: 2px solid var(--outline-variant);
-    border-radius: 9999px;
+  color: var(--on-surface);
+  border: 2px solid var(--outline-variant);
+  border-radius: 9999px;
   outline: none;
   transition: all 0.2s ease;
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .newsletter-form input[type="email"]:focus {
@@ -91,16 +92,20 @@
 
 .newsletter-submit {
   background-color: var(--secondary);
-    color: var(--on-secondary);
-    padding: 1rem 2.5rem;
-    border-radius: 9999px;
-    font-weight: 700;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    height: fit-content;
-    align-self: center;
+  color: var(--on-secondary);
+  height: 3.25rem;
+  padding: 0 2.5rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .newsletter-submit:hover {
@@ -190,11 +195,12 @@ input:required.user-valid-fallback {
 
   .form-inputs {
     flex-direction: row;
-    align-items: flex-end;
+    align-items: flex-start;
   }
 
   .newsletter-submit {
     width: auto;
+    margin-top: 1.7rem;
   }
 
   .app-footer {

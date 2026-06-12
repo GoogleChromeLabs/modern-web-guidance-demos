@@ -80,9 +80,8 @@
   color: var(--on-surface-variant);
   transition: var(--transition-smooth);
   width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .sign-container:hover .sign-label {
