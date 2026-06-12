@@ -10,6 +10,7 @@ import { initHeroGlow } from "./modules/hero.js";
 import { initSignMicroInteraction } from "./modules/signs.js";
 import { initCatalogRenderer } from "./modules/catalog-renderer.js";
 import { initBasket, addToBasket } from "./modules/basket.js";
+import { initFiltering } from "./modules/filtering.js";
 
 /**
  * @function main
@@ -17,14 +18,15 @@ import { initBasket, addToBasket } from "./modules/basket.js";
  * 
  * @returns {void}
  */
-function main() {
+async function main() {
   initCarousel();
   initNavigation();
   initNewsletterValidation();
   initHeroGlow();
   initSignMicroInteraction();
   initBasket();
-  initCatalogRenderer(addToBasket);
+  await initCatalogRenderer(addToBasket);
+  initFiltering();
 }
 
 document.addEventListener("DOMContentLoaded", () => main());

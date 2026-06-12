@@ -88,6 +88,17 @@
   color: var(--primary);
 }
 
+.sign-card.active-filter {
+  border-color: var(--tertiary);
+  background-color: var(--surface-container-highest);
+  box-shadow: 0 8px 24px rgba(112, 88, 56, 0.15);
+}
+
+.sign-card.active-filter .sign-label {
+  color: var(--tertiary);
+  font-weight: 700;
+}
+
 /* Animation delay utility classes */
 .delay-1 { animation-delay: -1s; }
 .delay-2 { animation-delay: -2s; }
