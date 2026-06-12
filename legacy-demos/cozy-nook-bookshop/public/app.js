@@ -7,6 +7,7 @@ import { initCarousel } from "./modules/carousel.js";
 import { initNavigation } from "./modules/navigation.js";
 import { initNewsletterValidation } from "./modules/validation.js";
 import { initHeroGlow } from "./modules/hero.js";
+import { initSignMicroInteraction } from "./modules/signs.js";
 
 /**
  * @function main
@@ -19,6 +20,7 @@ function main() {
   initNavigation();
   initNewsletterValidation();
   initHeroGlow();
+  initSignMicroInteraction();
 }
 
 document.addEventListener("DOMContentLoaded", () => main());

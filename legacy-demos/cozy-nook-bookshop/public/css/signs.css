@@ -1,0 +1,91 @@
+/**
+ * Copyright 2026 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* Explore the Quarters Section */
+.quarters-section {
+  margin-bottom: var(--section-gap);
+}
+
+.quarters-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.75rem;
+  margin-bottom: 2.5rem;
+  color: var(--on-surface);
+}
+
+.quarters-header .material-symbols-outlined {
+  color: var(--primary);
+  font-size: 2rem;
+}
+
+.quarters-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--gutter);
+  padding-top: 1.5rem;
+}
+
+.sign-container {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sign-card {
+  background-color: var(--surface-container-high);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border-left: 2px solid rgba(139, 112, 79, 0.2);
+  border-right: 2px solid rgba(139, 112, 79, 0.2);
+  border-bottom: 4px solid rgba(139, 112, 79, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(112, 88, 56, 0.08);
+}
+
+.sign-hanger {
+  width: 4px;
+  height: 2.5rem;
+  background-color: var(--outline);
+  margin-top: -2.75rem;
+  margin-bottom: 0.75rem;
+  border-radius: 2px;
+}
+
+.sign-icon {
+  font-size: 2.5rem;
+  color: var(--tertiary);
+  margin-bottom: 0.75rem;
+}
+
+.sign-label {
+  font-family: 'Literata', serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--on-surface-variant);
+  transition: var(--transition-smooth);
+}
+
+.sign-container:hover .sign-label {
+  color: var(--primary);
+}
+
+/* Animation delay utility classes */
+.delay-1 { animation-delay: -1s; }
+.delay-2 { animation-delay: -2s; }
+.delay-3 { animation-delay: -0.5s; }
+
+/* Media Queries (Mobile First) */
+@media (min-width: 768px) {
+  .quarters-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
