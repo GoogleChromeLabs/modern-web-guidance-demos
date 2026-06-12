@@ -9,6 +9,7 @@ import { initNewsletterValidation } from "./modules/validation.js";
 import { initHeroGlow } from "./modules/hero.js";
 import { initSignMicroInteraction } from "./modules/signs.js";
 import { initCatalogRenderer } from "./modules/catalog-renderer.js";
+import { initBasket, addToBasket } from "./modules/basket.js";
 
 /**
  * @function main
@@ -22,7 +23,8 @@ function main() {
   initNewsletterValidation();
   initHeroGlow();
   initSignMicroInteraction();
-  initCatalogRenderer((book) => console.log('Added to basket:', book));
+  initBasket();
+  initCatalogRenderer(addToBasket);
 }
 
 document.addEventListener("DOMContentLoaded", () => main());

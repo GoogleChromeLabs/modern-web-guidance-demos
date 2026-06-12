@@ -74,6 +74,16 @@
   transform: scale(0.95);
 }
 
+.basket-pulse {
+  animation: basketPulseAnim 0.3s ease-in-out;
+}
+
+@keyframes basketPulseAnim {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
 .basket-badge {
   position: absolute;
   top: -4px;
