@@ -42,15 +42,29 @@
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS0SvQ9q2MN8Z98BH8LhbGah5nlPZDXoKgMBEqq0fzVTDKI3_Oi1Plu6bVZ8Qfm5d0Cz4YRoQvweqZjTQr2eQXUxdQEVOXZT4fOTphw7YkM6GNMhyxe1watuOtocgSmcv2oBc04nMjxKBEDK80Gb0eLrfrLs4OR5AE92PZU_dtVwqD8VrPzRFO0ewZAAp6xt_PrLLtSHQ1E8oJJF0m828hwWQA412QEs7qQ7Qo5qoZAEvAkzL6LR7Z"
             alt="User avatar" class="avatar-img">
         </div>
-        </div>
-        </div>
+      </div>
+    </div>
   </header>
 
   <main id="main-content">
     <!-- Hero Section -->
-    <section class="hero" id="home">
-      <h1>Curated Stories for the Soul</h1>
-      <p>Step into a sanctuary of words. Swipe and explore our handpicked collection.</p>
+    <section class="hero-home" id="home">
+      <div class="hero-content">
+        <span class="hero-est">Est. 2024</span>
+        <h1 class="hero-title">The Cozy Nook Bookshop</h1>
+        <p class="hero-description">Find your next companion among our hand-curated shelves. From rare physical editions
+          to instant digital magic.</p>
+        <a href="#catalog" class="browse-btn">
+          <span>Browse the Stacks</span>
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-visual-backdrop"></div>
+        <img
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVrPtdgUCCEySBC5A99-DRo3sbd81SltEWXNsVqE6oVUmdRy_-jirdnFazipFjfrpnrueTcIfwrY4Bpe7VvPtF6Rqa9mcUXisVJuIXq-TWz-QbkY7mRVBcWkOQWyI48sGnnm5I9jkdVcbxN1wDC4heFe0KFDnjCgBt2GtWiR22IgwFeMEk4u7kuE4hY078YZQ9EJs9Jl8n7rE8zKb2TNFC9vJ-B0Z7p5DksRrsuspbhCZzJFbhXyoV"
+          alt="Old Books stack on wooden table" class="hero-img">
+      </div>
     </section>
 
     <!-- Carousel Section -->
@@ -136,14 +150,8 @@
       <p>Receive weekly curated lists and cozy reading recommendations.</p>
       <div class="field">
         <label for="newsletter-email">Email Address *</label>
-        <input
-          type="email"
-          id="newsletter-email"
-          name="newsletter-email"
-          required
-          aria-errormessage="email-error"
-          placeholder="reader@example.com"
-        >
+        <input type="email" id="newsletter-email" name="newsletter-email" required aria-errormessage="email-error"
+          placeholder="reader@example.com">
         <div id="email-error" class="error-msg">
           <span aria-hidden="true">❌</span> Please enter a valid email address.
         </div>
