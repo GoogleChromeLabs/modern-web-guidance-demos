@@ -23,22 +23,27 @@
 
   <!-- Navigation Header -->
   <header class="app-header">
-    <a href="index.html" class="logo" style="text-decoration: none;">The Cozy Nook</a>
-    <!-- TODO(MWG 💖): Improve the accessibility and behavior of this navigation menu -->
-    <button id="menu-toggle" class="menu-toggle" aria-label="Open Menu">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M3 12h18M3 6h18M3 18h18" />
-      </svg>
-    </button>
-    <nav id="nav-menu" class="nav-menu">
-      <div class="nav-content">
-        <button id="menu-close" class="close-btn" aria-label="Close Menu">&times;</button>
+    <div class="header-container">
+      <a href="index.html" class="logo">The Cozy Nook</a>
+      <nav class="desktop-nav">
         <a href="index.html#home">Home</a>
         <a href="index.html#catalog">Catalog</a>
-        <a href="about.html">Our Story</a>
+        <a href="about.html" class="active">Our Story</a>
         <a href="contact.html">Contact</a>
-      </div>
-    </nav>
+      </nav>
+      <div class="header-actions">
+        <div class="basket-container" aria-label="Shopping basket with 3 items">
+          <span class="material-symbols-outlined basket-icon">shopping_basket</span>
+          <span class="basket-badge">3</span>
+        </div>
+        <div class="avatar-container">
+          <span class="material-symbols-outlined notification-icon">notifications</span>
+          <img
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS0SvQ9q2MN8Z98BH8LhbGah5nlPZDXoKgMBEqq0fzVTDKI3_Oi1Plu6bVZ8Qfm5d0Cz4YRoQvweqZjTQr2eQXUxdQEVOXZT4fOTphw7YkM6GNMhyxe1watuOtocgSmcv2oBc04nMjxKBEDK80Gb0eLrfrLs4OR5AE92PZU_dtVwqD8VrPzRFO0ewZAAp6xt_PrLLtSHQ1E8oJJF0m828hwWQA412QEs7qQ7Qo5qoZAEvAkzL6LR7Z"
+            alt="User avatar" class="avatar-img">
+        </div>
+        </div>
+        </div>
   </header>
 
   <main id="main-content">
@@ -128,6 +133,27 @@
     </form>
     <p>&copy; 2026 The Cozy Nook. Built with love for readers.</p>
   </footer>
+
+  <!-- Bottom Nav for Mobile -->
+  <!-- TODO(MWG 💖): Only show the mobile nav when the user scrolls up -->
+  <nav class="mobile-bottom-nav">
+    <a href="index.html#home" class="mobile-nav-item">
+      <span class="material-symbols-outlined">home</span>
+      <span class="mobile-nav-label">Home</span>
+    </a>
+    <a href="index.html#catalog" class="mobile-nav-item">
+      <span class="material-symbols-outlined nav-icon-filled">storefront</span>
+      <span class="mobile-nav-label">Catalog</span>
+    </a>
+    <a href="about.html" class="mobile-nav-item active">
+      <span class="material-symbols-outlined">auto_stories</span>
+      <span class="mobile-nav-label">Our Story</span>
+    </a>
+    <a href="contact.html" class="mobile-nav-item">
+      <span class="material-symbols-outlined">forum</span>
+      <span class="mobile-nav-label">Contact</span>
+    </a>
+  </nav>
 
   <script type="module" src="app.js"></script>
 </body>
