@@ -1,0 +1,247 @@
+/**
+ * Copyright 2026 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* Staff Picks Section */
+.picks-section {
+  margin-bottom: var(--section-gap);
+}
+
+.picks-header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.picks-title {
+  font-size: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.picks-subtitle {
+  color: var(--on-surface-variant);
+  font-size: 1rem;
+}
+
+.view-all-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.picks-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gutter);
+}
+
+/* Big Featured Pick */
+.pick-big-card {
+  background-color: var(--surface-container);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(196, 200, 192, 0.4);
+  box-shadow: 0 4px 12px rgba(112, 88, 56, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.pick-big-visual {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.pick-big-img {
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  max-width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.pick-big-card:hover .pick-big-img {
+  transform: scale(1.02);
+}
+
+.pick-big-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.badge-botm {
+  background-color: rgba(123, 85, 81, 0.1);
+  color: var(--secondary);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 700;
+  width: fit-content;
+  margin-bottom: 1rem;
+}
+
+.pick-big-title {
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.pick-big-author {
+  color: var(--on-surface-variant);
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+.review-box {
+  background-color: var(--surface);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px dashed rgba(112, 88, 56, 0.4);
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.review-edit-icon {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  color: var(--tertiary);
+  background-color: var(--surface);
+  border-radius: 50%;
+  padding: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  font-size: 1.25rem;
+}
+
+.review-text {
+  font-size: 1.125rem;
+  color: var(--on-tertiary-fixed-variant);
+  line-height: 1.6;
+}
+
+.pick-big-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.pick-price {
+  font-family: 'Literata', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--tertiary);
+}
+
+.basket-add-btn {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.basket-add-btn:hover {
+  background-color: var(--primary-container);
+}
+
+.basket-add-btn:active {
+  transform: scale(0.95);
+}
+
+/* Small Picks Column */
+.picks-small-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gutter);
+}
+
+.pick-small-card {
+  background-color: var(--surface-container);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(196, 200, 192, 0.4);
+  display: flex;
+  gap: 1.5rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.pick-small-card:hover {
+  box-shadow: 0 6px 16px rgba(112, 88, 56, 0.1);
+}
+
+.pick-small-img {
+  width: 96px;
+  height: 144px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+}
+
+.pick-small-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.pick-small-title {
+  font-size: 1.35rem;
+  margin-bottom: 0.25rem;
+}
+
+.badge-tag {
+  background-color: rgba(123, 85, 81, 0.05);
+  color: var(--secondary);
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  width: fit-content;
+  margin-bottom: 0.75rem;
+}
+
+.review-quote {
+  color: var(--on-tertiary-fixed-variant);
+  margin-bottom: 0.75rem;
+}
+
+/* Media Queries (Mobile First) */
+@media (min-width: 768px) {
+  .picks-header-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .picks-grid {
+    grid-template-columns: 7fr 5fr;
+  }
+  .pick-big-card {
+    flex-direction: row;
+    padding: 2.5rem;
+  }
+  .pick-big-visual {
+    width: 50%;
+  }
+  .pick-big-content {
+    width: 50%;
+  }
+}
