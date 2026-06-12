@@ -3,16 +3,60 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@400;600;700&family=Indie+Flower&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
 :root {
-  --bg-primary: #12100e;
-  --bg-secondary: #1a1613;
-  --text-primary: #f4ebe1;
-  --text-secondary: #bdafa2;
-  --accent-gold: #d4af37;
-  --accent-amber: #c68a4c;
-  --glass-bg: rgba(26, 22, 19, 0.8);
-  --glass-border: rgba(244, 235, 225, 0.1);
-  --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  /* Warm Cozy Nook Palette (Stitch Theme) */
+  --surface: #fef9f3;
+  --surface-container-low: #f8f3ed;
+  --surface-container: #f2ede7;
+  --surface-container-high: #ece7e2;
+  --surface-variant: #e6e2dc;
+  --inverse-surface: #32302c;
+  
+  --primary: #516051;
+  --primary-container: #697969;
+  --on-primary: #ffffff;
+  --on-primary-container: #f7fff3;
+  --inverse-primary: #bacbb8;
+
+  --secondary: #7b5551;
+  --secondary-container: #ffcbc6;
+  --on-secondary: #ffffff;
+  --on-secondary-container: #7a5350;
+  --on-secondary-fixed-variant: #613e3a;
+
+  --tertiary: #705838;
+  --tertiary-container: #8b704f;
+  --on-tertiary: #ffffff;
+  --on-tertiary-fixed-variant: #594325;
+
+  --on-surface: #1d1b18;
+  --on-surface-variant: #434842;
+  --outline: #747872;
+  --outline-variant: #c4c8c0;
+
+  /* Legacy variables mapped to new theme for seamless transition */
+  --bg-primary: var(--surface);
+  --bg-secondary: var(--surface-container);
+  --text-primary: var(--on-surface);
+  --text-secondary: var(--on-surface-variant);
+  --accent-gold: var(--tertiary);
+  --accent-amber: var(--secondary);
+  --glass-bg: rgba(254, 249, 243, 0.85);
+  --glass-border: rgba(116, 120, 114, 0.2);
+  --transition-smooth: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+
+  /* Mobile-First Spacing Tokens */
+  --container-padding: 20px;
+  --section-gap: 48px;
+  --gutter: 16px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --container-padding: 40px;
+  }
 }
 
 * {
@@ -28,14 +72,45 @@ html {
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
 }
 
-h1, h2, h3 {
-  font-family: 'Playfair Display', serif;
+h1, h2, h3, h4 {
+  font-family: 'Literata', serif;
   font-weight: 600;
+  color: var(--on-surface);
+}
+
+/* Texture & Utility Base */
+.handwritten {
+  font-family: 'Indie Flower', cursive;
+}
+
+.parchment-texture {
+  background-color: var(--surface);
+  background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+}
+
+.wood-grain {
+  background-image: repeating-linear-gradient(45deg, rgba(166, 137, 102, 0.05) 0px, rgba(166, 137, 102, 0.05) 2px, transparent 2px, transparent 4px);
+}
+
+.shop-sign-swing {
+  transform-origin: top center;
+  animation: swing 4s ease-in-out infinite;
+}
+
+@keyframes swing {
+  0% { transform: rotate(2deg); }
+  50% { transform: rotate(-2deg); }
+  100% { transform: rotate(2deg); }
+}
+
+.wicker-basket::after {
+  content: 'shopping_basket';
+  font-family: 'Material Symbols Outlined';
 }
 
 /* Header & Navigation */
