@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--
+  Copyright 2026 Google LLC
+  SPDX-License-Identifier: Apache-2.0
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Your Shopping Basket - View your hand-curated physical and digital stories.">
+  <title>Your Basket | The Cozy Nook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- Navigation Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <a href="index.html" class="logo">The Cozy Nook</a>
+      <nav class="desktop-nav">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#catalog">Catalog</a>
+        <a href="about.html">Our Story</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <div class="basket-container" aria-label="Shopping basket">
+          <span class="material-symbols-outlined basket-icon">shopping_basket</span>
+          <span class="basket-badge">0</span>
+        </div>
+        <div class="avatar-container">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS0SvQ9q2MN8Z98BH8LhbGah5nlPZDXoKgMBEqq0fzVTDKI3_Oi1Plu6bVZ8Qfm5d0Cz4YRoQvweqZjTQr2eQXUxdQEVOXZT4fOTphw7YkM6GNMhyxe1watuOtocgSmcv2oBc04nMjxKBEDK80Gb0eLrfrLs4OR5AE92PZU_dtVwqD8VrPzRFO0ewZAAp6xt_PrLLtSHQ1E8oJJF0m828hwWQA412QEs7qQ7Qo5qoZAEvAkzL6LR7Z" alt="User avatar" class="avatar-img">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Your Reading Basket</h1>
+      <p>A safe shelter for the literary companions awaiting your journey.</p>
+    </section>
+
+    <!-- Basket Table Section -->
+    <section class="basket-page-section">
+      <div class="basket-wrapper" id="basket-items-container" aria-live="polite">
+        <p class="basket-empty-msg">Your basket is currently empty. Visit the catalog to find your next adventure!</p>
+      </div>
+      <div class="basket-summary hidden" id="basket-summary">
+        <div class="summary-line">
+          <span>Subtotal</span>
+          <span id="basket-subtotal">$0.00</span>
+        </div>
+        <div class="summary-line">
+          <span>Shipping & Digital Delivery</span>
+          <span>$0.00</span>
+        </div>
+        <hr class="summary-divider">
+        <div class="summary-line total-line">
+          <span>Total</span>
+          <span id="basket-total">$0.00</span>
+        </div>
+        <div class="basket-actions">
+          <button class="filter-btn clear-btn" id="clear-basket-btn">Clear Basket</button>
+          <button class="action-btn checkout-btn" id="checkout-btn">Proceed to Checkout</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter / Shop Update (Letters from the Shop) -->
+    <section class="newsletter-container">
+      <div class="newsletter-text">
+        <h2 class="newsletter-title">Letters from the Shop</h2>
+        <p class="newsletter-subtitle">New arrivals and slow-reading tips delivered to your letterbox monthly.</p>
+      </div>
+      <div class="newsletter-form-wrapper">
+        <form id="newsletter-form" class="newsletter-form">
+          <div class="form-inputs">
+            <div class="field">
+              <label for="newsletter-email">Email Address *</label>
+              <input type="email" id="newsletter-email" name="newsletter-email" required aria-errormessage="email-error" placeholder="Your cozy email...">
+              <div id="email-error" class="error-msg">
+                <span aria-hidden="true">❌</span> Please enter a valid email address.
+              </div>
+            </div>
+            <button type="submit" class="newsletter-submit">Subscribe</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-info">
+        <span class="footer-brand">The Cozy Nook</span>
+        <p class="footer-copyright">&copy; 2026 The Cozy Nook &bull; Crafted for slow reading</p>
+      </div>
+      <div class="footer-links">
+        <a href="#">Community Guidelines</a>
+        <a href="#">Reading Circles</a>
+        <a href="#">Gift a Book</a>
+        <a href="#">Help Nook</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bottom Nav for Mobile -->
+  <nav class="mobile-bottom-nav">
+    <a href="index.html#home" class="mobile-nav-item">
+      <span class="material-symbols-outlined">home</span>
+      <span class="mobile-nav-label">Home</span>
+    </a>
+    <a href="index.html#catalog" class="mobile-nav-item">
+      <span class="material-symbols-outlined nav-icon-filled">storefront</span>
+      <span class="mobile-nav-label">Catalog</span>
+    </a>
+    <a href="about.html" class="mobile-nav-item">
+      <span class="material-symbols-outlined">auto_stories</span>
+      <span class="mobile-nav-label">Our Story</span>
+    </a>
+    <a href="contact.html" class="mobile-nav-item">
+      <span class="material-symbols-outlined">forum</span>
+      <span class="mobile-nav-label">Contact</span>
+    </a>
+  </nav>
+
+  <script type="module" src="app.js"></script>
+  <script type="module" src="./modules/basket-page.js"></script>
+</body>
+
+</html>

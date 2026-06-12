@@ -4,9 +4,9 @@
  */
 
 /* Letters from the Shop (Newsletter Section) */
+.newsletter-container,
 .newsletter {
-  background-color: rgba(255, 203, 198, 0.3);
-  /* var(--secondary-container) with opacity */
+  background-color: rgba(255, 203, 198, 0.3); /* var(--secondary-container) with opacity */
   border-radius: 2.5rem;
   padding: 3rem 2rem;
   display: flex;
@@ -16,8 +16,12 @@
   gap: 2.5rem;
   text-align: center;
   margin-bottom: var(--section-gap);
-    width: 100%;
-    box-sizing: border-box;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.newsletter-home {
+  margin-top: 2.5rem;
 }
 
 .newsletter-text {
@@ -61,15 +65,15 @@
   flex-direction: column;
   gap: 0.5rem;
   text-align: left;
-    flex: 1;
-    width: 100%;
+  flex: 1;
+  width: 100%;
 }
 
 .newsletter-form label {
   font-size: 0.95rem;
   color: var(--on-surface);
-    font-weight: 700;
-    padding-left: 1rem;
+  font-weight: 700;
+  padding-left: 1rem;
 }
 
 .newsletter-form input[type="email"] {
@@ -128,12 +132,12 @@
 input:user-invalid,
 input.user-invalid-fallback {
   border-color: #ba1a1a !important;
-    background-color: #ffdad6 !important;
+  background-color: #ffdad6 !important;
   color: #12100e;
 }
 
-input:user-invalid+.error-msg,
-input.user-invalid-fallback+.error-msg {
+input:user-invalid + .error-msg,
+input.user-invalid-fallback + .error-msg {
   display: block;
 }
 
@@ -149,10 +153,10 @@ input:required.user-valid-fallback {
   width: 100%;
   margin-top: var(--section-gap);
   border-top: 2px dashed var(--outline-variant);
-  padding-bottom: 5rem;
-  /* give space for mobile bottom bar */
+  padding-bottom: 5rem; /* give space for mobile bottom bar */
 }
 
+.footer-container,
 .footer {
   display: flex;
   flex-direction: column;
@@ -163,6 +167,7 @@ input:required.user-valid-fallback {
   margin: 0 auto;
   padding: 3rem var(--container-padding);
   text-align: center;
+  box-sizing: border-box;
 }
 
 .footer-info {
@@ -184,34 +189,52 @@ input:required.user-valid-fallback {
   font-size: 1rem;
 }
 
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.footer-links a {
+  color: var(--on-surface-variant);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--primary);
+}
+
 /* Media Queries (Mobile First) */
 @media (min-width: 768px) {
+  .newsletter-container,
   .newsletter {
     flex-direction: row;
     padding: 3rem 4rem;
     text-align: left;
     border-radius: 9999px;
   }
-
+  .newsletter-home {
+    margin-top: 5rem;
+  }
   .form-inputs {
     flex-direction: row;
     align-items: flex-start;
   }
-
   .newsletter-submit {
     width: auto;
     margin-top: 1.7rem;
   }
-
   .app-footer {
     padding-bottom: 0;
   }
-
-    .footer {
+  .footer-container,
+  .footer {
     flex-direction: row;
     text-align: left;
   }
-
   .footer-info {
     margin-bottom: 0;
   }

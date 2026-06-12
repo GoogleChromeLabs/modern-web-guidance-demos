@@ -64,20 +64,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer;
   min-width: 0;
   width: 100%;
 }
 
 .digital-visual {
   display: block;
+  position: relative;
   width: 100%;
   aspect-ratio: 3 / 4;
   background-color: var(--surface-variant);
   border-radius: 0.75rem;
   margin-bottom: 1rem;
   overflow: hidden;
-  position: relative;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   transition: box-shadow 0.3s ease;
 }
@@ -164,13 +163,13 @@
 .book-grid-card {
   display: flex;
   flex-direction: column;
-  cursor: pointer;
   min-width: 0;
   width: 100%;
 }
 
 .book-grid-visual {
   display: block;
+  position: relative;
   width: 100%;
   aspect-ratio: 3 / 4;
   margin-bottom: 0.75rem;
@@ -201,12 +200,13 @@
   position: absolute;
   bottom: 0.5rem;
   right: 0.5rem;
-  opacity: 0;
-  transition: opacity 0.2s ease;
+  opacity: 1;
+  transition: transform 0.2s ease;
+  z-index: 10;
 }
 
 .book-grid-card:hover .floating-basket-container {
-  opacity: 1;
+  transform: scale(1.05);
 }
 
 .floating-basket-btn {

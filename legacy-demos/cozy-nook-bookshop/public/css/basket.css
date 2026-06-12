@@ -1,0 +1,155 @@
+/**
+ * Copyright 2026 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* Basket Listing Page Styles */
+.basket-page-section {
+  max-width: 900px;
+  margin: 0 auto 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.basket-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.basket-empty-msg {
+  background-color: var(--surface-container);
+  border: 1px dashed var(--outline-variant);
+  border-radius: 1rem;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  font-size: 1.125rem;
+  color: var(--on-surface-variant);
+}
+
+.basket-item-card {
+  background-color: var(--surface-container);
+  border: 1px solid var(--outline-variant);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.basket-item-img {
+  width: 64px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.basket-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.basket-item-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--on-surface);
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.basket-item-author {
+  color: var(--on-surface-variant);
+  font-size: 0.9rem;
+}
+
+.basket-item-price {
+  font-family: 'Literata', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--tertiary);
+  flex-shrink: 0;
+}
+
+/* Basket Summary */
+.basket-summary {
+  background-color: var(--surface-container-high);
+  border: 1px solid var(--outline-variant);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.basket-summary.hidden {
+  display: none;
+}
+
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.05rem;
+  color: var(--on-surface);
+}
+
+.summary-divider {
+  border: none;
+  border-top: 1px dashed var(--outline-variant);
+  margin: 0;
+}
+
+.total-line {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--tertiary);
+}
+
+.basket-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.clear-btn {
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 1rem;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Media Queries (Mobile First) */
+@media (min-width: 768px) {
+  .basket-page-section {
+    padding: 0 2rem;
+  }
+
+  .basket-actions {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .clear-btn {
+    width: auto;
+  }
+
+  .checkout-btn {
+    width: auto;
+  }
+}

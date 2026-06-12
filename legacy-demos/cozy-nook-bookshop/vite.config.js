@@ -17,6 +17,7 @@ export default defineConfig({
         main: resolve(__dirname, 'public/index.html'),
         about: resolve(__dirname, 'public/about.html'),
         contact: resolve(__dirname, 'public/contact.html'),
+        basket: resolve(__dirname, 'public/basket.html'),
       },
     },
   },
