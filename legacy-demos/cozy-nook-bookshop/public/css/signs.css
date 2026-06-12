@@ -6,6 +6,8 @@
 /* Explore the Quarters Section */
 .quarters-section {
   margin-bottom: var(--section-gap);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .quarters-header {
@@ -24,9 +26,10 @@
 
 .quarters-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--gutter);
   padding-top: 1.5rem;
+  width: 100%;
 }
 
 .sign-container {
@@ -34,6 +37,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 0;
+  width: 100%;
 }
 
 .sign-card {
@@ -47,6 +52,8 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   box-shadow: 0 4px 12px rgba(112, 88, 56, 0.08);
 }
 
@@ -72,6 +79,10 @@
   text-align: center;
   color: var(--on-surface-variant);
   transition: var(--transition-smooth);
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .sign-container:hover .sign-label {
@@ -86,6 +97,6 @@
 /* Media Queries (Mobile First) */
 @media (min-width: 768px) {
   .quarters-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
