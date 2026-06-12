@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/* Story & About Page Styles (Mobile-First) */
+/* Story & About Page Styles */
 .story-section {
   max-width: 900px;
   margin-bottom: 4rem;
@@ -66,8 +66,7 @@
 
 .tech-highlights {
   max-width: 1000px;
-  margin: 0 auto 6rem;
-  padding: 0 1rem;
+  margin-bottom: 4rem;
   text-align: center;
   width: 100%;
   box-sizing: border-box;

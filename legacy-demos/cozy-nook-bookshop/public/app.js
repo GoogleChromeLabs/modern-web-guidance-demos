@@ -8,6 +8,7 @@ import { initNavigation } from "./modules/navigation.js";
 import { initNewsletterValidation } from "./modules/validation.js";
 import { initHeroGlow } from "./modules/hero.js";
 import { initSignMicroInteraction } from "./modules/signs.js";
+import { initCatalogRenderer } from "./modules/catalog-renderer.js";
 
 /**
  * @function main
@@ -21,6 +22,7 @@ function main() {
   initNewsletterValidation();
   initHeroGlow();
   initSignMicroInteraction();
+  initCatalogRenderer((book) => console.log('Added to basket:', book));
 }
 
 document.addEventListener("DOMContentLoaded", () => main());

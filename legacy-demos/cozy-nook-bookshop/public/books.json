@@ -1,51 +1,172 @@
 {
   "1": {
+    "title": "The Alchemist",
+    "author": "Paulo Coelho",
+    "genre": "Slow Living",
+    "price": "$14.99",
+    "format": "paperback",
+    "date": "2026-06-10",
+    "description": "An inspiring journey of self-discovery and following one's personal legend across the desert sands.",
+    "coverImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuBVrPtdgUCCEySBC5A99-DRo3sbd81SltEWXNsVqE6oVUmdRy_-jirdnFazipFjfrpnrueTcIfwrY4Bpe7VvPtF6Rqa9mcUXisVJuIXq-TWz-QbkY7mRVBcWkOQWyI48sGnnm5I9jkdVcbxN1wDC4heFe0KFDnjCgBt2GtWiR22IgwFeMEk4u7kuE4hY078YZQ9EJs9Jl8n7rE8zKb2TNFC9vJ-B0Z7p5DksRrsuspbhCZzJFbhXyoV"
+  },
+  "2": {
+    "title": "Circe",
+    "author": "Madeline Miller",
+    "genre": "Classic Tales",
+    "price": "$16.50",
+    "format": "paperback",
+    "date": "2026-06-05",
+    "description": "A bold and subversive retelling of the goddess Circe's life, filled with magic, myth, and deep human resilience.",
+    "coverImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuCOBAC9ishYX-NWrzcWZegKXWoCURYfAjJ3U0_GRYdit3VHM38-RJCFmjJGKe07UkClot-0WplaVVj91p8U34EKNUu69ezO1VL-nXfbZyc4w5p6PvFc27Nk2Od0NFldJUFP9v-AG-XUD_F-3LZ6QOLvXx5I2jYecixu797dIqeiYZqIpZEcxgJEi30HfFOzjp6OOFl4LHNteR_1mCb9LL7f78_iDreIBaeevipmL_zR7XGKoiy3eq_I"
+  },
+  "3": {
+    "title": "Wildflower",
+    "author": "Drew Barrymore",
+    "genre": "Slow Living",
+    "price": "$12.99",
+    "format": "paperback",
+    "date": "2026-06-01",
+    "description": "Personal essays and joyful stories celebrating life's wild beauty and simple peaceful moments.",
+    "coverImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuAilVyD0VcZ9ySFUdJjngMDRLjz-NcrUc9uv_yl6nUR6cZIW8-_yNxhFYHbtHR_wUETb8mKj-2xEwV1WVLANOP3FJSUVzSEAAnxn_uzgcUKdrVJSS8HKA1nTIZ-Eh7yGEVw879c8NvJ0FMJRI7_lzKe7KrqExsRKkTKStlCdu29Zt1ayPPPyWQFnGP4L1DE7_A5CbY72JYElg95YyyIDi6inQZYBAYdQXLA5Q9VhklW0hamYUL03x92"
+  },
+  "4": {
+    "title": "The Night Circus",
+    "author": "Erin Morgenstern",
+    "genre": "Mystery",
+    "price": "$18.00",
+    "format": "paperback",
+    "date": "2026-05-25",
+    "description": "A magical, nocturnal duel of illusionists set within a mesmerizing, wandering black-and-white circus.",
+    "coverImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuAszgTPVpbKDlZIfnkP2PQl-afx6OT8uHBHl0J8MDXLmmxnoHdfmTvjh4ZnWraG6riV9FQ-aUDIe-6ZWpl7ur-h6f-ErgA1XxIr8ID0cFzyFc--mHQ5LmGlTfa4CohZz57IXBZC5bQJQTLpDZOZv-qtvDxL5BzualB15s0yFhMLn0zUpRV0KERSoqXLeuqtM4O-rj4m2SW_GKVpXbOMSH8o6QyqJYqE5YrvZBQiGqNlyslF8WPUvoiK"
+  },
+  "5": {
+    "title": "Morning Rituals",
+    "author": "S. J. Scott",
+    "genre": "Slow Living",
+    "price": "$9.99",
+    "format": "audiobook",
+    "date": "2026-05-20",
+    "description": "How to create calm, productive morning routines that foster mindfulness and gentle accomplishment.",
+    "coverImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuDfg4pKomRhC-UmeeJH_4j-0Wwqt6b63ZltMxFTu6cAynzQ0OfL9qlz4bUIYyYWGW7UdraWrUd1ULvBqRyOAEeCCqWLotwN3SNe-wxONiuCQxswflUL8hS5zWJkbddE3QZDsyVCVf6wx1T5fMMAZZuSKsm6CDgIML_71Mgc_BhPNvkC2lS5pIxTdNhZhhuaS73Rkhqoo41CCRVyjH3r4iCXYT_BUFrbqwE5j0gwwcHj2DXK2bWeYTYb"
+  },
+  "6": {
+    "title": "Starlit Sonnets",
+    "author": "L. M. Montgomery",
+    "genre": "Poetry Garden",
+    "price": "$4.99",
+    "format": "ebook",
+    "date": "2026-05-15",
+    "description": "A delicate bouquet of romantic, nature-inspired poetry whispered under the tranquil evening stars.",
+    "coverImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuDc21MspCOUL9rkIVDr0V96dU-xwaWqfW2LSastAbdtGjH-tM9q9phpWzJbxXotakdf7My1Tz_XsrH-cqbO8hQZ0HJsFsr8gxs5uDcRc9TPfI2pBauJvNIvH4pcs6ZxpjuTIYl8y1St-gM1BFrGiPgG1vwGUNs1NuJXFeAKKYHywZrMG000_7RTBETMtkOWoj0FZ5ptWtBVbyyU4rCy1SKLlwl7KCQyUpRw0j44U73pn4Sz-mjrOcfD"
+  },
+  "7": {
+    "title": "The Quiet Path",
+    "author": "Oliver Sacks",
+    "genre": "Slow Living",
+    "price": "$12.50",
+    "format": "audiobook",
+    "date": "2026-05-10",
+    "description": "Thoughtful observations on nature, memory, and finding deep inner solace along life's quiet paths.",
+    "coverImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuDCBIGdDeT7YAWUAYYpcHE0cpsEebAke1sqI9fmoOm3VJW7qJGSs552isBoCZBI7j3XwrY-WFKbrK1ds5n-TcoAa87vnsTKjsHkOt5cwa03AEMq-UMrvMSTP7ykCO1hMq75Vz6QT2Xv7v9OuVepb_OfvsfeuNPxYA0thy5_VXZy3bTm2bOB_uski0cYJSc09bnjHiht7GVMNbIJOdG7HdqxBKgJuAQo2k2STwfx771tWoh7uIykzOkK"
+  },
+  "8": {
+    "title": "Rustic Recipes",
+    "author": "Nigel Slater",
+    "genre": "Slow Living",
+    "price": "$8.99",
+    "format": "audiobook",
+    "date": "2026-05-05",
+    "description": "Nourishing, unpretentious cooking meant to be shared slowly around a sturdy wooden farmhouse table.",
+    "coverImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuCTxsxZxn5Ve8mCRW6FQfr0VSfyKvTUcdkzEpSV1gmT3HUw1rmnAV4_a4KeDbYZuDya4cdS5g39cmvL_THUeO9VuusGo42iiqWSx4zyOlkbzeYYXxfd7t2AMhwM3ELmVnUOIm0L7dY_9HLEyR_0e0cpak7aetoov02qQrCuAKwFhwX_uT-lxM2ylY_0U7FYEWlTAUzi9OGzhbBzV7W0FnexInJkGn1Iel_77cW-FbQfqNS74XNglDHD"
+  },
+  "9": {
+    "title": "Fables for Owls",
+    "author": "Aesop",
+    "genre": "Classic Tales",
+    "price": "$5.50",
+    "format": "ebook",
+    "date": "2026-05-01",
+    "description": "Timeless allegories of wisdom, patience, and forest life collected for night readers.",
+    "coverImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuBHu2yPO1JA-9jRPBzEILllHeCJBLW4MZF7jwCTCbnEyCg9TRow5lRPouUrGLQqyLMyJNCTgInU_fT8bDXHsZD8k1yX7hllp7ei6CwG2nj-tgp-JDuqCJcb4jO8NTeG39WHoGv2pwJY3Uw3klw0KiMSaGVZ28SDeB8udYGro5sdYEj46PZarR9MetbBUvABbu3Bxv8jotIZQ92bG9aqiIR8ucop3Bzm_7BXa7YyBZIipnFgYatb9O6J"
+  },
+  "10": {
+    "title": "The Secret Garden",
+    "author": "Frances Hodgson Burnett",
+    "genre": "Classic Tales",
+    "price": "$11.99",
+    "format": "paperback",
+    "date": "2026-04-25",
+    "description": "The healing enchantment of a walled, hidden garden discovered by curious children in the Yorkshire moors.",
+    "coverImage": "https://lh3.googleusercontent.com/aida-public/AB6AXuCS0SvQ9q2MN8Z98BH8LhbGah5nlPZDXoKgMBEqq0fzVTDKI3_Oi1Plu6bVZ8Qfm5d0Cz4YRoQvweqZjTQr2eQXUxdQEVOXZT4fOTphw7YkM6GNMhyxe1watuOtocgSmcv2oBc04nMjxKBEDK80Gb0eLrfrLs4OR5AE92PZU_dtVwqD8VrPzRFO0ewZAAp6xt_PrLLtSHQ1E8oJJF0m828hwWQA412QEs7qQ7Qo5qoZAEvAkzL6LR7Z"
+  },
+  "11": {
     "title": "The Whispering Shadows",
     "author": "Elara Vance",
     "genre": "Fantasy",
+    "price": "$15.99",
+    "format": "paperback",
+    "date": "2026-04-20",
     "description": "A gripping tale of an ancient forest that holds the echoes of forgotten magic. Elara Vance takes you on a perilous journey with a rogue mage seeking to uncover the truth behind the shadows that whisper in the dark.",
-    "coverImage": "assets/cover1.png"
+    "coverImage": "./assets/cover1.png"
   },
-  "2": {
+  "12": {
     "title": "Midnight at the Oasis",
     "author": "Sarah J. Reed",
     "genre": "Mystery",
+    "price": "$14.50",
+    "format": "paperback",
+    "date": "2026-04-18",
     "description": "When a wealthy archaeologist goes missing in the Sahara, a cynical detective is called to the scene. Beneath the desert stars, secrets are buried deep. A classic whodunit with a modern, atmospheric twist.",
-    "coverImage": "assets/cover2.png"
+    "coverImage": "./assets/cover2.png"
   },
-  "3": {
+  "13": {
     "title": "The Sunlit Path",
     "author": "Aurora Chandler",
     "genre": "Romance",
+    "price": "$12.99",
+    "format": "paperback",
+    "date": "2026-04-15",
     "description": "A heartwarming story about second chances. Evelyn returns to her childhood cottage, hoping to heal from a broken past. She finds that the path to love and belonging is paved with golden sunlight and unexpected friendships.",
-    "coverImage": "assets/cover3.png"
+    "coverImage": "./assets/cover3.png"
   },
-  "4": {
+  "14": {
     "title": "Silent Echoes",
     "author": "Kaelen Flynn",
     "genre": "Sci-Fi",
+    "price": "$16.00",
+    "format": "paperback",
+    "date": "2026-04-10",
     "description": "In a city of perpetual neon, the silence is deafening. A rogue hacker discovers a hidden signal buried in the city's mainframe—a message from a forgotten past.",
-    "coverImage": "assets/cover4.png"
+    "coverImage": "./assets/cover4.png"
   },
-  "5": {
+  "15": {
     "title": "The Clockwork Heart",
     "author": "Jasper Thorne",
     "genre": "Steampunk",
+    "price": "$18.50",
+    "format": "paperback",
+    "date": "2026-04-05",
     "description": "A thrilling adventure in an empire driven by steam and gears. A young mechanist must uncover the secret of a legendary artifact to save her father.",
-    "coverImage": "assets/cover5.png"
+    "coverImage": "./assets/cover5.png"
   },
-  "6": {
+  "16": {
     "title": "Emerald Skies",
     "author": "Talia Thorne",
     "genre": "Adventure",
+    "price": "$14.99",
+    "format": "paperback",
+    "date": "2026-04-01",
     "description": "A sweeping epic across undiscovered archipelagos. Talia Thorne guides you through storms, forgotten ruins, and dangerous alliances.",
-    "coverImage": "assets/cover6.png"
+    "coverImage": "./assets/cover6.png"
   },
-  "7": {
+  "17": {
     "title": "Beneath the Surface",
     "author": "Julian Vance",
     "genre": "Thriller",
+    "price": "$13.50",
+    "format": "paperback",
+    "date": "2026-03-25",
     "description": "A chilling psychological thriller. When a small town's lake recedes, it reveals a long-buried truth that threatens to tear the community apart.",
-    "coverImage": "assets/cover7.png"
+    "coverImage": "./assets/cover7.png"
   }
 }
