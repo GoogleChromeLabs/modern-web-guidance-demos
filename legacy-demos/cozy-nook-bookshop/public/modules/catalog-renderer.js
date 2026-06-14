@@ -16,8 +16,9 @@ export async function initCatalogRenderer(onBasketAdd) {
 
     // Render books
     Object.entries(booksData).forEach(([id, book]) => {
-      const card = document.createElement('div');
+      const card = document.createElement('a');
       card.className = 'book-grid-card';
+      card.href = `details.html?id=${id}`;
       card.setAttribute('data-genre', book.genre || 'Classic Tales');
       card.setAttribute('data-format', book.format || 'paperback');
       card.setAttribute('data-date', book.date || '2026-01-01');
@@ -41,6 +42,7 @@ export async function initCatalogRenderer(onBasketAdd) {
       const basketBtn = card.querySelector('.floating-basket-btn');
       if (basketBtn && typeof onBasketAdd === 'function') {
         basketBtn.addEventListener('click', (e) => {
+          e.preventDefault();
           e.stopPropagation();
           onBasketAdd(book);
         });

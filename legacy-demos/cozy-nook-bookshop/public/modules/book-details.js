@@ -4,6 +4,7 @@
  */
 
 import books from "../books.json" with { type: "json" };
+import { addToBasket } from "./basket.js";
 
 /**
  * @function showBookDetails
@@ -25,27 +26,49 @@ export function showBookDetails(bookId) {
   const detailsPlaceholder = document.getElementById("details-placeholder");
   const detailsSection = document.getElementById("details-section");
   const bookDetails = document.getElementById("book-details");
+  const addToBasketBtn = document.getElementById("details-add-to-basket");
 
   const updateContent = () => {
     // Update content
-    detailsGenre.textContent = book.genre;
-    detailsTitle.textContent = book.title;
-    detailsAuthor.textContent = book.author;
-    detailsDescription.textContent = book.description;
+    if (detailsGenre) detailsGenre.textContent = book.genre;
+    if (detailsTitle) detailsTitle.textContent = book.title;
+    if (detailsAuthor) detailsAuthor.textContent = book.author;
+    if (detailsDescription) detailsDescription.textContent = book.description;
 
     // Update cover image
-    detailsCoverDisplay.src = book.coverImage;
-    detailsCoverDisplay.alt = `${book.title} cover`;
+    if (detailsCoverDisplay) {
+      detailsCoverDisplay.src = book.coverImage;
+      detailsCoverDisplay.alt = `${book.title} cover`;
+    }
+
+    // Attach basket button listener
+    if (addToBasketBtn) {
+      addToBasketBtn.onclick = () => {
+        addToBasket(book);
+      };
+    }
 
     // Reveal the details
-    detailsPlaceholder.classList.add("hidden");
-    bookDetails.classList.remove("hidden");
-    bookDetails.style.opacity = "1";
+    if (detailsPlaceholder) detailsPlaceholder.classList.add("hidden");
+    if (bookDetails) {
+      bookDetails.classList.remove("hidden");
+      bookDetails.style.opacity = "1";
+    }
   };
 
   // TODO(MWG 💖): Modernize the page transitions when updating book details.
   updateContent();
 
   // Smoothly scroll to details
-  detailsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  if (detailsSection) {
+    detailsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const bookId = urlParams.get("id");
+  if (bookId) {
+    showBookDetails(bookId);
+  }
+});
