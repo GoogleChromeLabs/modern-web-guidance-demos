@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { initCarousel } from "./modules/carousel.js";
 import { initNavigation } from "./modules/navigation.js";
 import { initNewsletterValidation } from "./modules/validation.js";
 import { initHeroGlow } from "./modules/hero.js";
@@ -19,7 +18,6 @@ import { initFiltering } from "./modules/filtering.js";
  * @returns {void}
  */
 async function main() {
-  initCarousel();
   initNavigation();
   initNewsletterValidation();
   initHeroGlow();
