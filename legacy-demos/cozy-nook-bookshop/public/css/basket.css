@@ -18,7 +18,7 @@
 .basket-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 0; /* No space between items! */
+  gap: 0;
   width: 100%;
 }
 
@@ -37,7 +37,8 @@
   z-index: 1;
   background-color: var(--surface-container);
   border: 1px solid var(--outline-variant);
-  border-radius: 0; /* No rounded corners on mobile! */
+  border-radius: 0;
+  /* No rounded corners on mobile! */
   padding: 1.25rem 1rem;
   display: flex;
   align-items: center;
