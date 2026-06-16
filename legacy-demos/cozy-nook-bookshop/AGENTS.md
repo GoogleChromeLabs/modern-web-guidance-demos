@@ -1,4 +1,4 @@
 # Cozy Nook AGENTS.md
 
 ## Development instructions
-- Honor the package.json and target the baseline I have declared there.
++ MUST use Baseline target declared in `package.json`
