@@ -9,7 +9,7 @@ import { resolve } from 'path';
 export default defineConfig({
   base: './',
   root: 'public',
-  publicDir: false,
+  publicDir: resolve(__dirname, 'static'),
   build: {
     outDir: '../dist',
     emptyOutDir: true,
