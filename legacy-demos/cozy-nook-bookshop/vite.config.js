@@ -9,6 +9,7 @@ import { resolve } from 'path';
 export default defineConfig({
   base: './',
   root: 'public',
+  publicDir: resolve(__dirname, 'static'),
   build: {
     outDir: '../dist',
     emptyOutDir: true,
@@ -18,6 +19,7 @@ export default defineConfig({
         about: resolve(__dirname, 'public/about.html'),
         contact: resolve(__dirname, 'public/contact.html'),
         basket: resolve(__dirname, 'public/basket.html'),
+        details: resolve(__dirname, 'public/details.html'),
       },
     },
   },

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import books from "../books.json" with { type: "json" };
+import books from "../../static/books.json" with { type: "json" };
 import { addToBasket } from "./basket.js";
 
 /**
