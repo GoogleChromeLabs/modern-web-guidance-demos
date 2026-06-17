@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { initNavigation } from "./modules/navigation.js";
 import { initNewsletterValidation } from "./modules/validation.js";
 import { initHeroGlow } from "./modules/hero.js";
 import { initSignMicroInteraction } from "./modules/signs.js";
@@ -18,7 +17,6 @@ import { initFiltering } from "./modules/filtering.js";
  * @returns {void}
  */
 async function main() {
-  initNavigation();
   initNewsletterValidation();
   initHeroGlow();
   initSignMicroInteraction();
@@ -28,3 +26,4 @@ async function main() {
 }
 
 document.addEventListener("DOMContentLoaded", () => main());
+

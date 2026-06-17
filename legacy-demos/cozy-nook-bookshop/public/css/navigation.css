@@ -172,14 +172,7 @@
   }
 }
 
-/* Legacy menu drawer (Preserved for compatibility) */
-.menu-toggle {
-  display: none;
-}
 
-.nav-menu {
-  display: none;
-}
 
 /* Icon Utilities for Navigation */
 .basket-icon {
