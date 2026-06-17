@@ -34,27 +34,22 @@ Once the server is running, open the local address in Chrome, open DevTools, and
 
 To demonstrate the power of Chrome DevTools and Lighthouse audits, this application has been configured with an **intentional LCP bottleneck**. 
 
-In [index.html](bookstore-app/index.html#L43-L84), we have applied the following `fetchpriority` anti-patterns to the bookstore carousel:
+In [index.html](public/index.html), we have applied the following loading anti-pattern to the main hero section:
 
 | Element / Area | Description |
 | :--- | :--- |
-| **LCP Candidate Deprioritized** | The main above-the-fold hero cover image (Book 1) is set to `fetchpriority="low"`. |
-| **Offscreen Carousel Images Eagerly Loaded** | All six offscreen, hidden book items are set to `fetchpriority="high"`. |
+| **LCP Candidate Delayed** | The main hero image is loaded dynamically using JavaScript in [hero.js](public/modules/hero.js) instead of being declared in the HTML source. |
 
 ```html
-<!-- ❌ BAD PRACTICE: LCP image is deprioritized -->
-<img src="./assets/cover1.png" alt="The Whispering Shadows cover" class="cover-img" fetchpriority="low">
-
-<!-- ❌ BAD PRACTICE: Off-screen images compete for critical bandwidth -->
-<img src="./assets/cover2.png" alt="Midnight at the Oasis cover" class="cover-img" fetchpriority="high">
+<!-- ❌ BAD PRACTICE: The src attribute is loaded with JS, delaying LCP -->
+<img alt="Old Books stack on wooden table" class="hero-img">
 ```
 
 When running a Mobile Lighthouse performance audit on this app:
 
 | Diagnostic Metric / Finding | Audit Impact / Explanation |
 | :--- | :--- |
-| **Largest Contentful Paint (LCP)** | is severely delayed because the browser postpones downloading the visible cover image in favor of the six offscreen images. |
-| **Network Contention** | is flagged as a major issue due to multiple critical-priority network requests for images that are not yet visible. |
+| **Largest Contentful Paint (LCP)** | is severely delayed because the browser's preload scanner cannot discover the image URL, postponing the download until JavaScript has loaded and executed. |
 
 ---
 
@@ -64,26 +59,26 @@ Leveraging Modern Web Guidance skills, here are the core improvements that could
 
 | # | Core Improvement | Modern Standard / API | Key Implementation & Fallback Summary |
 | :---: | :--- | :--- | :--- |
-| **1** | **Optimizing Image Priority** | [`optimize-image-priority`](#1-optimizing-image-priority-optimize-image-priority) | Apply `fetchpriority="high"` on the LCP candidate and let `loading="lazy"` handle offscreen images to resolve mobile performance bottlenecks. |
-| **2** | **Progressive Scroll-Driven Animations** | [`scroll-driven-animations`](#2-progressive-scroll-driven-animations-scroll-driven-animations) | Use CSS view timelines for scroll animations. A lightweight [app.js](bookstore-app/app.js#L115-L138) `IntersectionObserver` fallback is provided for cross-browser support. |
+| **1** | **Optimizing Image Priority** | [`optimize-image-priority`](#1-optimizing-image-priority-optimize-image-priority) | Load the hero image directly in the HTML with `fetchpriority="high"` to resolve mobile LCP bottlenecks. |
+| **2** | **Progressive Scroll-Driven Animations** | [`scroll-driven-animations`](#2-progressive-scroll-driven-animations-scroll-driven-animations) | Use CSS view timelines for scroll animations. A lightweight [app.js](public/app.js) `IntersectionObserver` fallback is provided for cross-browser support. |
 | **3** | **Native Popover API for Nav Drawer** | [`popover-navigation`](#3-native-popover-api-for-nav-drawer-popover-navigation) | Utilize the native HTML `popover` attribute for menus, eliminating heavy modal libraries and manual event listeners. |
 | **4** | **Dynamic View Transitions** | [`view-transitions`](#4-dynamic-view-transitions-view-transitions) | Wrap DOM state updates in `document.startViewTransition()` to natively animate layout changes with minimal JS. |
 
 
 #### 1. Optimizing Image Priority (`optimize-image-priority`)
-To fix the mobile performance audit, apply the correct priority mappings and switch from `.png` to `.jpg` for rendering on mobile web.
+To fix the mobile performance audit, move the image to the HTML source, apply the correct priority mappings and switch from `.png` to `.jpg` for rendering on mobile web.
 
 ```diff
-  <!-- Book 1 (Above the Fold / LCP Candidate) -->
-- <img src="./assets/cover1.png" class="cover-img" fetchpriority="low">
-+ <img src="./assets/cover1.png" class="cover-img" fetchpriority="high">
+  <!-- Hero Section LCP Candidate -->
+- <img alt="Old Books stack on wooden table" class="hero-img">
++ <img src="./assets/hero-img.png" fetchpriority="high" alt="Old Books stack on wooden table" class="hero-img">
 
-  <!-- Books 2 to 7 (Initially Off-Screen) -->
-- <img src="./assets/cover2.png" class="cover-img" fetchpriority="high">
+  <!-- Initially Off-Screen Book Images -->
+- <img src="./assets/cover2.png" class="cover-img">
 + <img src="./assets/cover2.png" class="cover-img" loading="lazy">
 ```
 > [!TIP]
-> Here we could set `fetchpriority="high"` only on the primary LCP image. For hidden or offscreen carousel slides, omit `fetchpriority` and let native `loading="lazy"` defer their requests until they enter the viewport.
+> Here we can set `fetchpriority="high"` only on the primary LCP image. For hidden or offscreen images, omit `fetchpriority` and let native `loading="lazy"` defer their requests until they enter the viewport.
 
 
 #### 2. Progressive Scroll-Driven Animations (`scroll-driven-animations`)

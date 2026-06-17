@@ -13,6 +13,12 @@ export function initHeroGlow() {
   const hero = document.querySelector('.hero-home');
   if (!hero) return;
 
+  // TODO(MWG 💖): Optimize hero image loading performance
+  const heroImg = hero.querySelector('.hero-img');
+  if (heroImg) {
+    heroImg.src = './assets/hero-img.png';
+  }
+
   hero.addEventListener('mousemove', (e) => {
     const rect = hero.getBoundingClientRect();
     const x = e.clientX - rect.left;
