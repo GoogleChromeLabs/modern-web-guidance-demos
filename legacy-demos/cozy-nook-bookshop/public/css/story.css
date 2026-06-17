@@ -124,23 +124,31 @@
 @media (min-width: 768px) {
   .story-section {
     padding: 0 2rem;
+    margin: auto;
+    margin-bottom: 4rem;
   }
+
   .tech-highlights {
     padding: 0 2rem;
   }
+
   .story-card {
     padding: 2.5rem;
   }
+
   .story-card h2 {
     font-size: 2rem;
   }
+
   .tech-highlights h2 {
     font-size: 2.5rem;
   }
+
   .tech-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 2rem;
   }
+
   .tech-card {
     padding: 2rem;
   }

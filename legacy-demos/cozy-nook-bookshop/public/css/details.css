@@ -31,8 +31,8 @@
 .details-grid {
   display: grid;
   grid-template-columns: 1fr;
-    gap: 1.25rem;
-    text-align: center;
+  gap: 1.25rem;
+  text-align: center;
 }
 
 .details-cover {
