@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+// TODO(MWG 💖): Optimize validation to match the projects Baseline target
 const UserInvalidFallback = (() => {
   const dirtyState = new WeakMap();
 
