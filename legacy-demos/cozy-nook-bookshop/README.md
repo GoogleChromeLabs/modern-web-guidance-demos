@@ -60,9 +60,8 @@ Leveraging Modern Web Guidance skills, here are the core improvements that could
 | # | Core Improvement | Modern Standard / API | Key Implementation & Fallback Summary |
 | :---: | :--- | :--- | :--- |
 | **1** | **Optimizing Image Priority** | [`optimize-image-priority`](#1-optimizing-image-priority-optimize-image-priority) | Load the hero image directly in the HTML with `fetchpriority="high"` to resolve mobile LCP bottlenecks. |
-| **2** | **Progressive Scroll-Driven Animations** | [`scroll-driven-animations`](#2-progressive-scroll-driven-animations-scroll-driven-animations) | Use CSS view timelines for scroll animations. A lightweight [app.js](public/app.js) `IntersectionObserver` fallback is provided for cross-browser support. |
-| **3** | **Native Popover API for Nav Drawer** | [`popover-navigation`](#3-native-popover-api-for-nav-drawer-popover-navigation) | Utilize the native HTML `popover` attribute for menus, eliminating heavy modal libraries and manual event listeners. |
-| **4** | **Dynamic View Transitions** | [`view-transitions`](#4-dynamic-view-transitions-view-transitions) | Wrap DOM state updates in `document.startViewTransition()` to natively animate layout changes with minimal JS. |
+| **2** | **Progressive Scroll-Driven Animations** | [`scroll-driven-animations`](#2-progressive-scroll-driven-animations-scroll-driven-animations) | Smoothly animate the fixed bottom navigation bar on mobile to slide out of view as the user scrolls up and down. |
+| **3** | **Dynamic View Transitions** | [`view-transitions`](#3-dynamic-view-transitions-view-transitions) | Wrap DOM state updates in `document.startViewTransition()` to natively animate layout changes with minimal JS. |
 
 
 #### 1. Optimizing Image Priority (`optimize-image-priority`)
@@ -82,40 +81,28 @@ To fix the mobile performance audit, move the image to the HTML source, apply th
 
 
 #### 2. Progressive Scroll-Driven Animations (`scroll-driven-animations`)
-Instead of listening to heavy scroll events in JavaScript and forcing layout recalculations, the carousel utilizes **CSS Scroll-Driven Animations** for a premium 3D scaling effect.
+To maximize reading screen space on mobile devices, the bottom navigation bar can be hidden when scrolling down and revealed when scrolling up. 
+
+Instead of listening to heavy scroll events in JavaScript and forcing layout recalculations, we can utilize **CSS Scroll-Driven Animations**.
 
 ```css
-@supports ((animation-timeline: view()) and (animation-range: entry)) {
-  @keyframes scale-up {
-    0%   { transform: scale(0.75); opacity: 0.4; }
-    50%  { transform: scale(1.05); opacity: 1; }
-    100% { transform: scale(0.75); opacity: 0.4; }
-  }
-
-  .book-item {
-    animation: scale-up auto linear both;
-    animation-timeline: view(inline);
+@keyframes slide-out {
+  to {
+    transform: translateY(100%);
   }
 }
-```
-> [!NOTE]
-> For browsers that do not yet support scroll-driven timelines, [app.js](bookstore-app/app.js#L115-L138) features a lightweight, performant `IntersectionObserver` fallback, ensuring cross-browser smooth scaling.
 
-#### 3. Native Popover API for Nav Drawer (`popover-navigation`)
-Using native HTML **Popover API** instead of heavy modal libraries and complex JS toggle classes, bringing built-in keyboard accessibility, backdrop click-dismissal, and top-layer stacking out of the box.
-
-```html
-<!-- Toggle Button -->
-<button popovertarget="nav-menu" aria-label="Open Menu">Menu</button>
-
-<!-- Navigation popover element -->
-<nav id="nav-menu" popover="auto" class="nav-menu">
-  <!-- Popover Content -->
-</nav>
+.mobile-bottom-nav {  
+  position: fixed;
+  bottom: 0;
+  animation: slide-out auto linear both;
+  animation-timeline: scroll(block root);
+  animation-range: 0px 100px;
+}
 ```
 
-#### 4. Dynamic View Transitions (`view-transitions`)
-**View Transitions API** automatically animates the content transition, delivering a seamless app-like feel with minimal JS.
+#### 3. Dynamic View Transitions (`view-transitions`)
+The **View Transitions API** automatically animates content transitions (such as updating book details), delivering a seamless app-like feel with minimal JS.
 
 ```javascript
 const updateContent = () => {
