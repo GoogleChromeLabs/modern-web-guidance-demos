@@ -1,4 +1,4 @@
 # Cozy Nook AGENTS.md
 
 ## Development instructions
-+ MUST use Baseline target declared in `package.json`
++ This project's Baseline target is "Baseline widely available on 2026-06-01".
