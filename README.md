@@ -15,26 +15,11 @@ At this stage, the repository contains the following self-contained mini-app und
 ├── README.md                    # Main project overview and details (this file)
 ├── LICENSE                      # Apache 2.0 License
 ├── CONTRIBUTING.md              # Google CLA and contribution guidelines
-├── legacy-demos/
-│   └── cozy-nook-bookshop/      # Vanilla JS mini-app (Baseline widely available)
-│       ├── README.md            # App information and an overivew of legacy patterns
-│       ├── public/              # HTML, CSS, and JS source files
-│       └── package.json         # Development and bundling scripts (Vite)
-└── examples.md                  # Index linking to live deployments and references
-```
-
----
-
-## 🚀 Branching Strategy
-
-To protect the learning experience from context-sniffing by AI coding assistants, this repository uses a two-branch strategy:
-
-*   **[`main`](https://github.com/GoogleChromeLabs/modern-web-guidance-demos/tree/main)** branch: Contains only the **legacy** states of the mini-apps. It contains no solution code or test assertions.
-*   **[`solution`](https://github.com/GoogleChromeLabs/modern-web-guidance-demos/tree/solution)** branch: Contains the **modernized and optimized** versions of the code. If you get stuck or need to compare your implementation with the recommended modern standards, you can checkout this branch to view the reference architecture.
-
-To explore the solutions:
-```bash
-git checkout solution
+└── legacy-demos/
+    └── cozy-nook-bookshop/      # Vanilla JS mini-app (Baseline widely available)
+        ├── README.md            # App information and an overivew of legacy patterns
+        ├── public/              # HTML, CSS, and JS source files
+        └── package.json         # Development and bundling scripts (Vite)
 ```
 
 ---
