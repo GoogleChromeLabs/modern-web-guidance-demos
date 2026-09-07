@@ -67,8 +67,8 @@
 }
 
 .action-btn {
-  background: var(--accent-gold);
-  color: var(--bg-primary);
+  background: var(--tertiary);
+  color: var(--on-tertiary);
   border: none;
   padding: 0.8rem 2rem;
   font-size: 1rem;
@@ -81,7 +81,8 @@
 }
 
 .action-btn:hover {
-  background: #fff;
+  background: var(--on-tertiary-fixed-variant);
+  color: var(--on-tertiary);
   transform: translateY(-2px);
 }
 

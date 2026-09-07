@@ -135,6 +135,13 @@
   width: 100%;
   padding: 1rem;
   text-align: center;
+  background-color: var(--tertiary);
+  color: var(--on-tertiary);
+}
+
+.checkout-btn:hover {
+  background-color: var(--on-tertiary-fixed-variant);
+  color: var(--on-tertiary);
 }
 
 /* Media Queries (Mobile First) */
