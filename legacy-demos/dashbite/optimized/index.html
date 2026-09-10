@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DashBite — Food Delivery, Restaurants & Takeout (Baseline 2024)</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍔</text></svg>">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="header-left">
+        <a href="#" class="brand-logo-link" id="brandLogoLink" aria-label="DashBite Home">
+          <img src="assets/images/brand-logo.svg" alt="DashBite" class="brand-logo-img">
+        </a>
+        <div class="order-mode-toggle" role="group" aria-label="Order Mode">
+          <button class="mode-btn active" data-mode="delivery">Delivery</button>
+          <button class="mode-btn" data-mode="pickup">Pickup</button>
+        </div>
+        <button class="address-selector-btn" aria-label="Select delivery address">
+          <span class="address-icon" aria-hidden="true">📍</span>
+          <span class="address-text">1600 Amphitheatre Pkwy, Mountain View</span>
+          <span style="font-size: 10px;" aria-hidden="true">▼</span>
+        </button>
+      </div>
+
+      <div class="header-search" role="search">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input type="text" id="globalSearchInput" class="search-input" placeholder="Search dishes, restaurants, groceries..." aria-label="Search restaurants and cuisines">
+      </div>
+
+      <div class="header-right">
+        <div class="dashpass-pill-badge">
+          <span aria-hidden="true">✨</span> DashPass
+        </div>
+        <button class="cart-trigger-btn" id="headerCartBtn" aria-label="Open Cart">
+          <span aria-hidden="true">🛍️</span>
+          <span>Cart</span>
+          <span class="cart-count-bubble" id="headerCartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- View 1: Restaurant Discovery Feed -->
+    <div id="feedViewContainer">
+      <!-- Promotional Hero Banner -->
+      <section class="hero-promo-section">
+        <div class="promo-banner-card">
+          <img src="assets/images/hero-banner.jpg" alt="DashBite Feast Offers" class="promo-banner-img" fetchpriority="high">
+          <div class="promo-banner-content">
+            <span class="promo-tagline">Special Atelier Deal</span>
+            <h2 class="promo-heading">Craving Burgers, Pizza, or Sushi?</h2>
+            <p class="promo-subtext">Order from top-rated local neighborhood spots with $0 delivery fee on your first order.</p>
+            <button class="promo-cta-btn" onclick="document.getElementById('restaurantGrid').scrollIntoView({behavior: 'smooth'})">Order Now with FEAST5</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Category Navigation Carousel -->
+      <section class="category-carousel-section" aria-label="Food Categories">
+        <div class="category-nav-list" id="categoryCarouselList">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </section>
+
+      <!-- Filter Chips Bar -->
+      <section class="filter-bar-section" aria-label="Filter Restaurants">
+        <button class="filter-chip" data-filter="dashPassOnly">✨ DashPass</button>
+        <button class="filter-chip" data-filter="under30Mins">⚡ Under 30 min</button>
+        <button class="filter-chip" data-filter="freeDelivery">💵 $0 Delivery Fee</button>
+        <button class="filter-chip" data-filter="topRated">★ Top Rated (4.8+)</button>
+      </section>
+
+      <!-- Store Feed Header & Grid -->
+      <div class="section-title-row">
+        <h2 class="section-title">Featured Neighborhood Favorites</h2>
+        <span class="results-count-text" id="resultsCountText">Loading stores...</span>
+      </div>
+
+      <div class="restaurant-grid" id="restaurantGrid" aria-live="polite">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </div>
+
+    <!-- View 2: Restaurant Detail & Menu View -->
+    <div id="restaurantViewContainer" class="restaurant-view-container">
+      <div id="restaurantDetailContent">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Dish Customization Popover Dialog (Native Popover API Baseline 2024) -->
+  <div popover="auto" id="dishCustomizationPopover" class="dish-customization-popover" role="dialog" aria-modal="true">
+    <!-- Populated dynamically via JS -->
+  </div>
+
+  <!-- Cart Checkout Slide-out Drawer -->
+  <div class="cart-drawer-backdrop" id="cartDrawerBackdrop"></div>
+  <aside class="cart-drawer-pane" id="cartDrawerPane" aria-label="Shopping Cart">
+    <div class="cart-header">
+      <h3 class="cart-header-title">Your Order Summary</h3>
+      <button class="cart-close-btn" id="closeCartBtn" aria-label="Close cart">&times;</button>
+    </div>
+    <div class="cart-items-scroll" id="cartItemsList">
+      <!-- Populated dynamically via JS -->
+    </div>
+    <div class="cart-footer-summary">
+      <div class="tip-selection-row">
+        <label class="tip-label">Courier Appreciation Tip</label>
+        <div class="tip-buttons-grid">
+          <button class="tip-btn active" data-tip="15">15%</button>
+          <button class="tip-btn" data-tip="20">20%</button>
+          <button class="tip-btn" data-tip="25">25%</button>
+          <button class="tip-btn" data-tip="0">None</button>
+        </div>
+      </div>
+      <div class="summary-line-row">
+        <span>Items Subtotal</span>
+        <span id="summarySubtotal">$0.00</span>
+      </div>
+      <div class="summary-line-row">
+        <span>Delivery Fee</span>
+        <span id="summaryDeliveryFee" style="color: var(--dash-green); font-weight: 700;">FREE</span>
+      </div>
+      <div class="summary-line-row">
+        <span>Courier Tip</span>
+        <span id="summaryTip">$0.00</span>
+      </div>
+      <div class="summary-line-row total">
+        <span>Final Total</span>
+        <span id="summaryTotal">$0.00</span>
+      </div>
+      <button class="btn-primary-action place-order-btn" id="placeOrderBtn">
+        Place DashBite Order
+      </button>
+    </div>
+  </aside>
+
+  <!-- Live Delivery Tracking Modal -->
+  <div class="order-tracking-modal" id="orderTrackingModal" role="dialog" aria-modal="true">
+    <div class="tracking-card">
+      <div class="tracking-status-icon" aria-hidden="true">🚀</div>
+      <h3 class="tracking-title">Order Confirmed!</h3>
+      <p class="tracking-subtext">Estimated delivery time: <strong>22–32 minutes</strong> to Mountain View.</p>
+
+      <div class="tracking-timeline" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4">
+        <div class="timeline-step done">
+          <div class="timeline-dot">✓</div>
+          <span>Received</span>
+        </div>
+        <div class="timeline-step" id="stepKitchen">
+          <div class="timeline-dot">🍳</div>
+          <span>Preparing</span>
+        </div>
+        <div class="timeline-step" id="stepCourier">
+          <div class="timeline-dot">🛵</div>
+          <span>Courier En Route</span>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-dot">📍</div>
+          <span>Delivered</span>
+        </div>
+      </div>
+
+      <button class="btn-primary-action" id="closeTrackingModalBtn" style="width: 100%;">
+        Back to Restaurants
+      </button>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

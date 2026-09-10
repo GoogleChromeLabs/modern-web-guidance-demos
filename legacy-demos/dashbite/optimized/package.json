@@ -1,0 +1,19 @@
+{
+  "name": "dashbite-optimized",
+  "version": "2.0.0",
+  "description": "DashBite On-Demand Food Delivery Demo (Baseline 2024 Optimized Edition)",
+  "private": true,
+  "browserslist": [
+    "baseline 2024"
+  ],
+  "scripts": {
+    "start": "python3 server.py 8003",
+    "test": "python3 verify_server.py 8003",
+    "lint:compat": "npx eslint . --ext .js && npx stylelint '**/*.css'"
+  },
+  "devDependencies": {
+    "browserslist": "^4.23.0",
+    "eslint-plugin-compat": "^4.2.0",
+    "stylelint-no-unsupported-browser-features": "^8.0.1"
+  }
+}

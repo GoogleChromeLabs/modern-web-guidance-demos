@@ -1,0 +1,13 @@
+{
+  "name": "dashbite-baseline",
+  "version": "1.0.0",
+  "description": "DashBite On-Demand Food Delivery Demo (Legacy Unoptimized Baseline)",
+  "private": true,
+  "browserslist": [
+    "baseline widely available"
+  ],
+  "scripts": {
+    "start": "python3 server.py 8002",
+    "test": "python3 verify_server.py 8002"
+  }
+}
