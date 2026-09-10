@@ -1,0 +1,884 @@
+/**
+ * DashBite - UI Components (Baseline 2024 Optimized Edition)
+ * Includes CSS Subgrid, Container Queries, Native Popover API, and Color Fallbacks.
+ */
+
+/* ==========================================================================
+   Restaurant Grid & Cards (Container Queries & Subgrid)
+   ========================================================================== */
+.section-title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 24px 0 16px;
+
+  .section-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--dash-dark);
+  }
+
+  .results-count-text {
+    font-size: 13px;
+    color: var(--dash-gray);
+  }
+}
+
+.restaurant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+  margin-bottom: 60px;
+}
+
+.restaurant-card {
+  container-type: inline-size;
+  container-name: rescard;
+  background: #ffffff;
+  border-radius: var(--dash-radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--dash-border);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  display: grid;
+  grid-template-rows: 180px 1fr;
+
+  &:hover, &:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: var(--dash-shadow-lg);
+    border-color: var(--dash-charcoal);
+    outline: none;
+  }
+
+  .card-media-wrapper {
+    position: relative;
+    height: 180px;
+    background: var(--dash-surface);
+    overflow: hidden;
+
+    .card-restaurant-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover .card-restaurant-img {
+      transform: scale(1.04);
+    }
+
+    .card-offer-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--dash-red);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: var(--dash-radius-sm);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-favorite-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 34px;
+      height: 34px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #ffffff;
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .card-content {
+    padding: 14px 16px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 6px;
+
+    .card-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+
+      .restaurant-name {
+        font-size: 17px;
+        font-weight: 800;
+        color: var(--dash-dark);
+      }
+
+      .rating-chip {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        background: var(--dash-surface);
+        padding: 2px 8px;
+        border-radius: var(--dash-radius-pill);
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--dash-dark);
+      }
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--dash-gray);
+
+      .dot-separator {
+        color: var(--dash-muted);
+      }
+    }
+
+    .card-delivery-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+      font-size: 13px;
+
+      .delivery-time-badge {
+        font-weight: 600;
+        color: var(--dash-dark);
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+   BASELINE 2024 STANDARD: Tooltips with Universal CSS & Keyboard Focus
+   Replaces non-standard Chromium Anchor Positioning with 100% Cross-Browser Support
+   ========================================================================== */
+.delivery-fee-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  .delivery-fee-badge {
+    font-weight: 600;
+    color: var(--dash-green);
+    cursor: help;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    &.paid {
+      color: var(--dash-charcoal);
+    }
+
+    .fee-info-icon {
+      font-size: 12px;
+      color: var(--dash-muted);
+    }
+  }
+
+  /* Universal Baseline Relative Tooltip */
+  .fee-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #191919;
+    color: #ffffff;
+    padding: 8px 12px;
+    border-radius: var(--dash-radius-sm);
+    font-size: 12px;
+    width: 220px;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s allow-discrete;
+    z-index: 100;
+    box-shadow: var(--dash-shadow-lg);
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: #191919 transparent transparent transparent;
+    }
+  }
+
+  &:hover .fee-tooltip,
+  &:focus-within .fee-tooltip {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* ==========================================================================
+   BASELINE 2024: Modern Color Spaces with Robust sRGB Fallback
+   ========================================================================== */
+.promo-chip-row {
+  margin-top: 6px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+
+  .promo-chip {
+    /* 1. Safe Standard sRGB Fallback */
+    background-color: #fde8e5;
+    color: #eb1700;
+    border: 1px solid #f9b8b0;
+
+    /* 2. Baseline 2024 oklch relative mix */
+    background-color: color-mix(in oklch, var(--dash-red) 12%, #ffffff);
+    color: color-mix(in oklch, var(--dash-red) 95%, #000000);
+    border: 1px solid color-mix(in oklch, var(--dash-red) 25%, transparent);
+    padding: 3px 8px;
+    border-radius: var(--dash-radius-sm);
+    font-size: 12px;
+    font-weight: 700;
+  }
+}
+
+.btn-primary-action {
+  /* 1. Standard sRGB Fallback */
+  background-color: #eb1700;
+  box-shadow: 0 4px 16px rgba(235, 23, 0, 0.35);
+
+  /* 2. Baseline 2024 Relative Color */
+  background-color: color-mix(in oklch, var(--dash-red) 92%, #000000);
+  box-shadow: 0 4px 16px rgb(from var(--dash-red) r g b / 35%);
+
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--dash-radius-pill);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #d11400;
+    background-color: color-mix(in oklch, var(--dash-red) 85%, #000000);
+    transform: translateY(-1px);
+  }
+}
+
+/* ==========================================================================
+   Restaurant Detail & Menu View
+   ========================================================================== */
+.restaurant-view-container {
+  display: none;
+  padding-bottom: 80px;
+
+  &.active {
+    display: block;
+  }
+
+  .back-to-feed-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--dash-gray);
+    cursor: pointer;
+    margin: 16px 0;
+    padding: 6px 12px;
+    border-radius: var(--dash-radius-sm);
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: var(--dash-surface);
+      color: var(--dash-dark);
+    }
+  }
+
+  .restaurant-header-banner {
+    height: 280px;
+    border-radius: var(--dash-radius-lg);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 24px;
+
+    .res-banner-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .res-header-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 30px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 100%);
+      color: #ffffff;
+
+      .res-hero-title {
+        font-size: 32px;
+        font-weight: 900;
+        margin-bottom: 6px;
+      }
+
+      .res-hero-meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 14px;
+        color: #e0e0e0;
+      }
+    }
+  }
+
+  .menu-section {
+    margin-top: 36px;
+
+    .menu-section-heading {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--dash-border);
+    }
+
+    .menu-items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 20px;
+
+      .menu-item-card {
+        background: #ffffff;
+        border: 1px solid var(--dash-border);
+        border-radius: var(--dash-radius-md);
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        cursor: pointer;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+        &:hover, &:focus-visible {
+          border-color: var(--dash-dark);
+          box-shadow: var(--dash-shadow);
+          outline: none;
+        }
+
+        .item-info-col {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          .item-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--dash-dark);
+            margin-bottom: 4px;
+          }
+
+          .item-desc {
+            font-size: 13px;
+            color: var(--dash-gray);
+            line-height: 1.4;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+
+          .item-price {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--dash-dark);
+          }
+        }
+
+        .item-visual-wrap {
+          position: relative;
+          width: 110px;
+          height: 110px;
+          border-radius: var(--dash-radius-md);
+          overflow: hidden;
+          flex-shrink: 0;
+          background: var(--dash-surface);
+
+          .item-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+
+          .item-add-btn-icon {
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+            background: #ffffff;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            color: var(--dash-red);
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+   BASELINE 2024: Native Popover API & @starting-style Discrete Transitions
+   ========================================================================== */
+.dish-customization-popover[popover] {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: 90%;
+  max-width: 520px;
+  max-height: 85vh;
+  background: #ffffff;
+  border: none;
+  border-radius: var(--dash-radius-lg);
+  box-shadow: var(--dash-shadow-lg);
+  overflow-y: auto;
+  padding: 0;
+  z-index: 2000;
+  
+  /* Baseline 2024 Discrete Transitions */
+  transition: opacity 0.25s ease, transform 0.25s ease, display 0.25s allow-discrete, overlay 0.25s allow-discrete;
+  opacity: 0;
+  transform: scale(0.92);
+
+  &:popover-open {
+    opacity: 1;
+    transform: scale(1);
+
+    &::backdrop {
+      opacity: 1;
+    }
+  }
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    transition: opacity 0.25s ease, display 0.25s allow-discrete, overlay 0.25s allow-discrete;
+    opacity: 0;
+  }
+}
+
+@starting-style {
+  .dish-customization-popover:popover-open {
+    opacity: 0;
+    transform: scale(0.92);
+
+    &::backdrop {
+      opacity: 0;
+    }
+  }
+}
+
+.popover-header-media {
+  position: relative;
+  height: 200px;
+  background: var(--dash-surface);
+
+  .popover-header-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .popover-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.popover-body {
+  padding: 20px 24px 80px;
+
+  .popover-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+
+  .popover-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--dash-dark);
+    margin-bottom: 8px;
+  }
+
+  .popover-desc {
+    font-size: 14px;
+    color: var(--dash-gray);
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .modifier-group {
+    margin-bottom: 20px;
+    background: var(--dash-surface);
+    border-radius: var(--dash-radius-md);
+    padding: 16px;
+
+    .modifier-group-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+
+      .modifier-group-name {
+        font-size: 15px;
+        font-weight: 800;
+      }
+
+      .modifier-badge {
+        font-size: 11px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: var(--dash-radius-pill);
+        background: #ffffff;
+        border: 1px solid var(--dash-border);
+
+        &.required {
+          background: var(--dash-red);
+          color: #ffffff;
+          border: none;
+        }
+      }
+    }
+
+    .modifier-options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .modifier-option-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.popover-footer-sticky {
+  position: sticky;
+  bottom: 0;
+  background: #ffffff;
+  padding: 14px 24px;
+  border-top: 1px solid var(--dash-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  .qty-counter-ctrl {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--dash-surface);
+    border-radius: var(--dash-radius-pill);
+    padding: 4px 8px;
+
+    .qty-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: none;
+      background: #ffffff;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .qty-number {
+      font-weight: 800;
+      font-size: 15px;
+    }
+  }
+}
+
+/* ==========================================================================
+   Cart & Checkout Drawer
+   ========================================================================== */
+.cart-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 3000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+
+  &.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.cart-drawer-pane {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 440px;
+  background: #ffffff;
+  z-index: 3001;
+  box-shadow: var(--dash-shadow-lg);
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  .cart-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--dash-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .cart-header-title {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .cart-close-btn {
+      background: transparent;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--dash-gray);
+    }
+  }
+
+  .cart-items-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .cart-item-card {
+      display: flex;
+      gap: 12px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--dash-surface);
+
+      .cart-item-details {
+        flex: 1;
+
+        .cart-item-name {
+          font-size: 15px;
+          font-weight: 700;
+          margin-bottom: 2px;
+        }
+
+        .cart-item-modifiers {
+          font-size: 12px;
+          color: var(--dash-gray);
+          margin-bottom: 6px;
+        }
+
+        .cart-item-price-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+    }
+  }
+
+  .cart-footer-summary {
+    border-top: 1px solid var(--dash-border);
+    padding: 20px 24px;
+    background: var(--dash-surface);
+
+    .tip-selection-row {
+      margin-bottom: 16px;
+
+      .tip-label {
+        font-size: 13px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      .tip-buttons-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+
+        .tip-btn {
+          padding: 8px;
+          border: 1px solid var(--dash-border);
+          background: #ffffff;
+          border-radius: var(--dash-radius-sm);
+          font-size: 13px;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
+          &.active {
+            background: var(--dash-dark);
+            color: #ffffff;
+            border-color: var(--dash-dark);
+          }
+        }
+      }
+    }
+
+    .summary-line-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: var(--dash-gray);
+      margin-bottom: 6px;
+
+      &.total {
+        font-size: 18px;
+        font-weight: 900;
+        color: var(--dash-dark);
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid var(--dash-border);
+      }
+    }
+
+    .place-order-btn {
+      width: 100%;
+      margin-top: 16px;
+    }
+  }
+}
+
+/* ==========================================================================
+   Order Placed Tracking Modal
+   ========================================================================== */
+.order-tracking-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 4000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+
+  &.open {
+    display: flex;
+  }
+
+  .tracking-card {
+    background: #ffffff;
+    border-radius: var(--dash-radius-lg);
+    max-width: 480px;
+    width: 100%;
+    padding: 32px;
+    text-align: center;
+    box-shadow: var(--dash-shadow-lg);
+
+    .tracking-status-icon {
+      font-size: 54px;
+      margin-bottom: 12px;
+    }
+
+    .tracking-title {
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
+
+    .tracking-subtext {
+      font-size: 14px;
+      color: var(--dash-gray);
+      margin-bottom: 24px;
+    }
+
+    .tracking-timeline {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin-bottom: 28px;
+
+      .timeline-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--dash-muted);
+
+        &.done {
+          color: var(--dash-green);
+
+          .timeline-dot {
+            background: var(--dash-green);
+            border-color: var(--dash-green);
+            color: #ffffff;
+          }
+        }
+
+        .timeline-dot {
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background: var(--dash-surface);
+          border: 2px solid var(--dash-border);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}

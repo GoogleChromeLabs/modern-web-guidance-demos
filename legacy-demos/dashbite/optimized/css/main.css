@@ -1,0 +1,413 @@
+/**
+ * DashBite - Modern Delivery Core Stylesheet (Baseline 2024 Optimized Edition)
+ * Standardized CSS tokens, CSS Nesting, and Container Contexts
+ */
+
+:root {
+  --dash-red: #eb1700;
+  --dash-coral: #ff3008;
+  --dash-dark: #191919;
+  --dash-charcoal: #494949;
+  --dash-gray: #767676;
+  --dash-muted: #9e9e9e;
+  --dash-light-gray: #f1f1f1;
+  --dash-bg: #ffffff;
+  --dash-surface: #f7f7f7;
+  --dash-border: #e4e4e4;
+  --dash-green: #00875a;
+  --dash-gold: #ffab00;
+  --dash-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --dash-shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.16);
+  --dash-radius-sm: 8px;
+  --dash-radius-md: 12px;
+  --dash-radius-lg: 16px;
+  --dash-radius-pill: 9999px;
+  --dash-container: 1200px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: var(--dash-dark);
+  background-color: var(--dash-bg);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: var(--dash-container);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ==========================================================================
+   Navigation Bar (CSS Nesting)
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  z-index: 1000;
+  border-bottom: 1px solid var(--dash-border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    gap: 20px;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .brand-logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .brand-logo-img {
+    height: 34px;
+    width: auto;
+  }
+
+  .order-mode-toggle {
+    display: inline-flex;
+    background: var(--dash-surface);
+    border-radius: var(--dash-radius-pill);
+    padding: 4px;
+    border: 1px solid var(--dash-border);
+
+    .mode-btn {
+      border: none;
+      background: transparent;
+      padding: 6px 16px;
+      border-radius: var(--dash-radius-pill);
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      color: var(--dash-gray);
+      transition: all 0.2s ease;
+
+      &.active {
+        background: #ffffff;
+        color: var(--dash-dark);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      }
+    }
+  }
+
+  .address-selector-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--dash-dark);
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: var(--dash-radius-sm);
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: var(--dash-surface);
+    }
+
+    .address-icon {
+      font-size: 16px;
+    }
+
+    .address-text {
+      max-width: 180px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .header-search {
+    flex: 1;
+    max-width: 440px;
+    position: relative;
+
+    .search-input {
+      width: 100%;
+      padding: 10px 16px 10px 42px;
+      background: var(--dash-surface);
+      border: 1px solid transparent;
+      border-radius: var(--dash-radius-pill);
+      font-size: 14px;
+      color: var(--dash-dark);
+      outline: none;
+      transition: all 0.2s ease;
+
+      &:focus {
+        background: #ffffff;
+        border-color: var(--dash-dark);
+        box-shadow: 0 0 0 2px rgba(25, 25, 25, 0.1);
+      }
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: var(--dash-gray);
+    }
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .dashpass-pill-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: var(--dash-radius-pill);
+      font-size: 13px;
+      font-weight: 700;
+      background: rgba(235, 23, 0, 0.08);
+      color: var(--dash-red);
+    }
+
+    .cart-trigger-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--dash-red);
+      color: #ffffff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: var(--dash-radius-pill);
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.2s ease;
+
+      &:hover {
+        background: var(--dash-coral);
+        transform: scale(1.02);
+      }
+
+      .cart-count-bubble {
+        background: #ffffff;
+        color: var(--dash-red);
+        border-radius: var(--dash-radius-pill);
+        padding: 2px 8px;
+        font-size: 12px;
+        font-weight: 800;
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+   Hero Promotional Strip
+   ========================================================================== */
+.hero-promo-section {
+  padding: 24px 0 16px;
+
+  .promo-banner-card {
+    position: relative;
+    border-radius: var(--dash-radius-lg);
+    overflow: hidden;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    background: #191919;
+
+    .promo-banner-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+    }
+
+    .promo-banner-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 40px;
+      max-width: 600px;
+      color: #ffffff;
+
+      .promo-tagline {
+        display: inline-block;
+        background: var(--dash-red);
+        color: #ffffff;
+        padding: 4px 10px;
+        border-radius: var(--dash-radius-sm);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      .promo-heading {
+        font-size: 28px;
+        font-weight: 900;
+        line-height: 1.2;
+        margin-bottom: 6px;
+      }
+
+      .promo-subtext {
+        font-size: 14px;
+        color: #e0e0e0;
+        margin-bottom: 14px;
+      }
+
+      .promo-cta-btn {
+        background: #ffffff;
+        color: var(--dash-dark);
+        border: none;
+        padding: 8px 20px;
+        border-radius: var(--dash-radius-pill);
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.2s ease;
+
+        &:hover {
+          background: var(--dash-surface);
+        }
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+   Category Nav Carousel
+   ========================================================================== */
+.category-carousel-section {
+  padding: 16px 0 20px;
+  border-bottom: 1px solid var(--dash-border);
+
+  .category-nav-list {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-pill-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      flex-shrink: 0;
+      padding: 6px 12px;
+      border-radius: var(--dash-radius-md);
+      transition: all 0.2s ease;
+
+      .category-icon-wrap {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: var(--dash-surface);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        border: 1px solid var(--dash-border);
+        transition: all 0.2s ease;
+      }
+
+      .category-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--dash-charcoal);
+        white-space: nowrap;
+      }
+
+      &:hover .category-icon-wrap {
+        background: #ffffff;
+        border-color: var(--dash-red);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(235, 23, 0, 0.15);
+      }
+
+      &.active {
+        .category-icon-wrap {
+          background: rgba(235, 23, 0, 0.1);
+          border-color: var(--dash-red);
+        }
+        .category-label {
+          color: var(--dash-red);
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}
+
+/* ==========================================================================
+   Filter Bar
+   ========================================================================== */
+.filter-bar-section {
+  padding: 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: #ffffff;
+    border: 1px solid var(--dash-border);
+    border-radius: var(--dash-radius-pill);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dash-dark);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: var(--dash-surface);
+      border-color: var(--dash-dark);
+    }
+
+    &.active {
+      background: var(--dash-dark);
+      color: #ffffff;
+      border-color: var(--dash-dark);
+    }
+  }
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DashBite — Food Delivery, Restaurants & Takeout</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍔</text></svg>">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <!-- ⚠️ LEGACY POLYFILLS BUNDLE (Real Production Open-Source Code) -->
+  <script src="js/polyfills/core-js-polyfills.js"></script>
+  <script src="js/polyfills/smoothscroll-polyfill.js"></script>
+  <script src="js/polyfills/dialog-popover-polyfill.js"></script>
+  <script src="js/polyfills/custom-form-validator.js"></script>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="header-left">
+        <a href="#" class="brand-logo-link" id="brandLogoLink">
+          <img src="assets/images/brand-logo.svg" alt="DashBite" class="brand-logo-img">
+        </a>
+        <div class="order-mode-toggle">
+          <button class="mode-btn active" data-mode="delivery">Delivery</button>
+          <button class="mode-btn" data-mode="pickup">Pickup</button>
+        </div>
+        <button class="address-selector-btn">
+          <span class="address-icon">📍</span>
+          <span class="address-text">1600 Amphitheatre Pkwy, Mountain View</span>
+          <span style="font-size: 10px;">▼</span>
+        </button>
+      </div>
+
+      <div class="header-search">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="globalSearchInput" class="search-input" placeholder="Search dishes, restaurants, groceries...">
+      </div>
+
+      <div class="header-right">
+        <div class="dashpass-pill-badge">
+          <span>✨</span> DashPass
+        </div>
+        <button class="cart-trigger-btn" id="headerCartBtn">
+          <span>🛍️</span>
+          <span>Cart</span>
+          <span class="cart-count-bubble" id="headerCartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- View 1: Restaurant Discovery Feed -->
+    <div id="feedViewContainer">
+      <!-- Promotional Hero Banner -->
+      <section class="hero-promo-section">
+        <div class="promo-banner-card">
+          <!-- ❌ ANTI-PATTERN: Hero image src removed from HTML source & loaded dynamically via JS in app.js, delaying LCP -->
+          <img alt="DashBite Feast Offers" class="promo-banner-img" id="heroBannerImg">
+          <div class="promo-banner-content">
+            <span class="promo-tagline">Special Atelier Deal</span>
+            <h2 class="promo-heading">Craving Burgers, Pizza, or Sushi?</h2>
+            <p class="promo-subtext">Order from top-rated local neighborhood spots with $0 delivery fee on your first order.</p>
+            <button class="promo-cta-btn" id="promoCtaBtn">Order Now with FEAST5</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Category Navigation Carousel -->
+      <section class="category-carousel-section">
+        <div class="category-nav-list" id="categoryCarouselList">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </section>
+
+      <!-- Filter Chips Bar -->
+      <section class="filter-bar-section">
+        <button class="filter-chip" data-filter="dashPassOnly">✨ DashPass</button>
+        <button class="filter-chip" data-filter="under30Mins">⚡ Under 30 min</button>
+        <button class="filter-chip" data-filter="freeDelivery">💵 $0 Delivery Fee</button>
+        <button class="filter-chip" data-filter="topRated">★ Top Rated (4.8+)</button>
+      </section>
+
+      <!-- Store Feed Header & Grid -->
+      <div class="section-title-row">
+        <h2 class="section-title">Featured Neighborhood Favorites</h2>
+        <span class="results-count-text" id="resultsCountText">Loading stores...</span>
+      </div>
+
+      <div class="restaurant-grid" id="restaurantGrid">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </div>
+
+    <!-- View 2: Restaurant Detail & Menu View -->
+    <div id="restaurantViewContainer" class="restaurant-view-container">
+      <div id="restaurantDetailContent">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Legacy JS Modal Container (Polyfill-based modal instead of native <dialog>) -->
+  <div id="legacyModalOverlay" class="legacy-modal-overlay" style="display:none;">
+    <div class="legacy-modal-content" id="legacyModalContent">
+      <!-- Populated via JS -->
+    </div>
+  </div>
+
+  <script src="js/restaurants.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

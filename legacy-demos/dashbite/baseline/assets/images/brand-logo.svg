@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 40" fill="none">
+  <!-- DashBite Logo: Red dynamic swoosh + Modern Bold Typography -->
+  <path d="M8 28C4.5 28 2 25.5 2 22C2 15 8 9 17 9H34C37.5 9 40 11.5 40 15C40 22 34 28 25 28H8Z" fill="#EB1700"/>
+  <path d="M14 23C11.5 23 10 21.5 10 19.5C10 15.5 13.5 12.5 18.5 12.5H28C30.5 12.5 32 14 32 16C32 20 28.5 23 23.5 23H14Z" fill="#FFFFFF"/>
+  <text x="48" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="21" fill="#EB1700" letter-spacing="-0.5">Dash<tspan fill="#191919">Bite</tspan></text>
+</svg>

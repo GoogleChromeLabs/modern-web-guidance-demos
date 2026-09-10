@@ -1,0 +1,5 @@
+# Web Platform Baseline Target Configuration
+# Ref: https://web.dev/articles/how-to-choose-your-baseline-target
+# This config drives Browserslist, Babel, PostCSS, LightningCSS, and compatibility linters (eslint-plugin-compat, stylelint).
+
+baseline 2024
