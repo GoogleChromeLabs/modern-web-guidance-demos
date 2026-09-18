@@ -1,0 +1,52 @@
+{
+  "toolPermission": "proceed-in-sandbox",
+  "enableTerminalSandbox": true,
+  "artifactReviewPolicy": "always-proceed",
+  "allowNonWorkspaceAccess": false,
+  "notifications": true,
+  "permissions": {
+    "allow": [
+      "command(npx)",
+      "command(npm)",
+      "command(pnpm)",
+      "command(node)",
+      "command(ls)",
+      "command(cat)",
+      "command(rg)",
+      "command(git status)",
+      "command(git diff)",
+      "command(git log)",
+      "command(git add)",
+      "command(git commit)",
+      "command(git checkout)",
+      "unsandboxed(npx -y modern-web-guidance@latest)",
+      "unsandboxed(npm run dev)",
+      "unsandboxed(npm run build)",
+      "read_url(registry.npmjs.org)",
+      "read_url(npmjs.org)",
+      "read_url(localhost)",
+      "read_url(127.0.0.1)",
+      "execute_url(localhost)",
+      "execute_url(127.0.0.1)",
+      "mcp(chrome-devtools/*)"
+    ],
+    "deny": [
+      "command(sudo)",
+      "command(rm)",
+      "command(shutdown)",
+      "command(reboot)",
+      "command(mkfs)",
+      "command(dd)",
+      "command(chmod)",
+      "command(git push)",
+      "command(gh)",
+      "command(ssh)",
+      "command(scp)",
+      "command(curl)",
+      "command(wget)",
+      "command(docker)",
+      "command(gcloud)",
+      "command(kubectl)"
+    ]
+  }
+}

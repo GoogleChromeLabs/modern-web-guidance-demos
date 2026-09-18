@@ -36,16 +36,73 @@ fi
 export GEMINI_API_KEY="$API_KEY"
 echo ""
 
-# Step 4: Configure Antigravity CLI Settings
-echo "[4/5] Configuring Antigravity CLI (agy v1.2.2)..."
+# Step 4: Configure Antigravity CLI Settings + Permissions
+echo "[4/5] Configuring Antigravity CLI (agy v1.2.2) and tool permissions..."
 mkdir -p ~/.gemini/antigravity-cli
 
-cat <<EOF > ~/.gemini/antigravity-cli/settings.json
+# Back up any existing settings so nothing is silently lost
+if [ -f ~/.gemini/antigravity-cli/settings.json ]; then
+    cp ~/.gemini/antigravity-cli/settings.json \
+       ~/.gemini/antigravity-cli/settings.json.bak.$(date +%Y%m%d%H%M%S)
+    echo "  -> Backed up existing settings.json"
+fi
+
+cat <<'EOF' > ~/.gemini/antigravity-cli/settings.json
 {
-  "modelProvider": "gemini"
+  "modelProvider": "gemini",
+  "toolPermission": "proceed-in-sandbox",
+  "enableTerminalSandbox": true,
+  "artifactReviewPolicy": "always-proceed",
+  "allowNonWorkspaceAccess": false,
+  "notifications": true,
+  "permissions": {
+    "allow": [
+      "command(npx)",
+      "command(npm)",
+      "command(pnpm)",
+      "command(node)",
+      "command(ls)",
+      "command(cat)",
+      "command(rg)",
+      "command(git status)",
+      "command(git diff)",
+      "command(git log)",
+      "command(git add)",
+      "command(git commit)",
+      "command(git checkout)",
+      "unsandboxed(npx -y modern-web-guidance@latest)",
+      "unsandboxed(npm run dev)",
+      "unsandboxed(npm run build)",
+      "read_url(registry.npmjs.org)",
+      "read_url(npmjs.org)",
+      "read_url(localhost)",
+      "read_url(127.0.0.1)",
+      "execute_url(localhost)",
+      "execute_url(127.0.0.1)",
+      "mcp(chrome-devtools/*)"
+    ],
+    "deny": [
+      "command(sudo)",
+      "command(rm)",
+      "command(shutdown)",
+      "command(reboot)",
+      "command(mkfs)",
+      "command(dd)",
+      "command(chmod)",
+      "command(git push)",
+      "command(gh)",
+      "command(ssh)",
+      "command(scp)",
+      "command(curl)",
+      "command(wget)",
+      "command(docker)",
+      "command(gcloud)",
+      "command(kubectl)"
+    ]
+  }
 }
 EOF
-echo "  -> Created ~/.gemini/antigravity-cli/settings.json"
+echo "  -> Created ~/.gemini/antigravity-cli/settings.json (with allow/deny permissions)"
 echo ""
 
 # Step 5: Configure Chrome DevTools MCP Server
