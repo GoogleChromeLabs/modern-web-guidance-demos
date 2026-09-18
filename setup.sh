@@ -51,6 +51,7 @@ cat <<'EOF' > ~/.gemini/antigravity-cli/settings.json
 {
   "modelProvider": "gemini",
   "toolPermission": "proceed-in-sandbox",
+  "agentMode": "accept-edits",
   "enableTerminalSandbox": true,
   "artifactReviewPolicy": "always-proceed",
   "allowNonWorkspaceAccess": false,
