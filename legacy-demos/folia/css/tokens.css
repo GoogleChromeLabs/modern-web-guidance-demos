@@ -40,6 +40,8 @@
   /* Typography — Weights */
   --font-weight-light: 300;
   --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
 
   /* Typography — Letter Spacing */
   --tracking-wordmark: 0.22em;
@@ -73,7 +75,8 @@
   --space-9: 6rem;      /* 96px */
 
   --container-max: 1440px;
-  --header-height: 64px;
+  --header-h: 64px;
+  --header-height: var(--header-h);
 
   /* Architectural Constraints: Square corners, no shadows */
   --radius: 0px;

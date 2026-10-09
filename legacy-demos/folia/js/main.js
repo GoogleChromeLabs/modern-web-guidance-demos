@@ -5,7 +5,7 @@
  * Folia Storefront — Main Application Entry
  */
 
-import { PRODUCTS } from './products.js';
+import { CATEGORIES, PRODUCTS } from './products.js';
 
 function initHeaderStateObserver() {
   const header = document.getElementById('site-header');
@@ -51,21 +51,24 @@ function initMobileMenu() {
     closeBtn.focus();
   }
 
-  function closeMenu() {
+  function closeMenu({ restoreFocus = true } = {}) {
     if (menu.getAttribute('data-open') !== 'true') return;
     menu.setAttribute('data-open', 'false');
     menu.setAttribute('aria-hidden', 'true');
     openBtn.setAttribute('aria-expanded', 'false');
     document.body.classList.remove('menu-open');
-    openBtn.focus();
+    if (restoreFocus) {
+      openBtn.focus();
+    }
   }
 
   openBtn.addEventListener('click', openMenu);
-  closeBtn.addEventListener('click', closeMenu);
+  closeBtn.addEventListener('click', () => closeMenu({ restoreFocus: true }));
 
   menu.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
-      closeMenu();
+      const isSearchLink = link.hasAttribute('data-nav-search');
+      closeMenu({ restoreFocus: !isSearchLink });
     });
   });
 
@@ -74,7 +77,7 @@ function initMobileMenu() {
 
     if (event.key === 'Escape') {
       event.preventDefault();
-      closeMenu();
+      closeMenu({ restoreFocus: true });
       return;
     }
 
@@ -129,68 +132,282 @@ function initEditorialReveal() {
   observer.observe(section);
 }
 
-function renderLookbookGrid(items = PRODUCTS) {
-  const grid = document.getElementById('lookbook-grid');
+function createLookbookItem(product) {
+  const li = document.createElement('li');
+  li.className = 'lookbook__item';
+  li.dataset.category = product.category;
+
+  const link = document.createElement('a');
+  link.className = 'lookbook__cell';
+  link.href = product.href;
+  link.setAttribute('aria-label', `${product.name}, £${product.price}`);
+
+  const img = document.createElement('img');
+  img.className = 'lookbook__image';
+  img.src = product.image;
+  img.alt = `${product.name} (${product.latin}, ${product.size}) in a studio pot against a mid-grey backdrop`;
+  img.width = 848;
+  img.height = 1264;
+  img.loading = 'lazy';
+  img.decoding = 'async';
+
+  const caption = document.createElement('div');
+  caption.className = 'lookbook__caption';
+  caption.setAttribute('aria-hidden', 'true');
+
+  const topRow = document.createElement('div');
+  topRow.className = 'lookbook__caption-row';
+
+  const nameSpan = document.createElement('span');
+  nameSpan.className = 'lookbook__name';
+  nameSpan.textContent = product.name;
+
+  const priceSpan = document.createElement('span');
+  priceSpan.className = 'lookbook__price';
+  priceSpan.textContent = `£${product.price}`;
+
+  topRow.append(nameSpan, priceSpan);
+
+  const latinSpan = document.createElement('span');
+  latinSpan.className = 'lookbook__latin';
+  latinSpan.textContent = product.latin;
+
+  caption.append(topRow, latinSpan);
+  link.append(img, caption);
+  li.append(link);
+
+  return {
+    product,
+    element: li,
+    searchHaystack: `${product.name} ${product.latin} ${product.size}`.toLowerCase(),
+  };
+}
+
+function initLookbook() {
+  const shopSection = document.getElementById('shop');
+  const filtersContainer = document.getElementById('lookbook-filters');
+  const searchInput = document.getElementById('lookbook-search');
   const countEl = document.getElementById('lookbook-count');
+  const grid = document.getElementById('lookbook-grid');
+  const emptyEl = document.getElementById('lookbook-empty');
+  const emptyTextEl = document.getElementById('lookbook-empty-text');
+  const resetBtn = document.getElementById('lookbook-reset-btn');
 
-  if (!grid) return;
-
-  if (countEl) {
-    countEl.textContent = `${items.length} ${items.length === 1 ? 'piece' : 'pieces'}`;
+  if (!shopSection || !filtersContainer || !searchInput || !countEl || !grid || !emptyEl) {
+    return;
   }
 
-  const fragment = document.createDocumentFragment();
+  // 1. Generate filter buttons from data so categories with 0 products (pots, care) are omitted
+  const populatedCategories = CATEGORIES.filter((cat) =>
+    PRODUCTS.some((product) => product.category === cat.id)
+  );
+  const filterDefinitions = [{ id: 'all', label: 'All' }, ...populatedCategories];
+  const filterButtons = [];
 
-  for (const product of items) {
-    const li = document.createElement('li');
-    li.className = 'lookbook__item';
-    li.dataset.category = product.category;
+  const filterFragment = document.createDocumentFragment();
+  for (const def of filterDefinitions) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'lookbook__filter-btn';
+    btn.dataset.filterCategory = def.id;
+    btn.setAttribute('aria-pressed', String(def.id === 'all'));
+    btn.textContent = def.label;
+    filterButtons.push(btn);
+    filterFragment.append(btn);
+  }
+  filtersContainer.replaceChildren(filterFragment);
 
-    const link = document.createElement('a');
-    link.className = 'lookbook__cell';
-    link.href = product.href;
-    link.setAttribute('aria-label', `${product.name}, £${product.price}`);
+  // 2. Render all product cells once; toggle [hidden] when filtering
+  const itemRecords = PRODUCTS.map((product) => createLookbookItem(product));
+  const gridFragment = document.createDocumentFragment();
+  for (const record of itemRecords) {
+    gridFragment.append(record.element);
+  }
+  grid.replaceChildren(gridFragment);
 
-    const img = document.createElement('img');
-    img.className = 'lookbook__image';
-    img.src = product.image;
-    img.alt = `${product.name} (${product.latin}, ${product.size}) in a studio pot against a mid-grey backdrop`;
-    img.width = 848;
-    img.height = 1264;
-    img.loading = 'lazy';
-    img.decoding = 'async';
+  // 3. Parse initial state from URL (?category=...&q=...)
+  const validCategoryIds = new Set(['all', ...CATEGORIES.map((c) => c.id)]);
+  const initialParams = new URLSearchParams(window.location.search);
+  const rawCategory = (initialParams.get('category') || 'all').toLowerCase().trim();
+  const initialQuery = initialParams.get('q') || '';
 
-    const caption = document.createElement('div');
-    caption.className = 'lookbook__caption';
-    caption.setAttribute('aria-hidden', 'true');
+  const state = {
+    category: validCategoryIds.has(rawCategory) ? rawCategory : 'all',
+    query: initialQuery,
+  };
 
-    const topRow = document.createElement('div');
-    topRow.className = 'lookbook__caption-row';
+  searchInput.value = state.query;
 
-    const nameSpan = document.createElement('span');
-    nameSpan.className = 'lookbook__name';
-    nameSpan.textContent = product.name;
+  function syncUrlState(hashOverride) {
+    const url = new URL(window.location.href);
+    if (state.category && state.category !== 'all') {
+      url.searchParams.set('category', state.category);
+    } else {
+      url.searchParams.delete('category');
+    }
 
-    const priceSpan = document.createElement('span');
-    priceSpan.className = 'lookbook__price';
-    priceSpan.textContent = `£${product.price}`;
+    const trimmedQuery = state.query.trim();
+    if (trimmedQuery) {
+      url.searchParams.set('q', trimmedQuery);
+    } else {
+      url.searchParams.delete('q');
+    }
 
-    topRow.append(nameSpan, priceSpan);
+    if (hashOverride !== undefined) {
+      url.hash = hashOverride;
+    }
 
-    const latinSpan = document.createElement('span');
-    latinSpan.className = 'lookbook__latin';
-    latinSpan.textContent = product.latin;
-
-    caption.append(topRow, latinSpan);
-    link.append(img, caption);
-    li.append(link);
-    fragment.append(li);
+    window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
   }
 
-  grid.replaceChildren(fragment);
+  function applyLookbookState() {
+    for (const btn of filterButtons) {
+      const isPressed = btn.dataset.filterCategory === state.category;
+      btn.setAttribute('aria-pressed', String(isPressed));
+    }
+
+    const normalizedQuery = state.query.trim().toLowerCase();
+    let visibleCount = 0;
+
+    for (const record of itemRecords) {
+      const matchesCategory =
+        state.category === 'all' || record.product.category === state.category;
+      const matchesQuery =
+        !normalizedQuery || record.searchHaystack.includes(normalizedQuery);
+      const isVisible = matchesCategory && matchesQuery;
+
+      record.element.hidden = !isVisible;
+      if (isVisible) {
+        visibleCount += 1;
+      }
+    }
+
+    countEl.textContent = `${visibleCount} ${visibleCount === 1 ? 'piece' : 'pieces'}`;
+
+    if (visibleCount === 0) {
+      grid.hidden = true;
+      emptyEl.hidden = false;
+
+      const categoryDef = CATEGORIES.find((c) => c.id === state.category);
+      const categoryHasProducts =
+        state.category === 'all' ||
+        PRODUCTS.some((p) => p.category === state.category);
+
+      if (!categoryHasProducts && categoryDef?.emptyMessage && !normalizedQuery) {
+        emptyTextEl.textContent = categoryDef.emptyMessage;
+      } else {
+        emptyTextEl.textContent = 'Nothing matches that search';
+      }
+    } else {
+      grid.hidden = false;
+      emptyEl.hidden = true;
+    }
+  }
+
+  function scrollToShop({ instant = false } = {}) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const behavior = instant || prefersReducedMotion ? 'auto' : 'smooth';
+    const headerHeight =
+      parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 64;
+    const targetTop = Math.max(
+      0,
+      shopSection.getBoundingClientRect().top + window.scrollY - headerHeight
+    );
+    window.scrollTo({ top: targetTop, behavior });
+  }
+
+  // 4. Filter button group click handler
+  filtersContainer.addEventListener('click', (event) => {
+    const btn = event.target.closest('button[data-filter-category]');
+    if (!btn) return;
+
+    state.category = btn.dataset.filterCategory;
+    applyLookbookState();
+    syncUrlState();
+  });
+
+  // 5. Search input with 100ms debounce & Escape to clear
+  let searchDebounceTimer = null;
+
+  searchInput.addEventListener('input', () => {
+    if (searchDebounceTimer) {
+      window.clearTimeout(searchDebounceTimer);
+    }
+    searchDebounceTimer = window.setTimeout(() => {
+      state.query = searchInput.value;
+      applyLookbookState();
+      syncUrlState();
+    }, 100);
+  });
+
+  searchInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      if (searchDebounceTimer) {
+        window.clearTimeout(searchDebounceTimer);
+      }
+      searchInput.value = '';
+      state.query = '';
+      applyLookbookState();
+      syncUrlState();
+    }
+  });
+
+  // 6. Empty state "Show everything" button
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      if (searchDebounceTimer) {
+        window.clearTimeout(searchDebounceTimer);
+      }
+      state.category = 'all';
+      state.query = '';
+      searchInput.value = '';
+      applyLookbookState();
+      syncUrlState();
+    });
+  }
+
+  // 7. Header category links (Large plants, Small plants, Pots, Care) & "Shop the collection" CTA
+  document.querySelectorAll('a[data-category]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const targetCategory = link.dataset.category;
+      if (!targetCategory || !validCategoryIds.has(targetCategory)) return;
+
+      event.preventDefault();
+      if (searchDebounceTimer) {
+        window.clearTimeout(searchDebounceTimer);
+      }
+      state.category = targetCategory;
+      state.query = '';
+      searchInput.value = '';
+      applyLookbookState();
+      syncUrlState('#shop');
+      scrollToShop();
+    });
+  });
+
+  // 8. Header & mobile menu Search links: scroll to grid and focus search field
+  document.querySelectorAll('a[data-nav-search]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      syncUrlState('#shop');
+      scrollToShop();
+      searchInput.focus({ preventScroll: true });
+    });
+  });
+
+  // Apply initial state immediately on load
+  applyLookbookState();
+
+  // If loaded directly with #shop (e.g. /?category=small#shop), position #shop under fixed header
+  if (window.location.hash === '#shop') {
+    requestAnimationFrame(() => {
+      scrollToShop({ instant: true });
+    });
+  }
 }
 
 initHeaderStateObserver();
 initMobileMenu();
 initEditorialReveal();
-renderLookbookGrid();
+initLookbook();

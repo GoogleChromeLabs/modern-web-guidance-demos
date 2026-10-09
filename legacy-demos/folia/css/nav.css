@@ -54,7 +54,8 @@
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  min-height: 64px;
+  height: var(--header-h, 64px);
+  min-height: var(--header-h, 64px);
   width: 100%;
   max-width: var(--container-max);
   margin-inline: auto;
