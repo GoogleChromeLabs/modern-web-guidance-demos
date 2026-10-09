@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <style>
+    .leaf-fill { fill: #3E4A3D; }
+    .leaf-vein { stroke: #F4F1EC; }
+    @media (prefers-color-scheme: dark) {
+      .leaf-fill { fill: #7A8F77; }
+      .leaf-vein { stroke: #151513; }
+    }
+  </style>
+  <!-- Sculptural botanical leaf silhouette -->
+  <path
+    class="leaf-fill"
+    d="M26.5 5.5C17.5 5.5 7.5 10.2 6.2 21.4C6.0 23.1 6.4 24.6 7.0 25.8C8.2 26.4 9.7 26.8 11.4 26.6C22.6 25.3 27.3 15.3 26.5 5.5Z"
+  />
+  <!-- Central stem and architectural midrib vein -->
+  <path
+    class="leaf-vein"
+    d="M5.5 26.5L21.5 10.5M14.5 17.5L14.5 12.2M14.5 17.5L19.8 17.5"
+    stroke-width="1.5"
+    stroke-linecap="square"
+  />
+</svg>
