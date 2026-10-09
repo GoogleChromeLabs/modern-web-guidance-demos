@@ -5,7 +5,8 @@
  * Folia Storefront — Main Application Entry
  */
 
-import { CATEGORIES, PRODUCTS } from './products.js';
+import { CATEGORIES, PRODUCTS, formatPrice } from './products.js';
+import { initProductPage } from './product.js';
 
 function initHeaderStateObserver() {
   const header = document.getElementById('site-header');
@@ -137,15 +138,19 @@ function createLookbookItem(product) {
   li.className = 'lookbook__item';
   li.dataset.category = product.category;
 
+  const formattedPrice = formatPrice(product.price);
+
   const link = document.createElement('a');
   link.className = 'lookbook__cell';
   link.href = product.href;
-  link.setAttribute('aria-label', `${product.name}, £${product.price}`);
+  link.setAttribute('aria-label', `${product.name}, ${formattedPrice}`);
 
   const img = document.createElement('img');
   img.className = 'lookbook__image';
   img.src = product.image;
-  img.alt = `${product.name} (${product.latin}, ${product.size}) in a studio pot against a mid-grey backdrop`;
+  img.alt =
+    product.alts?.[0] ||
+    `${product.name} (${product.latin}, ${product.size}) in a studio pot against a mid-grey backdrop`;
   img.width = 848;
   img.height = 1264;
   img.loading = 'lazy';
@@ -164,7 +169,7 @@ function createLookbookItem(product) {
 
   const priceSpan = document.createElement('span');
   priceSpan.className = 'lookbook__price';
-  priceSpan.textContent = `£${product.price}`;
+  priceSpan.textContent = formattedPrice;
 
   topRow.append(nameSpan, priceSpan);
 
@@ -179,6 +184,7 @@ function createLookbookItem(product) {
   return {
     product,
     element: li,
+    link,
     searchHaystack: `${product.name} ${product.latin} ${product.size}`.toLowerCase(),
   };
 }
@@ -238,6 +244,19 @@ function initLookbook() {
 
   searchInput.value = state.query;
 
+  function buildFilterQueryString() {
+    const params = new URLSearchParams();
+    if (state.category && state.category !== 'all') {
+      params.set('category', state.category);
+    }
+    const trimmedQuery = state.query.trim();
+    if (trimmedQuery) {
+      params.set('q', trimmedQuery);
+    }
+    const qs = params.toString();
+    return qs ? `?${qs}` : '';
+  }
+
   function syncUrlState(hashOverride) {
     const url = new URL(window.location.href);
     if (state.category && state.category !== 'all') {
@@ -267,6 +286,7 @@ function initLookbook() {
     }
 
     const normalizedQuery = state.query.trim().toLowerCase();
+    const filterQueryString = buildFilterQueryString();
     let visibleCount = 0;
 
     for (const record of itemRecords) {
@@ -277,6 +297,7 @@ function initLookbook() {
       const isVisible = matchesCategory && matchesQuery;
 
       record.element.hidden = !isVisible;
+      record.link.href = `${record.product.href}${filterQueryString}`;
       if (isVisible) {
         visibleCount += 1;
       }
@@ -407,7 +428,16 @@ function initLookbook() {
   }
 }
 
-initHeaderStateObserver();
-initMobileMenu();
-initEditorialReveal();
-initLookbook();
+const isProductRoute =
+  window.location.pathname === '/products' ||
+  window.location.pathname.startsWith('/products/');
+
+if (isProductRoute) {
+  initMobileMenu();
+  initProductPage();
+} else {
+  initHeaderStateObserver();
+  initMobileMenu();
+  initEditorialReveal();
+  initLookbook();
+}
