@@ -9,6 +9,9 @@ import { CATEGORIES, PRODUCTS, formatPrice } from './products.js';
 import { initProductPage } from './product.js';
 import { cartApi } from './cartApi.js';
 import { initBagDrawer, syncBagFromCart } from './bag.js';
+import { initFooter, subscribe } from './footer.js';
+
+export { subscribe };
 
 function initHeaderStateObserver() {
   const header = document.getElementById('site-header');
@@ -438,10 +441,12 @@ if (isProductRoute) {
   initMobileMenu();
   initBagDrawer();
   initProductPage();
+  initFooter();
 } else {
   initHeaderStateObserver();
   initMobileMenu();
   initBagDrawer();
+  initFooter();
   initEditorialReveal();
   initLookbook();
 

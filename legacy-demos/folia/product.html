@@ -274,7 +274,86 @@
       </section>
     </main>
 
-    <footer id="site-footer" class="site-footer"></footer>
+    <footer id="site-footer" class="site-footer">
+      <div class="site-footer__top">
+        <form id="footer-newsletter-form" class="site-footer__newsletter" novalidate>
+          <label for="footer-newsletter-email" class="site-footer__newsletter-label">
+            News of new collections
+          </label>
+          <div class="site-footer__newsletter-row">
+            <input
+              id="footer-newsletter-email"
+              name="email"
+              type="email"
+              class="site-footer__newsletter-input"
+              placeholder="Email address"
+              autocomplete="email"
+              aria-describedby="footer-newsletter-status"
+              required
+            >
+            <button
+              type="submit"
+              id="footer-newsletter-submit"
+              class="site-footer__newsletter-btn"
+            >Subscribe</button>
+          </div>
+          <p
+            id="footer-newsletter-status"
+            class="site-footer__newsletter-status"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          ></p>
+        </form>
+
+        <div class="site-footer__columns">
+          <div class="site-footer__col">
+            <h2 class="site-footer__heading">Shop</h2>
+            <ul class="site-footer__list">
+              <li><a href="/?category=large#shop" class="site-footer__link">Large plants</a></li>
+              <li><a href="/?category=small#shop" class="site-footer__link">Small plants</a></li>
+              <li><a href="/?category=pots#shop" class="site-footer__link">Pots</a></li>
+              <li><a href="/?category=care#shop" class="site-footer__link">Care</a></li>
+            </ul>
+          </div>
+
+          <div class="site-footer__col">
+            <h2 class="site-footer__heading">Help</h2>
+            <ul class="site-footer__list">
+              <li><a href="#" class="site-footer__link" data-stub-link>Delivery</a></li>
+              <li><a href="#" class="site-footer__link" data-stub-link>Plant care</a></li>
+              <li><a href="#" class="site-footer__link" data-stub-link>Returns</a></li>
+              <li><a href="#" class="site-footer__link" data-stub-link>Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="site-footer__col">
+            <h2 class="site-footer__heading">Folia</h2>
+            <ul class="site-footer__list">
+              <li><a href="#about" class="site-footer__link">About</a></li>
+              <li><a href="#" class="site-footer__link" data-stub-link>Journal</a></li>
+              <li><a href="#" class="site-footer__link" data-stub-link>Stockists</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="site-footer__wordmark" aria-hidden="true">FOLIA</div>
+
+      <div class="site-footer__legal">
+        <p class="site-footer__legal-item">© 2026 Folia</p>
+        <p class="site-footer__legal-item">Prototype storefront. Prices and copy are placeholders.</p>
+      </div>
+
+      <div
+        id="footer-toast"
+        class="site-footer__toast"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        data-visible="false"
+      ></div>
+    </footer>
   </div>
 
   <script type="module" src="/js/product.js"></script>

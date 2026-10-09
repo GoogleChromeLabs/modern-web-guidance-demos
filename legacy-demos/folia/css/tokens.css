@@ -29,6 +29,11 @@
   --color-muted: var(--greige);
   --color-text: var(--charcoal);
   --color-accent: var(--leaf);
+  --bg: var(--color-page);
+  --fg: var(--color-text);
+  --line: var(--color-line);
+  --muted: var(--color-muted);
+  --accent: var(--color-accent);
   --nav-ink: var(--palette-charcoal);
   --hero-ink: var(--palette-charcoal);
   --lookbook-grey: #8F8F8D;
@@ -121,5 +126,10 @@
     --color-muted: var(--greige);
     --color-text: var(--charcoal);
     --color-accent: var(--leaf);
+    --bg: var(--color-page);
+    --fg: var(--color-text);
+    --line: var(--color-line);
+    --muted: var(--color-muted);
+    --accent: var(--color-accent);
   }
 }
