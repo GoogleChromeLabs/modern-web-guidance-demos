@@ -78,13 +78,3 @@
     max-width: calc(50vw - var(--gutter));
   }
 }
-
-/* Temporary scroll test section */
-.next-section-test {
-  height: 150vh;
-  width: 100%;
-  background-color: var(--bone);
-  color: var(--charcoal);
-  padding: var(--space-7) var(--gutter);
-  border-top: 1px solid var(--stone);
-}

@@ -94,5 +94,39 @@ function initMobileMenu() {
   });
 }
 
+function initEditorialReveal() {
+  const section = document.getElementById('dark-foliage');
+  const textBlock = document.getElementById('editorial-text');
+
+  if (!section || !textBlock) return;
+
+  // Respect prefers-reduced-motion: leave text immediately visible without animation.
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+    textBlock.removeAttribute('data-reveal');
+    return;
+  }
+
+  textBlock.setAttribute('data-reveal', 'pending');
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          textBlock.setAttribute('data-reveal', 'visible');
+          observer.unobserve(section);
+        }
+      }
+    },
+    {
+      root: null,
+      threshold: 0.35,
+    }
+  );
+
+  observer.observe(section);
+}
+
 initHeaderStateObserver();
 initMobileMenu();
+initEditorialReveal();
