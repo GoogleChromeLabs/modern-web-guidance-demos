@@ -71,6 +71,7 @@
   --space-9: 6rem;      /* 96px */
 
   --container-max: 1440px;
+  --header-height: 64px;
 
   /* Architectural Constraints: Square corners, no shadows */
   --radius: 0px;

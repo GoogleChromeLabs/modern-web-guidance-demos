@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Inter+Tight:wght@300;400&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Inter+Tight:wght@300;400&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="./css/base.css">
 </head>
@@ -103,9 +103,35 @@
         </div>
       </section>
 
-      <section class="next-section-test" aria-label="Next section">
-        <div class="container">
-          <p class="label">Next section</p>
+      <section id="dark-foliage" class="editorial" aria-labelledby="editorial-title">
+        <picture class="editorial__picture">
+          <source
+            media="(max-width: 699.98px)"
+            srcset="/public/images/editorial-mobile.jpg"
+            width="1200"
+            height="1500"
+          >
+          <img
+            src="/public/images/editorial-desktop.jpg"
+            alt="Seven plants with near-black foliage in black pots, lined up against a white studio background"
+            class="editorial__image"
+            width="2400"
+            height="1600"
+            loading="lazy"
+            decoding="async"
+          >
+        </picture>
+
+        <div class="editorial__overlay">
+          <div id="editorial-text" class="editorial__text">
+            <h2 id="editorial-title" class="editorial__title">Dark Foliage</h2>
+            <p class="editorial__subtitle">
+              <span>Sculptural plants in black.</span>
+              <span>Chosen for low light.</span>
+            </p>
+            <p class="editorial__volume">Vol. 1</p>
+            <a href="#shop" class="editorial__cta">Shop the collection</a>
+          </div>
         </div>
       </section>
     </main>
