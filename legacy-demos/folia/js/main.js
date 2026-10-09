@@ -8,7 +8,26 @@
 import { CATEGORIES, PRODUCTS, formatPrice } from './products.js';
 import { initProductPage } from './product.js';
 import { cartApi } from './cartApi.js';
-import { initBagDrawer, syncBagFromCart } from './bag.js';
+import { FREE_DELIVERY_THRESHOLD_PENCE, initBagDrawer, syncBagFromCart } from './bag.js';
+
+export const STORY_DETAILS = [
+  {
+    term: 'Delivery',
+    detail: `2 to 4 working days, free over ${formatPrice(FREE_DELIVERY_THRESHOLD_PENCE)}`,
+  },
+  {
+    term: 'Packaging',
+    detail: 'Plain box, tissue and jute twine',
+  },
+  {
+    term: 'Care',
+    detail: 'A card in every box with light and watering notes',
+  },
+  {
+    term: 'Returns',
+    detail: '14 days if a plant arrives damaged',
+  },
+];
 
 function initHeaderStateObserver() {
   const header = document.getElementById('site-header');
@@ -430,6 +449,30 @@ function initLookbook() {
   }
 }
 
+function initStory() {
+  const detailsList = document.getElementById('story-details');
+  if (!detailsList) return;
+
+  const fragment = document.createDocumentFragment();
+  for (const row of STORY_DETAILS) {
+    const rowEl = document.createElement('div');
+    rowEl.className = 'story__detail-row';
+
+    const dt = document.createElement('dt');
+    dt.className = 'story__term';
+    dt.textContent = row.term;
+
+    const dd = document.createElement('dd');
+    dd.className = 'story__detail';
+    dd.textContent = row.detail;
+
+    rowEl.append(dt, dd);
+    fragment.append(rowEl);
+  }
+
+  detailsList.replaceChildren(fragment);
+}
+
 const isProductRoute =
   window.location.pathname === '/products' ||
   window.location.pathname.startsWith('/products/');
@@ -444,6 +487,7 @@ if (isProductRoute) {
   initBagDrawer();
   initEditorialReveal();
   initLookbook();
+  initStory();
 
   const homeController = new AbortController();
   window.addEventListener('pagehide', () => homeController.abort(), { once: true });

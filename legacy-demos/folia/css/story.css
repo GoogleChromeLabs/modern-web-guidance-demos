@@ -1,0 +1,153 @@
+/**
+ * Copyright 2026 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Folia Storefront — Section 4: Brand Story ("About Folia")
+ */
+
+.story {
+  scroll-margin-top: var(--header-h, 64px);
+  margin-top: clamp(4rem, 9vw, 8rem);
+  margin-inline: auto;
+  padding-bottom: clamp(4rem, 9vw, 8rem);
+  padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
+  width: 100%;
+  max-width: var(--container-max);
+  background-color: var(--bg);
+  color: var(--fg);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+}
+
+@media (min-width: 900px) {
+  .story {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    align-items: stretch;
+  }
+}
+
+.story__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background-color: var(--stone);
+}
+
+.story__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-6);
+  min-width: 0;
+  padding-inline: 0;
+}
+
+@media (min-width: 900px) {
+  .story__content {
+    padding-inline: clamp(0rem, 3vw, 3rem);
+  }
+}
+
+.story__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.story__label {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--text-xs);
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--muted);
+}
+
+.story__heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-regular);
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: var(--tracking-heading);
+  text-wrap: balance;
+  color: var(--fg);
+}
+
+.story__body {
+  margin: 0;
+  max-width: min(34rem, 65ch);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-light);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-body);
+  color: var(--fg);
+}
+
+.story__details {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+}
+
+.story__detail-row {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--space-4);
+  padding-block: var(--space-3);
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 900px) {
+  .story__detail-row:last-child {
+    padding-bottom: 0;
+  }
+}
+
+@container (max-width: 279.98px) {
+  .story__detail-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1);
+  }
+}
+
+@media (max-width: 311.98px) {
+  .story__detail-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1);
+  }
+}
+
+.story__term {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--text-xs);
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--muted);
+}
+
+.story__detail {
+  margin: 0;
+  max-width: 65ch;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-light);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-body);
+  color: var(--fg);
+}
