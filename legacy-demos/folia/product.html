@@ -131,10 +131,22 @@
               type="button"
               id="add-to-bag-btn"
               class="product__add-btn"
-              data-state="default"
+              data-state="idle"
             >
-              Add to bag
+              <span id="add-to-bag-label" class="product__add-btn-label">Add to bag</span>
             </button>
+            <p
+              id="add-to-bag-error"
+              class="product__error"
+              role="alert"
+              hidden
+            ></p>
+            <div
+              id="product-live-status"
+              class="visually-hidden"
+              aria-live="polite"
+              aria-atomic="true"
+            ></div>
             <p class="product__delivery">
               Free delivery over £75. Arrives in 2 to 4 working days.
             </p>

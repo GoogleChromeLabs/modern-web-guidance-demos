@@ -322,10 +322,19 @@
   text-decoration-thickness: 1px;
 }
 
+.product__pot-options[data-locked='true'] .product__pot-option {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 .product__pot-option:hover {
   text-decoration: underline;
   text-underline-offset: 0.35em;
   text-decoration-thickness: 1px;
+}
+
+.product__pot-options[data-locked='true'] .product__pot-option:not([aria-checked='true']):hover {
+  text-decoration: none;
 }
 
 .product__pot-option:focus-visible {
@@ -333,7 +342,7 @@
   outline-offset: 4px;
 }
 
-/* Add to Bag Button & Delivery Note */
+/* Add to Bag Button, Progress Line, Error Alert & Delivery Note */
 .product__actions {
   display: flex;
   flex-direction: column;
@@ -341,6 +350,8 @@
 }
 
 .product__add-btn {
+  position: relative;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -348,7 +359,7 @@
   height: 56px;
   min-height: 56px;
   padding-inline: var(--space-5);
-  border: 1px solid var(--charcoal);
+  border: 0;
   border-radius: 0;
   background-color: var(--charcoal);
   color: var(--bone);
@@ -362,7 +373,6 @@
   user-select: none;
   transition:
     background-color var(--transition-quiet),
-    border-color var(--transition-quiet),
     color var(--transition-quiet),
     transform 80ms ease;
 }
@@ -371,22 +381,67 @@
   opacity: 0.92;
 }
 
-.product__add-btn:active,
-.product__add-btn[data-pressed='true'] {
+.product__add-btn[aria-disabled='true'] {
+  cursor: progress;
+}
+
+.product__add-btn:active:not([aria-disabled='true']),
+.product__add-btn[data-pressed='true']:not([aria-disabled='true']) {
   transform: translateY(1px);
   background-color: var(--leaf);
-  border-color: var(--leaf);
 }
 
 .product__add-btn[data-state='added'] {
   background-color: var(--leaf);
-  border-color: var(--leaf);
   color: var(--bone);
+}
+
+/* 1px progress line animating along the bottom edge while pending */
+.product__add-btn::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 42%;
+  height: 1px;
+  background-color: var(--bone);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.product__add-btn[data-state='pending']::after {
+  opacity: 1;
+  animation: folia-btn-progress 950ms cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes folia-btn-progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(240%);
+  }
 }
 
 .product__add-btn:focus-visible {
   outline: 1.5px solid var(--color-text);
   outline-offset: 4px;
+}
+
+.product__error {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border-left: 2px solid var(--charcoal);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-body);
+  color: var(--color-text);
+}
+
+.product__error[hidden] {
+  display: none !important;
 }
 
 .product__delivery {
@@ -397,6 +452,20 @@
   line-height: var(--leading-normal);
   letter-spacing: var(--tracking-body);
   color: var(--color-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product__add-btn,
+  .product__add-btn::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .product__add-btn[data-state='pending']::after {
+    width: 100%;
+    transform: none;
+    opacity: 0.85;
+  }
 }
 
 /* Details Definition List (Height, Pot size, Light, Water, Pets) */
