@@ -7,7 +7,7 @@
   SPDX-License-Identifier: Apache-2.0
   -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="Folia — Architectural botanicals and rare specimen plants.">
   <title>FOLIA</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,17 +18,96 @@
   <link rel="stylesheet" href="./css/base.css">
 </head>
 
-<body>
+<body id="top">
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
+  <!-- 1px sentinel at the top of the page for IntersectionObserver nav state switching -->
+  <div id="scroll-sentinel" class="scroll-sentinel" aria-hidden="true"></div>
+
   <div class="page-shell">
-    <header id="site-header" class="site-header hairline-bottom">
-      <div class="container site-header__inner">
-        <a href="./" class="wordmark">FOLIA</a>
-      </div>
+    <header id="site-header" class="site-header" data-state="top" aria-label="Site header">
+      <nav class="site-header__bar" aria-label="Primary">
+        <button
+          type="button"
+          id="menu-open-btn"
+          class="nav-menu-btn"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          Menu
+        </button>
+
+        <ul class="nav-group nav-group--left">
+          <li><a href="#large-plants" class="nav-link">Large plants</a></li>
+          <li><a href="#small-plants" class="nav-link">Small plants</a></li>
+          <li><a href="#pots" class="nav-link">Pots</a></li>
+          <li><a href="#care" class="nav-link">Care</a></li>
+        </ul>
+
+        <a href="#top" class="site-header__wordmark" aria-label="Folia home">FOLIA</a>
+
+        <ul class="nav-group nav-group--right">
+          <li><a href="#search" class="nav-link">Search</a></li>
+          <li><a href="#bag" class="nav-link">Bag (0)</a></li>
+        </ul>
+      </nav>
     </header>
 
-    <main id="main-content" class="site-main" tabindex="-1"></main>
+    <!-- Full-screen overlay menu for viewports under 900px -->
+    <div
+      id="mobile-menu"
+      class="mobile-menu"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Site navigation"
+      aria-hidden="true"
+      data-open="false"
+    >
+      <div class="mobile-menu__top">
+        <button type="button" id="menu-close-btn" class="nav-menu-btn mobile-menu__close">
+          Close
+        </button>
+        <span class="mobile-menu__wordmark" aria-hidden="true">FOLIA</span>
+        <a href="#bag" class="nav-link" style="justify-self: end;">Bag (0)</a>
+      </div>
+
+      <ul class="mobile-menu__list">
+        <li><a href="#large-plants" class="mobile-menu__link">Large plants</a></li>
+        <li><a href="#small-plants" class="mobile-menu__link">Small plants</a></li>
+        <li><a href="#pots" class="mobile-menu__link">Pots</a></li>
+        <li><a href="#care" class="mobile-menu__link">Care</a></li>
+      </ul>
+
+      <div class="mobile-menu__footer">
+        <a href="#search" class="nav-link">Search</a>
+        <a href="#bag" class="nav-link">Bag (0)</a>
+      </div>
+    </div>
+
+    <main id="main-content" class="site-main" tabindex="-1">
+      <section class="hero" aria-label="Featured botanical showcase">
+        <div class="hero__media">
+          <img
+            src="/public/images/plant-hero.jpg"
+            alt="Sculptural fiddle-leaf fig tree in a dark charcoal stone planter standing against a warm plaster wall with soft botanical shadows"
+            class="hero__image"
+            width="2752"
+            height="1536"
+            fetchpriority="high"
+          >
+        </div>
+
+        <div class="hero__content">
+          <h1 class="hero__wordmark">FOLIA</h1>
+        </div>
+      </section>
+
+      <section class="next-section-test" aria-label="Next section">
+        <div class="container">
+          <p class="label">Next section</p>
+        </div>
+      </section>
+    </main>
 
     <footer id="site-footer" class="site-footer"></footer>
   </div>
