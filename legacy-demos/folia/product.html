@@ -46,9 +46,75 @@
 
         <ul class="nav-group nav-group--right">
           <li><a href="/#shop" class="nav-link">Search</a></li>
-          <li><a href="#bag" class="nav-link">Bag (0)</a></li>
+          <li>
+            <a
+              href="#bag"
+              id="nav-bag-btn"
+              class="nav-link"
+              aria-haspopup="dialog"
+              aria-expanded="false"
+              aria-controls="bag-drawer"
+              aria-live="polite"
+              aria-atomic="true"
+              data-bag-trigger
+            >Bag (0)</a>
+          </li>
         </ul>
       </nav>
+
+      <div id="bag-scrim" class="bag-scrim" data-open="false" aria-hidden="true"></div>
+
+      <div
+        id="bag-drawer"
+        class="bag-drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="bag-drawer-title"
+        aria-hidden="true"
+        data-open="false"
+      >
+        <div class="bag-drawer__header">
+          <h2 id="bag-drawer-title" class="bag-drawer__title">
+            Bag <span id="bag-drawer-count" class="bag-drawer__count">(0)</span>
+          </h2>
+          <button type="button" id="bag-close-btn" class="bag-drawer__close">
+            Close
+          </button>
+        </div>
+
+        <div id="bag-drawer-body" class="bag-drawer__body">
+          <div id="bag-empty" class="bag-drawer__empty">
+            <p class="bag-drawer__empty-text">Your bag is empty.</p>
+            <a href="/#shop" id="bag-continue-link" class="bag-drawer__continue-link">
+              Continue shopping
+            </a>
+          </div>
+
+          <ul id="bag-lines" class="bag-drawer__lines" role="list" hidden></ul>
+        </div>
+
+        <div id="bag-drawer-footer" class="bag-drawer__footer" hidden>
+          <div class="bag-drawer__subtotal-row">
+            <span class="bag-drawer__subtotal-label">Subtotal</span>
+            <span id="bag-subtotal" class="bag-drawer__subtotal-value">£0</span>
+          </div>
+          <p id="bag-delivery-note" class="bag-drawer__delivery" aria-live="polite">
+            Add £75 for free delivery
+          </p>
+          <button type="button" id="bag-checkout-btn" class="bag-drawer__checkout-btn">
+            Checkout
+          </button>
+          <p
+            id="bag-checkout-msg"
+            class="bag-drawer__checkout-msg"
+            role="status"
+            aria-live="polite"
+            hidden
+          >
+            Checkout is not built yet
+          </p>
+        </div>
+      </div>
     </header>
 
     <!-- Full-screen overlay menu for viewports under 900px -->
@@ -66,7 +132,15 @@
           Close
         </button>
         <span class="mobile-menu__wordmark" aria-hidden="true">FOLIA</span>
-        <a href="#bag" class="nav-link" style="justify-self: end;">Bag (0)</a>
+        <a
+          href="#bag"
+          class="nav-link"
+          style="justify-self: end;"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls="bag-drawer"
+          data-bag-trigger
+        >Bag (0)</a>
       </div>
 
       <ul class="mobile-menu__list">
@@ -78,7 +152,14 @@
 
       <div class="mobile-menu__footer">
         <a href="/#shop" class="nav-link">Search</a>
-        <a href="#bag" class="nav-link">Bag (0)</a>
+        <a
+          href="#bag"
+          class="nav-link"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls="bag-drawer"
+          data-bag-trigger
+        >Bag (0)</a>
       </div>
     </div>
 

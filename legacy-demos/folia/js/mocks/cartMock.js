@@ -11,44 +11,30 @@
 import { http, HttpResponse, delay } from 'msw';
 import { setupWorker } from 'msw/browser';
 import { getProductById } from '../products.js';
+import { loadBagLines, persistBagLinesQuietly, MAX_LINE_QTY } from '../bag.js';
 
-const STORAGE_KEY = 'folia-mock-db';
-const MAX_LINE_QTY = 9;
 const IDEMPOTENCY_TTL_MS = 60_000;
 const GET_LATENCY_MS = 400;
 const WRITE_BASE_LATENCY_MS = 1200;
 const WRITE_JITTER_MS = 300;
 
-function createEmptyDb() {
+let memoryIdempotency = {};
+let memoryUpdatedAt = new Date().toISOString();
+
+function readDb() {
+  const lines = loadBagLines();
   return {
-    lines: [],
-    updatedAt: new Date().toISOString(),
-    idempotency: {},
+    lines,
+    updatedAt: memoryUpdatedAt,
+    idempotency: memoryIdempotency,
   };
 }
 
-function readDb() {
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) {
-      const initial = createEmptyDb();
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(initial));
-      return initial;
-    }
-    const parsed = JSON.parse(raw);
-    return {
-      lines: Array.isArray(parsed?.lines) ? parsed.lines : [],
-      updatedAt: typeof parsed?.updatedAt === 'string' ? parsed.updatedAt : new Date().toISOString(),
-      idempotency:
-        parsed?.idempotency && typeof parsed.idempotency === 'object' ? parsed.idempotency : {},
-    };
-  } catch {
-    return createEmptyDb();
-  }
-}
-
 function writeDb(db) {
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+  const cleanLines = persistBagLinesQuietly(db.lines || []);
+  memoryUpdatedAt = db.updatedAt || new Date().toISOString();
+  memoryIdempotency = db.idempotency || {};
+  return cleanLines;
 }
 
 function pruneIdempotencyKeys(db, nowMs = Date.now()) {

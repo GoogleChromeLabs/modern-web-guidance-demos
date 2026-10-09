@@ -7,6 +7,7 @@
 
 import { CATEGORIES, formatPrice, getProductById } from './products.js';
 import { cartApi, CartApiError } from './cartApi.js';
+import { initBagDrawer, openBagDrawer, syncBagFromCart, incrementBagLine } from './bag.js';
 
 const MIN_PENDING_MS = 400;
 const SUCCESS_HOLD_MS = 1500;
@@ -296,6 +297,7 @@ function ensureProductDomShell() {
 
 export function initProductPage() {
   ensureProductDomShell();
+  initBagDrawer();
 
   const pageController = new AbortController();
   const abortPageRequests = () => {
@@ -326,7 +328,7 @@ export function initProductPage() {
     .getCart({ signal: pageController.signal })
     .then((cart) => {
       if (!pageController.signal.aborted) {
-        cartApi.syncBagCountElements(cart);
+        syncBagFromCart(cart);
       }
     })
     .catch(() => {
@@ -628,13 +630,19 @@ export function initProductPage() {
       const startedAt = performance.now();
 
       try {
-        const updatedCart = await cartApi.addLine({
-          productId: capturedProductId,
-          variantId: capturedVariantId,
-          quantity: 1,
-          idempotencyKey: activeIdempotencyKey,
-          signal: pageController.signal,
-        });
+        let updatedCart;
+        if (import.meta.env.DEV) {
+          updatedCart = await cartApi.addLine({
+            productId: capturedProductId,
+            variantId: capturedVariantId,
+            quantity: 1,
+            idempotencyKey: activeIdempotencyKey,
+            signal: pageController.signal,
+          });
+        } else {
+          const nextLines = incrementBagLine(capturedProductId, capturedVariantId, 1);
+          updatedCart = { lines: nextLines, updatedAt: new Date().toISOString() };
+        }
 
         const elapsed = performance.now() - startedAt;
         if (elapsed < MIN_PENDING_MS) {
@@ -648,13 +656,15 @@ export function initProductPage() {
         retryIntent = null;
         setPotSelectorLocked(false);
 
-        cartApi.syncBagCountElements(updatedCart);
+        syncBagFromCart(updatedCart);
 
         setButtonLabel('Added');
         addBtn.setAttribute('data-state', 'added');
         addBtn.removeAttribute('aria-busy');
         addBtn.removeAttribute('aria-disabled');
         announcePolite('Added to your bag');
+
+        openBagDrawer({ triggerEl: addBtn });
 
         addedStateTimer = window.setTimeout(() => {
           if (pageController.signal.aborted || isPending) return;

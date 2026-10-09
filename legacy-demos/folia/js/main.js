@@ -8,6 +8,7 @@
 import { CATEGORIES, PRODUCTS, formatPrice } from './products.js';
 import { initProductPage } from './product.js';
 import { cartApi } from './cartApi.js';
+import { initBagDrawer, syncBagFromCart } from './bag.js';
 
 function initHeaderStateObserver() {
   const header = document.getElementById('site-header');
@@ -435,10 +436,12 @@ const isProductRoute =
 
 if (isProductRoute) {
   initMobileMenu();
+  initBagDrawer();
   initProductPage();
 } else {
   initHeaderStateObserver();
   initMobileMenu();
+  initBagDrawer();
   initEditorialReveal();
   initLookbook();
 
@@ -448,7 +451,7 @@ if (isProductRoute) {
     .getCart({ signal: homeController.signal })
     .then((cart) => {
       if (!homeController.signal.aborted) {
-        cartApi.syncBagCountElements(cart);
+        syncBagFromCart(cart);
       }
     })
     .catch(() => {
