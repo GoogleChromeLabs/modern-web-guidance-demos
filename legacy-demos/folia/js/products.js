@@ -75,9 +75,13 @@ export const PRODUCTS = [
     price: 18900,
     category: 'large',
     image: '/public/images/cells/olive-tree.jpg',
-    images: ['/public/images/cells/olive-tree.jpg'],
+    images: [
+      '/public/images/products/olive-tree/01.jpg',
+      '/public/images/products/olive-tree/02.jpg',
+    ],
     alts: [
       'Olive tree (Olea europaea, 140 cm) with silvery-green foliage in a studio pot against a mid-grey backdrop',
+      'Close-up of narrow, silvery-green Olea europaea leaves showing fine veining and matte undersides',
     ],
     description:
       'A pruned Mediterranean standard with narrow, silvery-green leaves and a pale woody trunk. Suited to sun-drenched corners and south-facing windows.',
@@ -94,9 +98,13 @@ export const PRODUCTS = [
     price: 21000,
     category: 'large',
     image: '/public/images/cells/strelitzia-nicolai.jpg',
-    images: ['/public/images/cells/strelitzia-nicolai.jpg'],
+    images: [
+      '/public/images/products/strelitzia-nicolai/01.jpg',
+      '/public/images/products/strelitzia-nicolai/02.jpg',
+    ],
     alts: [
       'Bird of paradise (Strelitzia nicolai, 150 cm) with tall fan-like leaves in a studio pot against a mid-grey backdrop',
+      'Close-up of paddle-shaped Strelitzia nicolai leaves showing parallel lateral ribbing and central midrib',
     ],
     description:
       'Tall, fan-arranged stems carrying broad, paddle-shaped leaves that split naturally with age. Built for high ceilings and generous floor space.',
@@ -132,9 +140,13 @@ export const PRODUCTS = [
     price: 5200,
     category: 'small',
     image: '/public/images/cells/calathea-orbifolia.jpg',
-    images: ['/public/images/cells/calathea-orbifolia.jpg'],
+    images: [
+      '/public/images/products/calathea-orbifolia/01.jpg',
+      '/public/images/products/calathea-orbifolia/02.jpg',
+    ],
     alts: [
       'Round-leaf calathea (Goeppertia orbifolia, 45 cm) with silver-banded round leaves in a studio pot against a mid-grey backdrop',
+      'Close-up of pleated Goeppertia orbifolia leaves with alternating pale silver-green and deep green stripes',
     ],
     description:
       'Wide, pleated leaves striped with pale silver-green brushstrokes that rise and fold quietly between day and night.',
@@ -170,9 +182,13 @@ export const PRODUCTS = [
     price: 9800,
     category: 'large',
     image: '/public/images/cells/monstera-deliciosa.jpg',
-    images: ['/public/images/cells/monstera-deliciosa.jpg'],
+    images: [
+      '/public/images/products/monstera-deliciosa/01.jpg',
+      '/public/images/products/monstera-deliciosa/02.jpg',
+    ],
     alts: [
       'Swiss cheese plant (Monstera deliciosa, 90 cm) with fenestrated dark green leaves in a studio pot against a mid-grey backdrop',
+      'Close-up of fenestrated Monstera deliciosa leaves showing deep lobes, surface texture, and primary veins',
     ],
     description:
       'Heavy, perforated leaves that cast graphic shadows across plaster and stone. Trained upright on a discreet central support.',
@@ -227,9 +243,13 @@ export const PRODUCTS = [
     price: 4400,
     category: 'small',
     image: '/public/images/cells/alocasia-polly.jpg',
-    images: ['/public/images/cells/alocasia-polly.jpg'],
+    images: [
+      '/public/images/products/alocasia-polly/01.jpg',
+      '/public/images/products/alocasia-polly/02.jpg',
+    ],
     alts: [
       "Alocasia 'Polly' (Alocasia × amazonica 'Polly', 45 cm) with arrow-shaped leaves and pale veins in a studio pot against a mid-grey backdrop",
+      "Close-up of arrow-shaped Alocasia × amazonica 'Polly' leaves showing high-contrast ivory ribs and scalloped margins",
     ],
     description:
       'Arrowhead leaves with scalloped margins and high-contrast ivory ribs over deep green blades.',
