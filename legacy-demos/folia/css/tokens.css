@@ -17,6 +17,7 @@
 
   /* Core Theme Tokens (Light Mode Default) */
   --bone: #F4F1EC;
+  --raised: var(--bone);
   --stone: #D9D3C9;
   --greige: #A8A196;
   --charcoal: #1F1F1D;
@@ -109,6 +110,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --bone: #151513;
+    --raised: #1E1E1B;
     --stone: #2C2A26;
     --greige: #9B9489;
     --charcoal: #F4F1EC;

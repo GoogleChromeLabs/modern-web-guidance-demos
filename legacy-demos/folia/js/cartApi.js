@@ -239,8 +239,11 @@ export function getCartItemCount(cart) {
  */
 export function syncBagCountElements(cart) {
   const count = getCartItemCount(cart);
-  document.querySelectorAll('a[href="#bag"]').forEach((el) => {
-    el.textContent = `Bag (${count})`;
+  const label = `Bag (${count})`;
+  document.querySelectorAll('[data-bag-trigger], a[href="#bag"]').forEach((el) => {
+    if (el.textContent !== label) {
+      el.textContent = label;
+    }
   });
 }
 
