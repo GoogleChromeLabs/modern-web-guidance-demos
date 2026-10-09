@@ -6,19 +6,11 @@
  */
 
 import { CATEGORIES, formatPrice, getProductById } from './products.js';
+import { cartApi, CartApiError } from './cartApi.js';
 
-/**
- * Stub bag handler: logs the product and variant IDs to the console.
- * @param {string} productId
- * @param {string} variantId
- */
-export function addToBag(productId, variantId) {
-  console.log('addToBag', { productId, variantId });
-}
-
-if (typeof window !== 'undefined') {
-  window.addToBag = addToBag;
-}
+const MIN_PENDING_MS = 400;
+const SUCCESS_HOLD_MS = 1500;
+const ERROR_ALERT_TEXT = 'We could not add this to your bag. Please try again.';
 
 const PRODUCT_MAIN_TEMPLATE = `
   <article id="product-view" class="product">
@@ -69,10 +61,22 @@ const PRODUCT_MAIN_TEMPLATE = `
           type="button"
           id="add-to-bag-btn"
           class="product__add-btn"
-          data-state="default"
+          data-state="idle"
         >
-          Add to bag
+          <span id="add-to-bag-label" class="product__add-btn-label">Add to bag</span>
         </button>
+        <p
+          id="add-to-bag-error"
+          class="product__error"
+          role="alert"
+          hidden
+        ></p>
+        <div
+          id="product-live-status"
+          class="visually-hidden"
+          aria-live="polite"
+          aria-atomic="true"
+        ></div>
         <p class="product__delivery">
           Free delivery over £75. Arrives in 2 to 4 working days.
         </p>
@@ -118,6 +122,30 @@ const PRODUCT_MAIN_TEMPLATE = `
     </a>
   </section>
 `;
+
+function createIdempotencyKey() {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return `idem-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
+function waitMs(ms, signal) {
+  if (ms <= 0) return Promise.resolve();
+  return new Promise((resolve) => {
+    const timer = window.setTimeout(resolve, ms);
+    if (signal) {
+      signal.addEventListener(
+        'abort',
+        () => {
+          window.clearTimeout(timer);
+          resolve();
+        },
+        { once: true }
+      );
+    }
+  });
+}
 
 export function initMobileMenu() {
   const openBtn = document.getElementById('menu-open-btn');
@@ -269,6 +297,42 @@ function ensureProductDomShell() {
 export function initProductPage() {
   ensureProductDomShell();
 
+  const pageController = new AbortController();
+  const abortPageRequests = () => {
+    if (!pageController.signal.aborted) {
+      pageController.abort('PAGE_LEAVE');
+    }
+  };
+
+  window.addEventListener('pagehide', abortPageRequests, { once: true });
+  window.addEventListener('beforeunload', abortPageRequests, { once: true });
+
+  // Also abort cleanly if user clicks an internal navigation link mid-request
+  document.addEventListener(
+    'click',
+    (event) => {
+      const anchor = event.target.closest('a[href]');
+      if (!anchor) return;
+      const href = anchor.getAttribute('href') || '';
+      if (href && !href.startsWith('#')) {
+        abortPageRequests();
+      }
+    },
+    { capture: true }
+  );
+
+  // Sync initial bag count from GET /api/cart without blocking page render
+  cartApi
+    .getCart({ signal: pageController.signal })
+    .then((cart) => {
+      if (!pageController.signal.aborted) {
+        cartApi.syncBagCountElements(cart);
+      }
+    })
+    .catch(() => {
+      // Ignore initial background sync errors or aborts
+    });
+
   const productView = document.getElementById('product-view');
   const notFoundView = document.getElementById('product-not-found');
   const backLink = document.getElementById('product-back-link');
@@ -368,16 +432,36 @@ export function initProductPage() {
   if (latinEl) latinEl.textContent = product.latin;
   if (descEl) descEl.textContent = product.description;
 
-  // 4. Pot Finish Radio Group (Accessible keyboard support)
+  // 4. Pot Finish Radio Group (Accessible keyboard support + pending lock)
   const potOptionsContainer = document.getElementById('product-pot-options');
   const pots = Array.isArray(product.pots) ? product.pots : [];
   let selectedVariantId = pots[0]?.id || '';
+  let isPending = false;
+  const optionButtons = [];
+
+  function setPotSelectorLocked(locked) {
+    if (!potOptionsContainer) return;
+    if (locked) {
+      potOptionsContainer.setAttribute('data-locked', 'true');
+      potOptionsContainer.setAttribute('aria-disabled', 'true');
+    } else {
+      potOptionsContainer.removeAttribute('data-locked');
+      potOptionsContainer.removeAttribute('aria-disabled');
+    }
+    for (const btn of optionButtons) {
+      if (locked) {
+        btn.setAttribute('aria-disabled', 'true');
+      } else {
+        btn.removeAttribute('aria-disabled');
+      }
+    }
+  }
 
   if (potOptionsContainer && pots.length > 0) {
-    const optionButtons = [];
     const potFragment = document.createDocumentFragment();
 
     function selectPotOption(targetIndex, { focus = false } = {}) {
+      if (isPending) return;
       const boundedIndex = (targetIndex + optionButtons.length) % optionButtons.length;
       optionButtons.forEach((btn, idx) => {
         const isSelected = idx === boundedIndex;
@@ -404,6 +488,7 @@ export function initProductPage() {
       btn.textContent = pot.label;
 
       btn.addEventListener('click', () => {
+        if (isPending) return;
         selectPotOption(index, { focus: false });
       });
 
@@ -414,6 +499,22 @@ export function initProductPage() {
     potOptionsContainer.replaceChildren(potFragment);
 
     potOptionsContainer.addEventListener('keydown', (event) => {
+      if (isPending) {
+        if (
+          event.key === 'ArrowRight' ||
+          event.key === 'ArrowDown' ||
+          event.key === 'ArrowLeft' ||
+          event.key === 'ArrowUp' ||
+          event.key === 'Home' ||
+          event.key === 'End' ||
+          event.key === ' ' ||
+          event.key === 'Enter'
+        ) {
+          event.preventDefault();
+        }
+        return;
+      }
+
       const currentIndex = optionButtons.findIndex(
         (btn) => btn.getAttribute('aria-checked') === 'true'
       );
@@ -441,12 +542,36 @@ export function initProductPage() {
     });
   }
 
-  // 5. Add to Bag Button (default, pressed, "Added" for 1.5s while staying enabled)
+  // 5. Add to Bag Button (idle -> pending -> success / failure with Idempotency-Key retry)
   const addBtn = document.getElementById('add-to-bag-btn');
+  const addBtnLabel = document.getElementById('add-to-bag-label');
+  const errorEl = document.getElementById('add-to-bag-error');
+  const liveStatusEl = document.getElementById('product-live-status');
+
   let addedStateTimer = null;
+  let retryIntent = null;
+
+  function setButtonLabel(text) {
+    if (addBtnLabel) {
+      addBtnLabel.textContent = text;
+    } else if (addBtn) {
+      addBtn.textContent = text;
+    }
+  }
+
+  function announcePolite(message) {
+    if (!liveStatusEl) return;
+    liveStatusEl.textContent = '';
+    window.requestAnimationFrame(() => {
+      if (!pageController.signal.aborted) {
+        liveStatusEl.textContent = message;
+      }
+    });
+  }
 
   if (addBtn) {
     addBtn.addEventListener('pointerdown', () => {
+      if (isPending) return;
       addBtn.setAttribute('data-pressed', 'true');
     });
 
@@ -457,21 +582,115 @@ export function initProductPage() {
     addBtn.addEventListener('pointerleave', clearPressed);
     addBtn.addEventListener('pointercancel', clearPressed);
 
-    addBtn.addEventListener('click', () => {
-      addToBag(product.id, selectedVariantId);
+    addBtn.addEventListener('click', async () => {
+      // Ignore extra clicks while pending; focus stays on the button
+      if (isPending) return;
 
       if (addedStateTimer) {
         window.clearTimeout(addedStateTimer);
+        addedStateTimer = null;
       }
 
-      addBtn.textContent = 'Added';
-      addBtn.setAttribute('data-state', 'added');
+      // Capture product and variant at click time
+      const capturedProductId = product.id;
+      const capturedVariantId = selectedVariantId;
 
-      addedStateTimer = window.setTimeout(() => {
-        addBtn.textContent = 'Add to bag';
-        addBtn.setAttribute('data-state', 'default');
-        addedStateTimer = null;
-      }, 1500);
+      // Reuse the same Idempotency-Key when retrying a failed attempt for the same product + variant
+      if (
+        !retryIntent ||
+        retryIntent.productId !== capturedProductId ||
+        retryIntent.variantId !== capturedVariantId
+      ) {
+        retryIntent = {
+          productId: capturedProductId,
+          variantId: capturedVariantId,
+          idempotencyKey: createIdempotencyKey(),
+        };
+      }
+
+      const activeIdempotencyKey = retryIntent.idempotencyKey;
+
+      // Enter pending state
+      isPending = true;
+      setPotSelectorLocked(true);
+
+      if (errorEl) {
+        errorEl.hidden = true;
+        errorEl.textContent = '';
+      }
+
+      setButtonLabel('Adding');
+      addBtn.setAttribute('data-state', 'pending');
+      addBtn.setAttribute('aria-busy', 'true');
+      addBtn.setAttribute('aria-disabled', 'true');
+      announcePolite(`Adding ${product.name} to your bag`);
+
+      const startedAt = performance.now();
+
+      try {
+        const updatedCart = await cartApi.addLine({
+          productId: capturedProductId,
+          variantId: capturedVariantId,
+          quantity: 1,
+          idempotencyKey: activeIdempotencyKey,
+          signal: pageController.signal,
+        });
+
+        const elapsed = performance.now() - startedAt;
+        if (elapsed < MIN_PENDING_MS) {
+          await waitMs(MIN_PENDING_MS - elapsed, pageController.signal);
+        }
+
+        if (pageController.signal.aborted) return;
+
+        // Transition to success state
+        isPending = false;
+        retryIntent = null;
+        setPotSelectorLocked(false);
+
+        cartApi.syncBagCountElements(updatedCart);
+
+        setButtonLabel('Added');
+        addBtn.setAttribute('data-state', 'added');
+        addBtn.removeAttribute('aria-busy');
+        addBtn.removeAttribute('aria-disabled');
+        announcePolite('Added to your bag');
+
+        addedStateTimer = window.setTimeout(() => {
+          if (pageController.signal.aborted || isPending) return;
+          setButtonLabel('Add to bag');
+          addBtn.setAttribute('data-state', 'idle');
+          addedStateTimer = null;
+        }, SUCCESS_HOLD_MS);
+      } catch (err) {
+        if (
+          pageController.signal.aborted ||
+          (err instanceof CartApiError && err.code === 'ABORT_ERROR')
+        ) {
+          return;
+        }
+
+        const elapsed = performance.now() - startedAt;
+        if (elapsed < MIN_PENDING_MS) {
+          await waitMs(MIN_PENDING_MS - elapsed, pageController.signal);
+        }
+
+        if (pageController.signal.aborted) return;
+
+        // Transition to failure state (keeping retryIntent.idempotencyKey for retry)
+        isPending = false;
+        setPotSelectorLocked(false);
+
+        setButtonLabel('Try again');
+        addBtn.setAttribute('data-state', 'error');
+        addBtn.removeAttribute('aria-busy');
+        addBtn.removeAttribute('aria-disabled');
+
+        if (errorEl) {
+          errorEl.textContent = ERROR_ALERT_TEXT;
+          errorEl.hidden = false;
+        }
+      }
     });
   }
 

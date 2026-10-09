@@ -7,6 +7,7 @@
 
 import { CATEGORIES, PRODUCTS, formatPrice } from './products.js';
 import { initProductPage } from './product.js';
+import { cartApi } from './cartApi.js';
 
 function initHeaderStateObserver() {
   const header = document.getElementById('site-header');
@@ -440,4 +441,17 @@ if (isProductRoute) {
   initMobileMenu();
   initEditorialReveal();
   initLookbook();
+
+  const homeController = new AbortController();
+  window.addEventListener('pagehide', () => homeController.abort(), { once: true });
+  cartApi
+    .getCart({ signal: homeController.signal })
+    .then((cart) => {
+      if (!homeController.signal.aborted) {
+        cartApi.syncBagCountElements(cart);
+      }
+    })
+    .catch(() => {
+      // Ignore background cart fetch abort or error
+    });
 }
