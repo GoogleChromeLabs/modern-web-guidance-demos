@@ -9,6 +9,9 @@ import { CATEGORIES, PRODUCTS, formatPrice } from './products.js';
 import { initProductPage } from './product.js';
 import { cartApi } from './cartApi.js';
 import { FREE_DELIVERY_THRESHOLD_PENCE, initBagDrawer, syncBagFromCart } from './bag.js';
+import { initFooter, subscribe } from './footer.js';
+
+export { subscribe };
 
 export const STORY_DETAILS = [
   {
@@ -481,10 +484,12 @@ if (isProductRoute) {
   initMobileMenu();
   initBagDrawer();
   initProductPage();
+  initFooter();
 } else {
   initHeaderStateObserver();
   initMobileMenu();
   initBagDrawer();
+  initFooter();
   initEditorialReveal();
   initLookbook();
   initStory();

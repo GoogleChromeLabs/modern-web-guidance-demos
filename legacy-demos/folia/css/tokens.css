@@ -28,11 +28,12 @@
   --fg: var(--charcoal);
   --line: var(--stone);
   --muted: var(--greige);
+  --accent: var(--leaf);
   --color-page: var(--bg);
   --color-line: var(--line);
   --color-muted: var(--muted);
   --color-text: var(--fg);
-  --color-accent: var(--leaf);
+  --color-accent: var(--accent);
   --nav-ink: var(--palette-charcoal);
   --hero-ink: var(--palette-charcoal);
   --lookbook-grey: #8F8F8D;
@@ -124,10 +125,11 @@
     --fg: var(--charcoal);
     --line: var(--stone);
     --muted: var(--greige);
+    --accent: var(--leaf);
     --color-page: var(--bg);
     --color-line: var(--line);
     --color-muted: var(--muted);
     --color-text: var(--fg);
-    --color-accent: var(--leaf);
+    --color-accent: var(--accent);
   }
 }
