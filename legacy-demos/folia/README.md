@@ -4,4 +4,4 @@ Quiet, editorial plant shop storefront built with vanilla HTML, CSS, and JavaScr
 
 ## Image Assets
 
-Place image files in `/public/images`: `hero.jpg`, `ficus-audrey.jpg`, `monstera-deliciosa.jpg`, `olive-tree.jpg`, `philodendron-billietiae.jpg`, `alocasia-frydek.jpg`, `strelitzia-nicolai.jpg`, `editorial-studio.jpg`
+Place image files in `/public/images`: `plant-hero.jpg`, `ficus-audrey.jpg`, `monstera-deliciosa.jpg`, `olive-tree.jpg`, `philodendron-billietiae.jpg`, `alocasia-frydek.jpg`, `strelitzia-nicolai.jpg`, `editorial-studio.jpg`

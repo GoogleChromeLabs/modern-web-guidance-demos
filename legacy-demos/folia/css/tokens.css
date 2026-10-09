@@ -28,6 +28,8 @@
   --color-muted: var(--greige);
   --color-text: var(--charcoal);
   --color-accent: var(--leaf);
+  --nav-ink: var(--palette-charcoal);
+  --hero-ink: var(--palette-charcoal);
 
   /* Typography — Families */
   --font-display: 'Bodoni Moda', Georgia, 'Times New Roman', serif;
