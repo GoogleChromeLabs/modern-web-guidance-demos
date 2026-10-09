@@ -1,0 +1,162 @@
+/**
+ * Copyright 2026 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Folia Storefront — Section 3: Product Lookbook Grid
+ */
+
+.lookbook {
+  width: 100%;
+  background-color: var(--lookbook-grey);
+  scroll-margin-top: calc(var(--header-height, 64px) + env(safe-area-inset-top, 0px));
+  overflow-x: clip;
+}
+
+/* Slim heading row at the top of the section */
+.lookbook__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: var(--space-3);
+  padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
+  background-color: var(--lookbook-grey);
+  border-bottom: 1px solid var(--lookbook-line);
+}
+
+.lookbook__heading,
+.lookbook__count {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: 0.75rem; /* 12px */
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--palette-charcoal);
+}
+
+/* Lookbook Grid: 2 cols (<600px), 3 cols (600-999px), 6 cols (>=1000px) */
+/* Divided by 1px dark hairlines (rgba(0,0,0,0.5)) via grid gap technique, no outer border */
+.lookbook__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: var(--lookbook-line);
+  border: 0;
+}
+
+@media (min-width: 600px) {
+  .lookbook__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .lookbook__grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.lookbook__item {
+  position: relative;
+  min-width: 0;
+  background-color: var(--lookbook-grey);
+}
+
+.lookbook__cell {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  background-color: var(--lookbook-grey);
+  overflow: hidden;
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+/* Focus-visible: 2px white inset outline on the cell */
+.lookbook__cell:focus-visible {
+  outline: 2px solid #FFFFFF;
+  outline-offset: -2px;
+}
+
+.lookbook__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  object-position: center center;
+  background-color: var(--lookbook-grey);
+}
+
+/* Cell Caption Overlay: Name, Latin name, and Price in small white uppercase Inter Tight */
+.lookbook__caption {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: var(--space-6) var(--space-3) var(--space-3);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.35), transparent);
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: 0.625rem; /* 10px — smaller on <600px where always shown */
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.lookbook__caption-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.lookbook__name {
+  font-weight: var(--font-weight-regular);
+  color: #FFFFFF;
+}
+
+.lookbook__price {
+  font-weight: var(--font-weight-regular);
+  color: #FFFFFF;
+  white-space: nowrap;
+}
+
+.lookbook__latin {
+  font-weight: var(--font-weight-light);
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* On viewports >= 600px with hover capability, hide caption until hover or keyboard focus */
+@media (min-width: 600px) and (hover: hover) {
+  .lookbook__caption {
+    padding: var(--space-6) var(--space-4) var(--space-4);
+    font-size: 0.75rem; /* 12px */
+    opacity: 0;
+    transition: opacity 200ms ease;
+  }
+
+  .lookbook__cell:hover .lookbook__caption,
+  .lookbook__cell:focus-visible .lookbook__caption {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lookbook__caption {
+    transition: none !important;
+  }
+}

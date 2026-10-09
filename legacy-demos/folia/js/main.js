@@ -5,6 +5,8 @@
  * Folia Storefront — Main Application Entry
  */
 
+import { PRODUCTS } from './products.js';
+
 function initHeaderStateObserver() {
   const header = document.getElementById('site-header');
   const sentinel = document.getElementById('scroll-sentinel');
@@ -127,6 +129,68 @@ function initEditorialReveal() {
   observer.observe(section);
 }
 
+function renderLookbookGrid(items = PRODUCTS) {
+  const grid = document.getElementById('lookbook-grid');
+  const countEl = document.getElementById('lookbook-count');
+
+  if (!grid) return;
+
+  if (countEl) {
+    countEl.textContent = `${items.length} ${items.length === 1 ? 'piece' : 'pieces'}`;
+  }
+
+  const fragment = document.createDocumentFragment();
+
+  for (const product of items) {
+    const li = document.createElement('li');
+    li.className = 'lookbook__item';
+    li.dataset.category = product.category;
+
+    const link = document.createElement('a');
+    link.className = 'lookbook__cell';
+    link.href = product.href;
+    link.setAttribute('aria-label', `${product.name}, £${product.price}`);
+
+    const img = document.createElement('img');
+    img.className = 'lookbook__image';
+    img.src = product.image;
+    img.alt = `${product.name} (${product.latin}, ${product.size}) in a studio pot against a mid-grey backdrop`;
+    img.width = 848;
+    img.height = 1264;
+    img.loading = 'lazy';
+    img.decoding = 'async';
+
+    const caption = document.createElement('div');
+    caption.className = 'lookbook__caption';
+    caption.setAttribute('aria-hidden', 'true');
+
+    const topRow = document.createElement('div');
+    topRow.className = 'lookbook__caption-row';
+
+    const nameSpan = document.createElement('span');
+    nameSpan.className = 'lookbook__name';
+    nameSpan.textContent = product.name;
+
+    const priceSpan = document.createElement('span');
+    priceSpan.className = 'lookbook__price';
+    priceSpan.textContent = `£${product.price}`;
+
+    topRow.append(nameSpan, priceSpan);
+
+    const latinSpan = document.createElement('span');
+    latinSpan.className = 'lookbook__latin';
+    latinSpan.textContent = product.latin;
+
+    caption.append(topRow, latinSpan);
+    link.append(img, caption);
+    li.append(link);
+    fragment.append(li);
+  }
+
+  grid.replaceChildren(fragment);
+}
+
 initHeaderStateObserver();
 initMobileMenu();
 initEditorialReveal();
+renderLookbookGrid();

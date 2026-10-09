@@ -30,6 +30,8 @@
   --color-accent: var(--leaf);
   --nav-ink: var(--palette-charcoal);
   --hero-ink: var(--palette-charcoal);
+  --lookbook-grey: #8F8F8D;
+  --lookbook-line: rgba(0, 0, 0, 0.5);
 
   /* Typography — Families */
   --font-display: 'Bodoni Moda', Georgia, 'Times New Roman', serif;
