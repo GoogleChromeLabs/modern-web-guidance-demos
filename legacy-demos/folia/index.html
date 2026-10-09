@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Inter+Tight:wght@300;400&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Inter+Tight:wght@300;400;500;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="./css/base.css">
 </head>
@@ -39,16 +39,16 @@
         </button>
 
         <ul class="nav-group nav-group--left">
-          <li><a href="#large-plants" class="nav-link">Large plants</a></li>
-          <li><a href="#small-plants" class="nav-link">Small plants</a></li>
-          <li><a href="#pots" class="nav-link">Pots</a></li>
-          <li><a href="#care" class="nav-link">Care</a></li>
+          <li><a href="/?category=large#shop" class="nav-link" data-category="large">Large plants</a></li>
+          <li><a href="/?category=small#shop" class="nav-link" data-category="small">Small plants</a></li>
+          <li><a href="/?category=pots#shop" class="nav-link" data-category="pots">Pots</a></li>
+          <li><a href="/?category=care#shop" class="nav-link" data-category="care">Care</a></li>
         </ul>
 
         <a href="#top" class="site-header__wordmark" aria-label="Folia home">FOLIA</a>
 
         <ul class="nav-group nav-group--right">
-          <li><a href="#search" class="nav-link">Search</a></li>
+          <li><a href="#shop" class="nav-link" data-nav-search>Search</a></li>
           <li><a href="#bag" class="nav-link">Bag (0)</a></li>
         </ul>
       </nav>
@@ -73,14 +73,14 @@
       </div>
 
       <ul class="mobile-menu__list">
-        <li><a href="#large-plants" class="mobile-menu__link">Large plants</a></li>
-        <li><a href="#small-plants" class="mobile-menu__link">Small plants</a></li>
-        <li><a href="#pots" class="mobile-menu__link">Pots</a></li>
-        <li><a href="#care" class="mobile-menu__link">Care</a></li>
+        <li><a href="/?category=large#shop" class="mobile-menu__link" data-category="large">Large plants</a></li>
+        <li><a href="/?category=small#shop" class="mobile-menu__link" data-category="small">Small plants</a></li>
+        <li><a href="/?category=pots#shop" class="mobile-menu__link" data-category="pots">Pots</a></li>
+        <li><a href="/?category=care#shop" class="mobile-menu__link" data-category="care">Care</a></li>
       </ul>
 
       <div class="mobile-menu__footer">
-        <a href="#search" class="nav-link">Search</a>
+        <a href="#shop" class="nav-link" data-nav-search>Search</a>
         <a href="#bag" class="nav-link">Bag (0)</a>
       </div>
     </div>
@@ -130,17 +130,48 @@
               <span>Chosen for low light.</span>
             </p>
             <p class="editorial__volume">Vol. 1</p>
-            <a href="#shop" class="editorial__cta">Shop the collection</a>
+            <a href="#shop" class="editorial__cta" data-category="all">Shop the collection</a>
           </div>
         </div>
       </section>
 
       <section id="shop" class="lookbook" aria-labelledby="lookbook-heading">
-        <div class="lookbook__header">
-          <h2 id="lookbook-heading" class="lookbook__heading">Autumn collection</h2>
-          <p id="lookbook-count" class="lookbook__count">12 pieces</p>
+        <h2 id="lookbook-heading" class="visually-hidden">Shop catalogue</h2>
+
+        <div id="lookbook-bar" class="lookbook__bar">
+          <div
+            id="lookbook-filters"
+            class="lookbook__filters"
+            role="group"
+            aria-label="Filter by category"
+          ></div>
+
+          <div class="lookbook__tools">
+            <div class="lookbook__search">
+              <label for="lookbook-search" class="lookbook__search-label">Search</label>
+              <input
+                id="lookbook-search"
+                class="lookbook__search-input"
+                type="search"
+                placeholder="Search plants"
+                autocomplete="off"
+                spellcheck="false"
+              >
+            </div>
+            <p id="lookbook-count" class="lookbook__count" aria-live="polite" aria-atomic="true">
+              12 pieces
+            </p>
+          </div>
         </div>
+
         <ul id="lookbook-grid" class="lookbook__grid" role="list"></ul>
+
+        <div id="lookbook-empty" class="lookbook__empty" hidden>
+          <p id="lookbook-empty-text" class="lookbook__empty-text">Nothing matches that search</p>
+          <button type="button" id="lookbook-reset-btn" class="lookbook__reset-btn">
+            Show everything
+          </button>
+        </div>
       </section>
     </main>
 

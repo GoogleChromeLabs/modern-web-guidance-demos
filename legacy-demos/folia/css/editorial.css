@@ -10,7 +10,7 @@
   width: 100%;
   min-height: 100vh;
   min-height: 100svh;
-  scroll-margin-top: calc(var(--header-height, 64px) + env(safe-area-inset-top, 0px));
+  scroll-margin-top: calc(var(--header-h, 64px) + env(safe-area-inset-top, 0px));
   background-color: #FFFFFF;
   overflow: hidden;
   display: flex;

@@ -5,6 +5,13 @@
  * Folia Storefront — Product Catalogue Data (12 Specimens)
  */
 
+export const CATEGORIES = [
+  { id: 'large', label: 'Large', emptyMessage: 'Large plants are coming soon.' },
+  { id: 'small', label: 'Small', emptyMessage: 'Small plants are coming soon.' },
+  { id: 'pots', label: 'Pots', emptyMessage: 'Pots are coming soon.' },
+  { id: 'care', label: 'Care', emptyMessage: 'Care is coming soon.' },
+];
+
 export const PRODUCTS = [
   {
     id: 'ficus-lyrata',
@@ -122,7 +129,7 @@ export const PRODUCTS = [
     latin: 'Euphorbia ammak',
     size: '80 cm',
     price: 84,
-    category: 'large',
+    category: 'small',
     image: '/public/images/cells/euphorbia-ammak.jpg',
     href: '/products/euphorbia-ammak',
   },
