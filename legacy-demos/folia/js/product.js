@@ -8,6 +8,9 @@
 import { CATEGORIES, formatPrice, getProductById } from './products.js';
 import { cartApi, CartApiError } from './cartApi.js';
 import { initBagDrawer, openBagDrawer, syncBagFromCart, incrementBagLine } from './bag.js';
+import { initFooter, subscribe } from './footer.js';
+
+export { subscribe };
 
 const MIN_PENDING_MS = 400;
 const SUCCESS_HOLD_MS = 1500;
@@ -298,6 +301,7 @@ function ensureProductDomShell() {
 export function initProductPage() {
   ensureProductDomShell();
   initBagDrawer();
+  initFooter();
 
   const pageController = new AbortController();
   const abortPageRequests = () => {
