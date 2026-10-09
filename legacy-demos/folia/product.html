@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--
+  Copyright 2026 Google LLC
+  SPDX-License-Identifier: Apache-2.0
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Folia — Architectural botanicals and rare specimen plants.">
+  <title>Folia</title>
+  <link rel="icon" type="image/svg+xml" href="/public/images/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Inter+Tight:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+</head>
+
+<body id="top">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="page-shell">
+    <header id="site-header" class="site-header" data-state="scrolled" aria-label="Site header">
+      <nav class="site-header__bar" aria-label="Primary">
+        <button
+          type="button"
+          id="menu-open-btn"
+          class="nav-menu-btn"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          Menu
+        </button>
+
+        <ul class="nav-group nav-group--left">
+          <li><a href="/?category=large#shop" class="nav-link">Large plants</a></li>
+          <li><a href="/?category=small#shop" class="nav-link">Small plants</a></li>
+          <li><a href="/?category=pots#shop" class="nav-link">Pots</a></li>
+          <li><a href="/?category=care#shop" class="nav-link">Care</a></li>
+        </ul>
+
+        <a href="/" class="site-header__wordmark" aria-label="Folia home">FOLIA</a>
+
+        <ul class="nav-group nav-group--right">
+          <li><a href="/#shop" class="nav-link">Search</a></li>
+          <li><a href="#bag" class="nav-link">Bag (0)</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Full-screen overlay menu for viewports under 900px -->
+    <div
+      id="mobile-menu"
+      class="mobile-menu"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Site navigation"
+      aria-hidden="true"
+      data-open="false"
+    >
+      <div class="mobile-menu__top">
+        <button type="button" id="menu-close-btn" class="nav-menu-btn mobile-menu__close">
+          Close
+        </button>
+        <span class="mobile-menu__wordmark" aria-hidden="true">FOLIA</span>
+        <a href="#bag" class="nav-link" style="justify-self: end;">Bag (0)</a>
+      </div>
+
+      <ul class="mobile-menu__list">
+        <li><a href="/?category=large#shop" class="mobile-menu__link">Large plants</a></li>
+        <li><a href="/?category=small#shop" class="mobile-menu__link">Small plants</a></li>
+        <li><a href="/?category=pots#shop" class="mobile-menu__link">Pots</a></li>
+        <li><a href="/?category=care#shop" class="mobile-menu__link">Care</a></li>
+      </ul>
+
+      <div class="mobile-menu__footer">
+        <a href="/#shop" class="nav-link">Search</a>
+        <a href="#bag" class="nav-link">Bag (0)</a>
+      </div>
+    </div>
+
+    <main id="main-content" class="site-main product-main" tabindex="-1">
+      <article id="product-view" class="product">
+        <div id="product-gallery" class="product__gallery" data-multi="false">
+          <div
+            id="product-media-strip"
+            class="product__media-strip"
+            role="region"
+            aria-label="Product images"
+          ></div>
+          <p
+            id="product-media-counter"
+            class="product__media-counter"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            1 / 1
+          </p>
+        </div>
+
+        <div id="product-info" class="product__info">
+          <a id="product-back-link" href="/#shop" class="product__back-link">
+            Back to collection
+          </a>
+
+          <div class="product__header">
+            <div class="product__title-row">
+              <h1 id="product-name" class="product__name"></h1>
+              <p id="product-price" class="product__price"></p>
+            </div>
+            <p id="product-latin" class="product__latin"></p>
+          </div>
+
+          <p id="product-description" class="product__description"></p>
+
+          <div class="product__pot-section">
+            <p id="pot-finish-label" class="product__section-label">Pot finish</p>
+            <div
+              id="product-pot-options"
+              class="product__pot-options"
+              role="radiogroup"
+              aria-labelledby="pot-finish-label"
+            ></div>
+          </div>
+
+          <div class="product__actions">
+            <button
+              type="button"
+              id="add-to-bag-btn"
+              class="product__add-btn"
+              data-state="default"
+            >
+              Add to bag
+            </button>
+            <p class="product__delivery">
+              Free delivery over £75. Arrives in 2 to 4 working days.
+            </p>
+          </div>
+
+          <dl id="product-details" class="product__details">
+            <div class="product__detail-row" data-detail="height">
+              <dt class="product__detail-term">Height</dt>
+              <dd id="detail-height" class="product__detail-value"></dd>
+            </div>
+            <div class="product__detail-row" data-detail="potSize">
+              <dt class="product__detail-term">Pot size</dt>
+              <dd id="detail-pot-size" class="product__detail-value"></dd>
+            </div>
+            <div class="product__detail-row" data-detail="light">
+              <dt class="product__detail-term">Light</dt>
+              <dd id="detail-light" class="product__detail-value"></dd>
+            </div>
+            <div class="product__detail-row" data-detail="water">
+              <dt class="product__detail-term">Water</dt>
+              <dd id="detail-water" class="product__detail-value"></dd>
+            </div>
+            <div class="product__detail-row" data-detail="pets">
+              <dt class="product__detail-term">Pets</dt>
+              <dd id="detail-pets" class="product__detail-value"></dd>
+            </div>
+          </dl>
+        </div>
+      </article>
+
+      <section
+        id="product-not-found"
+        class="product-not-found"
+        hidden
+        aria-labelledby="not-found-title"
+      >
+        <h1 id="not-found-title" class="product-not-found__title">Plant not found</h1>
+        <p class="product-not-found__text">
+          The specimen you are looking for is not in the current collection.
+        </p>
+        <a id="not-found-back-link" href="/#shop" class="product-not-found__link">
+          Back to collection
+        </a>
+      </section>
+    </main>
+
+    <footer id="site-footer" class="site-footer"></footer>
+  </div>
+
+  <script type="module" src="/js/product.js"></script>
+</body>
+
+</html>
