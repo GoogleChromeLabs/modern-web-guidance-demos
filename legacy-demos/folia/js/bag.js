@@ -398,7 +398,7 @@ const BAG_DRAWER_HTML = `
         <span id="bag-subtotal" class="bag-drawer__subtotal-value">£0</span>
       </div>
       <p id="bag-delivery-note" class="bag-drawer__delivery" aria-live="polite">
-        Add £75 for free delivery
+        Add ${formatPrice(FREE_DELIVERY_THRESHOLD_PENCE)} for free delivery
       </p>
       <button type="button" id="bag-checkout-btn" class="bag-drawer__checkout-btn">
         Checkout
@@ -575,6 +575,9 @@ export function renderBagDrawerContents() {
 
   if (countEl) {
     countEl.textContent = `(${state.totalItems})`;
+  }
+  if (deliveryEl) {
+    deliveryEl.textContent = state.deliveryMessage;
   }
 
   if (state.lines.length === 0) {

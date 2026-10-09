@@ -19,15 +19,19 @@
   --bone: #F4F1EC;
   --raised: var(--bone);
   --stone: #D9D3C9;
-  --greige: #A8A196;
+  --greige: #6B655E;
   --charcoal: #1F1F1D;
   --leaf: #3E4A3D;
 
   /* Semantic Color Aliases */
-  --color-page: var(--bone);
-  --color-line: var(--stone);
-  --color-muted: var(--greige);
-  --color-text: var(--charcoal);
+  --bg: var(--bone);
+  --fg: var(--charcoal);
+  --line: var(--stone);
+  --muted: var(--greige);
+  --color-page: var(--bg);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --color-text: var(--fg);
   --color-accent: var(--leaf);
   --nav-ink: var(--palette-charcoal);
   --hero-ink: var(--palette-charcoal);
@@ -116,10 +120,14 @@
     --charcoal: #F4F1EC;
     --leaf: #5E705C;
 
-    --color-page: var(--bone);
-    --color-line: var(--stone);
-    --color-muted: var(--greige);
-    --color-text: var(--charcoal);
+    --bg: var(--bone);
+    --fg: var(--charcoal);
+    --line: var(--stone);
+    --muted: var(--greige);
+    --color-page: var(--bg);
+    --color-line: var(--line);
+    --color-muted: var(--muted);
+    --color-text: var(--fg);
     --color-accent: var(--leaf);
   }
 }
