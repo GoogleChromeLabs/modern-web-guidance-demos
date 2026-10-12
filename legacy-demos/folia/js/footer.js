@@ -163,15 +163,18 @@ export function initFooter() {
             ? window.subscribe
             : subscribe;
         await subscribeFn(email);
+        emailInput.value = '';
+        statusEl.textContent = 'Thank you. You are on the list.';
+      } catch {
+        // Keep the typed email so the user can retry without re-entering it
+        statusEl.textContent = 'Something went wrong. Please try again.';
       } finally {
         isSubmitting = false;
-        emailInput.value = '';
         emailInput.disabled = false;
         submitBtn.disabled = false;
         emailInput.removeAttribute('aria-busy');
         submitBtn.removeAttribute('aria-busy');
         submitBtn.textContent = 'Subscribe';
-        statusEl.textContent = 'Thank you. You are on the list.';
       }
     });
   }
