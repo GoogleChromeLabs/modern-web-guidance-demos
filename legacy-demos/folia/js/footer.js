@@ -61,7 +61,7 @@ const FOOTER_TEMPLATE = `
       <div class="site-footer__col">
         <h2 class="site-footer__heading">Folia</h2>
         <ul class="site-footer__list">
-          <li><a href="#about" class="site-footer__link">About</a></li>
+          <li><a href="/#about" class="site-footer__link">About</a></li>
           <li><a href="#" class="site-footer__link" data-stub-link>Journal</a></li>
           <li><a href="#" class="site-footer__link" data-stub-link>Stockists</a></li>
         </ul>
