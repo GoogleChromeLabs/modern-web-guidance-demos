@@ -303,7 +303,12 @@
   flex-direction: column;
   gap: 0.2rem;
   padding: var(--space-6) var(--space-3) var(--space-3);
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.35), transparent);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.52) 65%,
+    transparent 100%
+  );
   color: #FFFFFF;
   font-family: var(--font-body);
   font-weight: var(--font-weight-regular);
@@ -323,11 +328,14 @@
 }
 
 .lookbook__name {
+  min-width: 0;
   font-weight: var(--font-weight-regular);
   color: #FFFFFF;
+  overflow-wrap: break-word;
 }
 
 .lookbook__price {
+  flex-shrink: 0;
   font-weight: var(--font-weight-regular);
   color: #FFFFFF;
   white-space: nowrap;
@@ -335,7 +343,7 @@
 
 .lookbook__latin {
   font-weight: var(--font-weight-light);
-  color: rgba(255, 255, 255, 0.88);
+  color: #FFFFFF;
 }
 
 /* On viewports >= 600px with hover capability, hide caption until hover or keyboard focus */

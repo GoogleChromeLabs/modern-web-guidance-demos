@@ -44,16 +44,22 @@
   }
 }
 
-/* Lower-centre overlay container with subtle bottom-to-top gradient behind text only */
+/* Lower-centre overlay container with bottom-to-top scrim ensuring >= 4.5:1 AA contrast over white studio floor */
 .editorial__overlay {
   position: relative;
   z-index: 1;
   width: 100%;
-  padding-top: var(--space-8);
+  padding-top: var(--space-9);
   padding-bottom: clamp(4.5rem, 10svh, 6.5rem);
   padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
   padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.35), transparent);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.78) 0%,
+    rgba(0, 0, 0, 0.64) 62%,
+    rgba(0, 0, 0, 0.28) 86%,
+    transparent 100%
+  );
   display: flex;
   justify-content: center;
 }
@@ -66,6 +72,7 @@
   text-align: center;
   gap: 1.25rem;
   color: #FFFFFF;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
   max-width: 56rem;
   opacity: 1;
   transform: translateY(0);
