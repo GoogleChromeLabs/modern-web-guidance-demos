@@ -471,6 +471,7 @@ function initLookbook() {
 }
 
 function initStory() {
+  const storySection = document.getElementById('about');
   const detailsList = document.getElementById('story-details');
   if (!detailsList) return;
 
@@ -492,6 +493,36 @@ function initStory() {
   }
 
   detailsList.replaceChildren(fragment);
+
+  if (!storySection) return;
+
+  function scrollToStory({ instant = false } = {}) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const behavior = instant || prefersReducedMotion ? 'auto' : 'smooth';
+    const headerHeight =
+      parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 64;
+    const targetTop = Math.max(
+      0,
+      storySection.getBoundingClientRect().top + window.scrollY - headerHeight
+    );
+    window.scrollTo({ top: targetTop, behavior });
+  }
+
+  document.querySelectorAll('a[href="#about"], a[href="/#about"]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      const url = new URL(window.location.href);
+      url.hash = '#about';
+      window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
+      scrollToStory();
+    });
+  });
+
+  if (window.location.hash === '#about') {
+    requestAnimationFrame(() => {
+      scrollToStory({ instant: true });
+    });
+  }
 }
 
 const isProductRoute =
