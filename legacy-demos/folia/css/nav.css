@@ -41,12 +41,36 @@
   pointer-events: none;
 }
 
+/* Subtle top plaster wash in top state so nav links over the shadowed right hero wall pass WCAG AA */
+.site-header::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--header-h, 64px) + 32px);
+  background: linear-gradient(
+    to bottom,
+    rgba(244, 241, 236, 0.82) 0%,
+    rgba(244, 241, 236, 0.56) 58%,
+    rgba(244, 241, 236, 0) 100%
+  );
+  opacity: 1;
+  transition: opacity 250ms ease;
+  z-index: -2;
+  pointer-events: none;
+}
+
 .site-header[data-state='scrolled'] {
   color: var(--charcoal);
 }
 
 .site-header[data-state='scrolled']::before {
   transform: translateY(0);
+}
+
+.site-header[data-state='scrolled']::after {
+  opacity: 0;
 }
 
 .site-header__bar {
