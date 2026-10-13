@@ -42,6 +42,11 @@ export const PRODUCTS = [
     size: '120 cm',
     height: 'About 120 cm including a 30 cm pot',
     potSize: '30 cm',
+    potSizes: [
+      { id: '30-cm', label: '30 cm' },
+      { id: '34-cm', label: '34 cm' },
+      { id: '38-cm', label: '38 cm' },
+    ],
     price: 14500,
     category: 'large',
     image: '/public/images/cells/ficus-lyrata.jpg',
@@ -72,6 +77,12 @@ export const PRODUCTS = [
     size: '140 cm',
     height: 'About 140 cm',
     potSize: '30 cm',
+    potSizes: [
+      { id: '30-cm', label: '30 cm' },
+      { id: '34-cm', label: '34 cm' },
+      { id: '38-cm', label: '38 cm' },
+      { id: '42-cm', label: '42 cm' },
+    ],
     price: 18900,
     category: 'large',
     image: '/public/images/cells/olive-tree.jpg',
@@ -95,6 +106,11 @@ export const PRODUCTS = [
     size: '150 cm',
     height: 'About 150 cm',
     potSize: '32 cm',
+    potSizes: [
+      { id: '32-cm', label: '32 cm' },
+      { id: '36-cm', label: '36 cm' },
+      { id: '40-cm', label: '40 cm' },
+    ],
     price: 21000,
     category: 'large',
     image: '/public/images/cells/strelitzia-nicolai.jpg',
@@ -118,6 +134,11 @@ export const PRODUCTS = [
     size: '55 cm',
     height: 'About 55 cm',
     potSize: '18 cm',
+    potSizes: [
+      { id: '18-cm', label: '18 cm' },
+      { id: '21-cm', label: '21 cm' },
+      { id: '24-cm', label: '24 cm' },
+    ],
     price: 5800,
     category: 'small',
     image: '/public/images/cells/zamioculcas-zamiifolia.jpg',
@@ -137,6 +158,10 @@ export const PRODUCTS = [
     size: '45 cm',
     height: 'About 45 cm',
     potSize: '18 cm',
+    potSizes: [
+      { id: '18-cm', label: '18 cm' },
+      { id: '21-cm', label: '21 cm' },
+    ],
     price: 5200,
     category: 'small',
     image: '/public/images/cells/calathea-orbifolia.jpg',
@@ -160,6 +185,11 @@ export const PRODUCTS = [
     size: '60 cm',
     height: 'About 60 cm',
     potSize: '18 cm',
+    potSizes: [
+      { id: '18-cm', label: '18 cm' },
+      { id: '21-cm', label: '21 cm' },
+      { id: '24-cm', label: '24 cm' },
+    ],
     price: 4800,
     category: 'small',
     image: '/public/images/cells/dracaena-angolensis.jpg',
@@ -179,6 +209,12 @@ export const PRODUCTS = [
     size: '90 cm',
     height: 'About 90 cm',
     potSize: '26 cm',
+    potSizes: [
+      { id: '26-cm', label: '26 cm' },
+      { id: '30-cm', label: '30 cm' },
+      { id: '34-cm', label: '34 cm' },
+      { id: '38-cm', label: '38 cm' },
+    ],
     price: 9800,
     category: 'large',
     image: '/public/images/cells/monstera-deliciosa.jpg',
@@ -202,6 +238,11 @@ export const PRODUCTS = [
     size: '35 cm',
     height: 'About 35 cm',
     potSize: '15 cm',
+    potSizes: [
+      { id: '15-cm', label: '15 cm' },
+      { id: '18-cm', label: '18 cm' },
+      { id: '21-cm', label: '21 cm' },
+    ],
     price: 3800,
     category: 'small',
     image: '/public/images/cells/philodendron-hederaceum.jpg',
@@ -221,6 +262,10 @@ export const PRODUCTS = [
     size: '100 cm',
     height: 'About 100 cm',
     potSize: '26 cm',
+    potSizes: [
+      { id: '26-cm', label: '26 cm' },
+      { id: '30-cm', label: '30 cm' },
+    ],
     price: 7900,
     category: 'large',
     image: '/public/images/cells/ficus-elastica-burgundy.jpg',
@@ -240,6 +285,10 @@ export const PRODUCTS = [
     size: '45 cm',
     height: 'About 45 cm',
     potSize: '18 cm',
+    potSizes: [
+      { id: '18-cm', label: '18 cm' },
+      { id: '21-cm', label: '21 cm' },
+    ],
     price: 4400,
     category: 'small',
     image: '/public/images/cells/alocasia-polly.jpg',
@@ -263,6 +312,12 @@ export const PRODUCTS = [
     size: '110 cm',
     height: 'About 110 cm',
     potSize: '28 cm',
+    potSizes: [
+      { id: '28-cm', label: '28 cm' },
+      { id: '32-cm', label: '32 cm' },
+      { id: '36-cm', label: '36 cm' },
+      { id: '40-cm', label: '40 cm' },
+    ],
     price: 9200,
     category: 'large',
     image: '/public/images/cells/yucca-elephantipes.jpg',
@@ -282,6 +337,11 @@ export const PRODUCTS = [
     size: '80 cm',
     height: 'About 80 cm',
     potSize: '24 cm',
+    potSizes: [
+      { id: '24-cm', label: '24 cm' },
+      { id: '28-cm', label: '28 cm' },
+      { id: '32-cm', label: '32 cm' },
+    ],
     price: 8400,
     category: 'small',
     image: '/public/images/cells/euphorbia-ammak.jpg',
@@ -295,6 +355,59 @@ export const PRODUCTS = [
     href: '/products/euphorbia-ammak',
   },
 ];
+
+/**
+ * Formats a composite variant ID from a pot finish ID and pot size ID.
+ * @param {string} potId
+ * @param {string} [potSizeId]
+ * @returns {string}
+ */
+export function formatVariantId(potId, potSizeId) {
+  return potSizeId ? `${potId}:${potSizeId}` : potId;
+}
+
+/**
+ * Validates and resolves a variantId (either "potId:potSizeId" or legacy "potId")
+ * against a product's available pots and potSizes.
+ * @param {object} product
+ * @param {string} variantId
+ * @returns {{ variantId: string, pot: { id: string, label: string }, potSize: { id: string, label: string } | null, label: string } | null}
+ */
+export function resolveProductVariant(product, variantId) {
+  if (!product || typeof variantId !== 'string' || !variantId.trim()) {
+    return null;
+  }
+
+  const [rawPotId, rawPotSizeId, ...rest] = variantId.trim().split(':');
+  if (!rawPotId || rest.length > 0) {
+    return null;
+  }
+
+  const pots = Array.isArray(product.pots) ? product.pots : [];
+  const pot = pots.find((p) => p.id === rawPotId);
+  if (!pot) {
+    return null;
+  }
+
+  const potSizes = Array.isArray(product.potSizes) ? product.potSizes : [];
+  let potSize = null;
+
+  if (rawPotSizeId) {
+    potSize = potSizes.find((s) => s.id === rawPotSizeId) || null;
+    if (!potSize) {
+      return null;
+    }
+  } else if (potSizes.length > 0) {
+    potSize = potSizes[0];
+  }
+
+  return {
+    variantId: formatVariantId(pot.id, potSize?.id),
+    pot,
+    potSize,
+    label: potSize ? `${pot.label}, ${potSize.label}` : pot.label,
+  };
+}
 
 /**
  * Finds a product by its id or alias slug.
