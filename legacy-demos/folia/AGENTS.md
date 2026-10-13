@@ -1,3 +1,5 @@
+- Only use Chrome devtools for agents for browser verification, screencasts and screenshots.
+
 ## Modern Web Guidance
 - Only when Modern Web Guidance actually influences the implementation, make it a teachable moment for the user:
   - Use direct first-person voice only (`"I was going to write..."`, `"What I didn't know was..."`). Banned phrases: `"one might consider"`, `"a developer could"`, `"an initial inclination might be"`, or any hypothetical third-person framing.
