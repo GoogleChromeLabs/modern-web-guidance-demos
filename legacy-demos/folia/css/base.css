@@ -243,6 +243,7 @@ img {
 .site-main {
   flex: 1 0 auto;
   width: 100%;
+  scroll-margin-top: calc(var(--header-h, 64px) + env(safe-area-inset-top, 0px));
 }
 
 .hairline-top {

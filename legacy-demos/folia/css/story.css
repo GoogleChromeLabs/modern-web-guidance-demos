@@ -6,8 +6,8 @@
  */
 
 .story {
-  scroll-margin-top: var(--header-h, 64px);
-  margin-top: clamp(4rem, 9vw, 8rem);
+  scroll-margin-top: calc(var(--header-h, 64px) + env(safe-area-inset-top, 0px));
+  padding-top: clamp(4rem, 9vw, 8rem);
   margin-inline: auto;
   padding-bottom: clamp(4rem, 9vw, 8rem);
   padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
