@@ -224,7 +224,7 @@
   padding-left: 0.22em;
   font-family: var(--font-display);
   font-weight: var(--font-weight-regular);
-  font-size: clamp(4rem, calc(26.1vw - 0.52rem), 23rem);
+  font-size: clamp(3.25rem, calc(22.5vw - 0.5rem), 20.5rem);
   line-height: 0.9;
   letter-spacing: 0.22em;
   text-transform: uppercase;
