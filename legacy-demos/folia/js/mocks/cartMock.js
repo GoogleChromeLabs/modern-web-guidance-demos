@@ -10,7 +10,7 @@
 
 import { http, HttpResponse, delay } from 'msw';
 import { setupWorker } from 'msw/browser';
-import { getProductById } from '../products.js';
+import { getProductById, resolveProductVariant } from '../products.js';
 import { loadBagLines, persistBagLinesQuietly, MAX_LINE_QTY } from '../bag.js';
 
 const IDEMPOTENCY_TTL_MS = 60_000;
@@ -122,15 +122,14 @@ function validateProductAndVariant(productId, variantId) {
   if (!variantId || typeof variantId !== 'string') {
     return { valid: false, error: 'Pot variant ID is required.' };
   }
-  const hasVariant =
-    Array.isArray(product.pots) && product.pots.some((pot) => pot.id === variantId);
-  if (!hasVariant) {
+  const resolvedVariant = resolveProductVariant(product, variantId);
+  if (!resolvedVariant) {
     return {
       valid: false,
       error: `Unknown pot variant "${variantId}" for product "${productId}".`,
     };
   }
-  return { valid: true, product };
+  return { valid: true, product, variantId: resolvedVariant.variantId };
 }
 
 const handlers = [
@@ -157,6 +156,7 @@ const handlers = [
     if (!validation.valid) {
       return HttpResponse.json({ error: validation.error }, { status: 400 });
     }
+    const normalizedVariantId = validation.variantId;
 
     const parsedQty = Number(quantity);
     if (!Number.isInteger(parsedQty) || parsedQty < 1) {
@@ -186,7 +186,7 @@ const handlers = [
     }
 
     const existingLine = db.lines.find(
-      (line) => line.productId === productId && line.variantId === variantId
+      (line) => line.productId === productId && line.variantId === normalizedVariantId
     );
 
     if (existingLine) {
@@ -194,7 +194,7 @@ const handlers = [
     } else {
       db.lines.push({
         productId,
-        variantId,
+        variantId: normalizedVariantId,
         quantity: Math.min(MAX_LINE_QTY, parsedQty),
       });
     }
@@ -223,6 +223,7 @@ const handlers = [
     if (!validation.valid) {
       return HttpResponse.json({ error: validation.error }, { status: 400 });
     }
+    const normalizedVariantId = validation.variantId;
 
     let body;
     try {
@@ -248,7 +249,7 @@ const handlers = [
 
     const db = readDb();
     const index = db.lines.findIndex(
-      (line) => line.productId === productId && line.variantId === variantId
+      (line) => line.productId === productId && line.variantId === normalizedVariantId
     );
 
     if (parsedQty === 0) {
@@ -260,7 +261,7 @@ const handlers = [
     } else {
       db.lines.push({
         productId,
-        variantId,
+        variantId: normalizedVariantId,
         quantity: Math.min(MAX_LINE_QTY, parsedQty),
       });
     }
@@ -280,6 +281,7 @@ const handlers = [
     if (!validation.valid) {
       return HttpResponse.json({ error: validation.error }, { status: 400 });
     }
+    const normalizedVariantId = validation.variantId;
 
     if (shouldFailWrite(request.url)) {
       return HttpResponse.json(
@@ -290,7 +292,7 @@ const handlers = [
 
     const db = readDb();
     db.lines = db.lines.filter(
-      (line) => !(line.productId === productId && line.variantId === variantId)
+      (line) => !(line.productId === productId && line.variantId === normalizedVariantId)
     );
     db.updatedAt = new Date().toISOString();
     writeDb(db);

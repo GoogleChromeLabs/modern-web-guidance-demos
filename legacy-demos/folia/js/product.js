@@ -5,7 +5,7 @@
  * Folia Storefront — Product Detail Page Controller (/products/[id])
  */
 
-import { CATEGORIES, formatPrice, getProductById } from './products.js';
+import { CATEGORIES, formatPrice, formatVariantId, getProductById } from './products.js';
 import { cartApi, CartApiError } from './cartApi.js';
 import { initBagDrawer, openBagDrawer, syncBagFromCart, incrementBagLine } from './bag.js';
 import { initFooter, subscribe } from './footer.js';
@@ -57,6 +57,16 @@ const PRODUCT_MAIN_TEMPLATE = `
           class="product__pot-options"
           role="radiogroup"
           aria-labelledby="pot-finish-label"
+        ></div>
+      </div>
+
+      <div class="product__pot-section">
+        <p id="pot-size-label" class="product__section-label">Pot size</p>
+        <div
+          id="product-pot-size-options"
+          class="product__pot-options"
+          role="radiogroup"
+          aria-labelledby="pot-size-label"
         ></div>
       </div>
 
@@ -463,23 +473,29 @@ export function initProductPage() {
   if (latinEl) latinEl.textContent = product.latin;
   if (descEl) descEl.textContent = product.description;
 
-  // 4. Pot Finish Radio Group (Accessible keyboard support + pending lock)
+  // 4. Pot Finish & Pot Size Radio Groups (Accessible keyboard support + pending lock)
   const potOptionsContainer = document.getElementById('product-pot-options');
+  const potSizeOptionsContainer = document.getElementById('product-pot-size-options');
   const pots = Array.isArray(product.pots) ? product.pots : [];
-  let selectedVariantId = pots[0]?.id || '';
+  const potSizes = Array.isArray(product.potSizes) ? product.potSizes : [];
+
+  let selectedPotId = pots[0]?.id || '';
+  let selectedPotSizeId = potSizes[0]?.id || '';
+  let selectedPotSizeLabel = potSizes[0]?.label || product.potSize || '';
   let isPending = false;
   const optionButtons = [];
+  const sizeOptionButtons = [];
 
-  function setPotSelectorLocked(locked) {
-    if (!potOptionsContainer) return;
+  function setContainerLocked(container, buttons, locked) {
+    if (!container) return;
     if (locked) {
-      potOptionsContainer.setAttribute('data-locked', 'true');
-      potOptionsContainer.setAttribute('aria-disabled', 'true');
+      container.setAttribute('data-locked', 'true');
+      container.setAttribute('aria-disabled', 'true');
     } else {
-      potOptionsContainer.removeAttribute('data-locked');
-      potOptionsContainer.removeAttribute('aria-disabled');
+      container.removeAttribute('data-locked');
+      container.removeAttribute('aria-disabled');
     }
-    for (const btn of optionButtons) {
+    for (const btn of buttons) {
       if (locked) {
         btn.setAttribute('aria-disabled', 'true');
       } else {
@@ -488,18 +504,25 @@ export function initProductPage() {
     }
   }
 
-  if (potOptionsContainer && pots.length > 0) {
-    const potFragment = document.createDocumentFragment();
+  function setPotSelectorLocked(locked) {
+    setContainerLocked(potOptionsContainer, optionButtons, locked);
+    setContainerLocked(potSizeOptionsContainer, sizeOptionButtons, locked);
+  }
 
-    function selectPotOption(targetIndex, { focus = false } = {}) {
+  function setupRadioGroup(container, options, buttonsList, onSelect) {
+    if (!container || options.length === 0) return;
+
+    const fragment = document.createDocumentFragment();
+
+    function selectOption(targetIndex, { focus = false } = {}) {
       if (isPending) return;
-      const boundedIndex = (targetIndex + optionButtons.length) % optionButtons.length;
-      optionButtons.forEach((btn, idx) => {
+      const boundedIndex = (targetIndex + buttonsList.length) % buttonsList.length;
+      buttonsList.forEach((btn, idx) => {
         const isSelected = idx === boundedIndex;
         btn.setAttribute('aria-checked', String(isSelected));
         btn.tabIndex = isSelected ? 0 : -1;
         if (isSelected) {
-          selectedVariantId = btn.dataset.variantId || '';
+          onSelect(options[idx], btn);
           if (focus) {
             btn.focus();
           }
@@ -507,29 +530,29 @@ export function initProductPage() {
       });
     }
 
-    pots.forEach((pot, index) => {
+    options.forEach((opt, index) => {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.role = 'radio';
       btn.className = 'product__pot-option';
-      btn.dataset.variantId = pot.id;
+      btn.dataset.variantId = opt.id;
       const isSelected = index === 0;
       btn.setAttribute('aria-checked', String(isSelected));
       btn.tabIndex = isSelected ? 0 : -1;
-      btn.textContent = pot.label;
+      btn.textContent = opt.label;
 
       btn.addEventListener('click', () => {
         if (isPending) return;
-        selectPotOption(index, { focus: false });
+        selectOption(index, { focus: false });
       });
 
-      optionButtons.push(btn);
-      potFragment.append(btn);
+      buttonsList.push(btn);
+      fragment.append(btn);
     });
 
-    potOptionsContainer.replaceChildren(potFragment);
+    container.replaceChildren(fragment);
 
-    potOptionsContainer.addEventListener('keydown', (event) => {
+    container.addEventListener('keydown', (event) => {
       if (isPending) {
         if (
           event.key === 'ArrowRight' ||
@@ -546,32 +569,45 @@ export function initProductPage() {
         return;
       }
 
-      const currentIndex = optionButtons.findIndex(
+      const currentIndex = buttonsList.findIndex(
         (btn) => btn.getAttribute('aria-checked') === 'true'
       );
       if (currentIndex === -1) return;
 
       if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
         event.preventDefault();
-        selectPotOption(currentIndex + 1, { focus: true });
+        selectOption(currentIndex + 1, { focus: true });
       } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
         event.preventDefault();
-        selectPotOption(currentIndex - 1, { focus: true });
+        selectOption(currentIndex - 1, { focus: true });
       } else if (event.key === 'Home') {
         event.preventDefault();
-        selectPotOption(0, { focus: true });
+        selectOption(0, { focus: true });
       } else if (event.key === 'End') {
         event.preventDefault();
-        selectPotOption(optionButtons.length - 1, { focus: true });
+        selectOption(buttonsList.length - 1, { focus: true });
       } else if (event.key === ' ' || event.key === 'Enter') {
         event.preventDefault();
-        const focusedIndex = optionButtons.indexOf(document.activeElement);
+        const focusedIndex = buttonsList.indexOf(document.activeElement);
         if (focusedIndex !== -1) {
-          selectPotOption(focusedIndex, { focus: true });
+          selectOption(focusedIndex, { focus: true });
         }
       }
     });
   }
+
+  setupRadioGroup(potOptionsContainer, pots, optionButtons, (opt) => {
+    selectedPotId = opt.id;
+  });
+
+  setupRadioGroup(potSizeOptionsContainer, potSizes, sizeOptionButtons, (opt) => {
+    selectedPotSizeId = opt.id;
+    selectedPotSizeLabel = opt.label;
+    const potSizeDd = document.getElementById('detail-pot-size');
+    if (potSizeDd) {
+      potSizeDd.textContent = selectedPotSizeLabel;
+    }
+  });
 
   // 5. Add to Bag Button (idle -> pending -> success / failure with Idempotency-Key retry)
   const addBtn = document.getElementById('add-to-bag-btn');
@@ -622,9 +658,9 @@ export function initProductPage() {
         addedStateTimer = null;
       }
 
-      // Capture product and variant at click time
+      // Capture product and variant (pot finish + pot size) at click time
       const capturedProductId = product.id;
-      const capturedVariantId = selectedVariantId;
+      const capturedVariantId = formatVariantId(selectedPotId, selectedPotSizeId);
 
       // Reuse the same Idempotency-Key when retrying a failed attempt for the same product + variant
       if (
@@ -737,7 +773,7 @@ export function initProductPage() {
   const detailsList = document.getElementById('product-details');
   const detailMappings = [
     { key: 'height', elId: 'detail-height', value: product.height || product.size || '' },
-    { key: 'potSize', elId: 'detail-pot-size', value: product.potSize || '' },
+    { key: 'potSize', elId: 'detail-pot-size', value: selectedPotSizeLabel },
     { key: 'light', elId: 'detail-light', value: product.care?.light || '' },
     { key: 'water', elId: 'detail-water', value: product.care?.water || '' },
     { key: 'pets', elId: 'detail-pets', value: product.care?.pets || '' },
