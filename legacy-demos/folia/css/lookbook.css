@@ -62,10 +62,10 @@
   background: transparent;
   font-family: var(--font-body);
   font-weight: var(--font-weight-regular);
-  font-size: 0.75rem; /* 12px */
+  font-size: var(--text-xs);
   line-height: 1.2;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: var(--tracking-label);
   color: var(--charcoal);
   opacity: 1;
   text-decoration: none;
@@ -105,10 +105,10 @@
 .lookbook__search-label {
   font-family: var(--font-body);
   font-weight: var(--font-weight-regular);
-  font-size: 0.75rem; /* 12px */
+  font-size: var(--text-xs);
   line-height: 1.2;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: var(--tracking-label);
   color: var(--charcoal);
   white-space: nowrap;
   cursor: pointer;
@@ -126,7 +126,7 @@
   background: transparent;
   font-family: var(--font-body);
   font-weight: var(--font-weight-regular);
-  font-size: 0.75rem; /* 12px */
+  font-size: var(--text-xs);
   line-height: 1.2;
   letter-spacing: 0.08em;
   color: var(--charcoal);
@@ -135,9 +135,9 @@
 .lookbook__search-input::placeholder {
   font-family: var(--font-body);
   font-weight: var(--font-weight-regular);
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: var(--tracking-label);
   color: var(--charcoal);
   opacity: 1;
 }
@@ -163,10 +163,10 @@
   margin: 0;
   font-family: var(--font-body);
   font-weight: var(--font-weight-regular);
-  font-size: 0.75rem; /* 12px */
+  font-size: var(--text-xs);
   line-height: 1.2;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: var(--tracking-label);
   color: var(--charcoal);
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
@@ -276,7 +276,7 @@
   position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 2 / 3;
+  aspect-ratio: var(--aspect-cell);
   background-color: var(--lookbook-grey);
   overflow: hidden;
   text-decoration: none;
@@ -294,7 +294,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  aspect-ratio: 2 / 3;
+  aspect-ratio: var(--aspect-cell);
   object-fit: cover;
   object-position: center center;
   background-color: var(--lookbook-grey);
@@ -319,10 +319,10 @@
   color: #FFFFFF;
   font-family: var(--font-body);
   font-weight: var(--font-weight-regular);
-  font-size: 0.625rem; /* 10px — smaller on <600px where always shown */
+  font-size: var(--text-xs);
   line-height: 1.3;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: var(--tracking-label);
   opacity: 1;
   pointer-events: none;
 }
@@ -357,7 +357,7 @@
 @media (min-width: 600px) and (hover: hover) {
   .lookbook__caption {
     padding: var(--space-6) var(--space-4) var(--space-4);
-    font-size: 0.75rem; /* 12px */
+    font-size: var(--text-xs);
     opacity: 0;
     transition: opacity 200ms ease;
   }
