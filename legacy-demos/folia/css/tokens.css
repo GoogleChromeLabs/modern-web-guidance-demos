@@ -90,6 +90,7 @@
   --border-hairline: 1px solid var(--color-line);
 
   /* Image Aspect Ratios */
+  --aspect-cell: 2 / 3;
   --aspect-portrait: 3 / 4;
   --aspect-editorial: 4 / 5;
   --aspect-square: 1 / 1;

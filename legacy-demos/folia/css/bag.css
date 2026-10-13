@@ -73,6 +73,12 @@ body.bag-open .site-header {
     visibility 0s linear 0s;
 }
 
+@media (max-width: 26rem) {
+  .bag-drawer {
+    border-left: 0;
+  }
+}
+
 .bag-drawer [hidden] {
   display: none !important;
 }
@@ -197,7 +203,7 @@ body.bag-open .site-header {
 
 .bag-line__thumb {
   width: 72px;
-  aspect-ratio: 2 / 3;
+  aspect-ratio: var(--aspect-cell);
   object-fit: cover;
   background-color: var(--lookbook-grey);
   display: block;
