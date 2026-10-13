@@ -94,7 +94,8 @@
 @media (prefers-reduced-motion: reduce) {
   .editorial__text,
   .editorial__text[data-reveal='pending'],
-  .editorial__text[data-reveal='visible'] {
+  .editorial__text[data-reveal='visible'],
+  .editorial__cta {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
