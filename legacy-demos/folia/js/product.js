@@ -397,7 +397,9 @@ export function initProductPage() {
       img.alt = alts[index] || `${product.name} (${product.latin}) — view ${index + 1}`;
       img.width = 848;
       img.height = 1264;
-      if (index > 0) {
+      if (index === 0) {
+        img.fetchPriority = 'high';
+      } else {
         img.loading = 'lazy';
       }
       img.decoding = 'async';
