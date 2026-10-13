@@ -74,7 +74,7 @@
 }
 
 .site-footer__newsletter-row:focus-within {
-  outline: 2px solid var(--accent);
+  outline: 1.5px solid var(--fg);
   outline-offset: 4px;
 }
 
@@ -130,12 +130,13 @@
   opacity: 0.65;
 }
 
-.site-footer__newsletter-btn:focus,
-.site-footer__newsletter-btn:focus-visible {
+.site-footer__newsletter-btn:focus {
   outline: none;
-  text-decoration: underline;
-  text-underline-offset: 0.3em;
-  text-decoration-thickness: 1px;
+}
+
+.site-footer__newsletter-btn:focus-visible {
+  outline: 1.5px solid var(--fg);
+  outline-offset: 4px;
 }
 
 .site-footer__newsletter-input:disabled,
@@ -205,13 +206,15 @@
   text-decoration: none;
 }
 
-.site-footer__link:hover,
-.site-footer__link:focus,
-.site-footer__link:focus-visible {
-  outline: none;
+.site-footer__link:hover {
   text-decoration: underline;
   text-underline-offset: 0.3em;
   text-decoration-thickness: 1px;
+}
+
+.site-footer__link:focus-visible {
+  outline: 1.5px solid var(--fg);
+  outline-offset: 4px;
 }
 
 /* 2. The Wordmark: FOLIA as real text, uppercase Bodoni Moda */

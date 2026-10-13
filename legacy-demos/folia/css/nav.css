@@ -246,6 +246,16 @@
   letter-spacing: 0.14em;
   color: var(--charcoal);
   padding-block: var(--space-2);
+  transition: opacity var(--transition-quiet);
+}
+
+.mobile-menu__link:hover {
+  opacity: 0.65;
+}
+
+.mobile-menu__link:focus-visible {
+  outline: 1.5px solid var(--charcoal);
+  outline-offset: 4px;
 }
 
 .mobile-menu__footer {

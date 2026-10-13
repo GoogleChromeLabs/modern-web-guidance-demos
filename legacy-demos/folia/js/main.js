@@ -68,11 +68,28 @@ function initMobileMenu() {
 
   const focusableSelector = 'a[href], button:not([disabled])';
 
+  function setBackgroundInert(inert) {
+    const regions = [
+      document.getElementById('main-content'),
+      document.getElementById('site-footer'),
+      document.querySelector('.site-header__bar'),
+    ];
+    for (const el of regions) {
+      if (!el) continue;
+      if (inert) {
+        el.setAttribute('inert', '');
+      } else {
+        el.removeAttribute('inert');
+      }
+    }
+  }
+
   function openMenu() {
     menu.setAttribute('data-open', 'true');
     menu.setAttribute('aria-hidden', 'false');
     openBtn.setAttribute('aria-expanded', 'true');
     document.body.classList.add('menu-open');
+    setBackgroundInert(true);
     closeBtn.focus();
   }
 
@@ -82,6 +99,7 @@ function initMobileMenu() {
     menu.setAttribute('aria-hidden', 'true');
     openBtn.setAttribute('aria-expanded', 'false');
     document.body.classList.remove('menu-open');
+    setBackgroundInert(false);
     if (restoreFocus) {
       openBtn.focus();
     }
