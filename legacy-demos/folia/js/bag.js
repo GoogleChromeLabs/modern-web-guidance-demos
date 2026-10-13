@@ -5,7 +5,7 @@
  * Folia Storefront — Shared Bag State ("folia-bag") & Slide-Over Drawer
  */
 
-import { formatPrice, getProductById } from './products.js';
+import { formatPrice, getProductById, resolveProductVariant } from './products.js';
 
 export const BAG_STORAGE_KEY = 'folia-bag';
 export const MAX_LINE_QTY = 9;
@@ -45,9 +45,9 @@ export function sanitizeBagLines(rawData) {
     }
 
     const productId = typeof entry.productId === 'string' ? entry.productId.trim() : '';
-    const variantId = typeof entry.variantId === 'string' ? entry.variantId.trim() : '';
+    const rawVariantId = typeof entry.variantId === 'string' ? entry.variantId.trim() : '';
 
-    if (!productId || !variantId) {
+    if (!productId || !rawVariantId) {
       wasDirty = true;
       continue;
     }
@@ -58,11 +58,15 @@ export function sanitizeBagLines(rawData) {
       continue;
     }
 
-    const hasValidVariant =
-      Array.isArray(product.pots) && product.pots.some((pot) => pot.id === variantId);
-    if (!hasValidVariant) {
+    const resolvedVariant = resolveProductVariant(product, rawVariantId);
+    if (!resolvedVariant) {
       wasDirty = true;
       continue;
+    }
+
+    const variantId = resolvedVariant.variantId;
+    if (variantId !== entry.variantId) {
+      wasDirty = true;
     }
 
     const rawQty = Number(entry.quantity);
@@ -195,7 +199,7 @@ export function getBagItemCount(lines = inMemoryLines) {
 
 /**
  * Enriches stored { productId, variantId, quantity } lines with live product
- * name, Latin name, pot label, thumbnail image, and integer pence prices from products.js.
+ * name, Latin name, pot finish + pot size label, thumbnail image, and integer pence prices from products.js.
  */
 export function getEnrichedBagState(lines = inMemoryLines) {
   const enrichedLines = [];
@@ -206,10 +210,8 @@ export function getEnrichedBagState(lines = inMemoryLines) {
     const product = getProductById(line.productId);
     if (!product) continue;
 
-    const pot = Array.isArray(product.pots)
-      ? product.pots.find((p) => p.id === line.variantId)
-      : null;
-    if (!pot) continue;
+    const resolvedVariant = resolveProductVariant(product, line.variantId);
+    if (!resolvedVariant) continue;
 
     const quantity = Math.min(MAX_LINE_QTY, Math.max(1, Number(line.quantity) || 1));
     const unitPricePence = product.price;
@@ -229,11 +231,12 @@ export function getEnrichedBagState(lines = inMemoryLines) {
 
     enrichedLines.push({
       productId: product.id,
-      variantId: pot.id,
+      variantId: resolvedVariant.variantId,
       quantity,
       name: product.name,
       latin: product.latin,
-      potLabel: pot.label,
+      potLabel: resolvedVariant.label,
+      potSizeLabel: resolvedVariant.potSize?.label || product.potSize || '',
       thumbSrc,
       thumbAlt,
       unitPricePence,
@@ -269,13 +272,13 @@ export function getEnrichedBagState(lines = inMemoryLines) {
 export function incrementBagLine(productId, variantId, delta = 1) {
   const product = getProductById(productId);
   if (!product) return getBagLines();
-  const hasPot =
-    Array.isArray(product.pots) && product.pots.some((p) => p.id === variantId);
-  if (!hasPot) return getBagLines();
+  const resolvedVariant = resolveProductVariant(product, variantId);
+  if (!resolvedVariant) return getBagLines();
 
+  const normalizedVariantId = resolvedVariant.variantId;
   const current = loadBagLines();
   const existing = current.find(
-    (line) => line.productId === productId && line.variantId === variantId
+    (line) => line.productId === productId && line.variantId === normalizedVariantId
   );
 
   if (existing) {
@@ -283,7 +286,7 @@ export function incrementBagLine(productId, variantId, delta = 1) {
   } else if (delta > 0) {
     current.push({
       productId,
-      variantId,
+      variantId: normalizedVariantId,
       quantity: Math.min(MAX_LINE_QTY, Math.max(1, delta)),
     });
   }
@@ -295,9 +298,13 @@ export function incrementBagLine(productId, variantId, delta = 1) {
  * Sets the exact quantity (1..9) of a line in the bag.
  */
 export function setBagLineQuantity(productId, variantId, nextQuantity) {
+  const product = getProductById(productId);
+  const resolvedVariant = product ? resolveProductVariant(product, variantId) : null;
+  const targetVariantId = resolvedVariant ? resolvedVariant.variantId : variantId;
+
   const current = loadBagLines();
   const index = current.findIndex(
-    (line) => line.productId === productId && line.variantId === variantId
+    (line) => line.productId === productId && line.variantId === targetVariantId
   );
   if (index === -1) return current;
 
@@ -314,9 +321,13 @@ export function setBagLineQuantity(productId, variantId, nextQuantity) {
  * Removes a line from the bag.
  */
 export function removeBagLine(productId, variantId) {
+  const product = getProductById(productId);
+  const resolvedVariant = product ? resolveProductVariant(product, variantId) : null;
+  const targetVariantId = resolvedVariant ? resolvedVariant.variantId : variantId;
+
   const current = loadBagLines();
   const filtered = current.filter(
-    (line) => !(line.productId === productId && line.variantId === variantId)
+    (line) => !(line.productId === productId && line.variantId === targetVariantId)
   );
   return saveBagLines(filtered);
 }
