@@ -1,4 +1,5 @@
 - Only use Chrome devtools for agents for browser verification, screencasts and screenshots.
+- Always search Modern Web Guidance when working on web features.
 
 ## Modern Web Guidance
 - Only when Modern Web Guidance actually influences the implementation, make it a teachable moment for the user:
