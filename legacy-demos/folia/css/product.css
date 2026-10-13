@@ -49,6 +49,11 @@
   display: none;
 }
 
+.product__media-strip:focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: -2px;
+}
+
 /* Multi-image strip (< 1000px): show a peek of the next image with a 1px hairline */
 .product__gallery[data-multi='true'] .product__media-item {
   flex: 0 0 85%;

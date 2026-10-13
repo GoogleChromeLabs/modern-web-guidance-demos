@@ -150,10 +150,13 @@
   appearance: none;
 }
 
-.lookbook__search-input:focus,
-.lookbook__search-input:focus-visible {
+.lookbook__search-input:focus {
   outline: none;
-  box-shadow: 0 1px 0 0 var(--charcoal);
+}
+
+.lookbook__search-input:focus-visible {
+  outline: 1.5px solid var(--charcoal);
+  outline-offset: 4px;
 }
 
 .lookbook__count {
@@ -280,10 +283,11 @@
   color: #FFFFFF;
 }
 
-/* Focus-visible: 2px white inset outline on the cell */
+/* Focus-visible: high-contrast 2px white + charcoal inset outline on the cell */
 .lookbook__cell:focus-visible {
   outline: 2px solid #FFFFFF;
-  outline-offset: -2px;
+  outline-offset: -4px;
+  box-shadow: inset 0 0 0 2px var(--palette-charcoal);
 }
 
 .lookbook__image {
