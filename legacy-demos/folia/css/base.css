@@ -252,3 +252,9 @@ img {
 .hairline-bottom {
   border-bottom: var(--border-hairline);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .skip-link {
+    transition: none !important;
+  }
+}

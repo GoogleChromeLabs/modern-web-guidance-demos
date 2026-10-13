@@ -99,6 +99,12 @@
   --transition-quiet: 200ms ease;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-quiet: 0ms;
+  }
+}
+
 @media (min-width: 768px) {
   :root {
     --gutter: 32px;

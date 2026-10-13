@@ -269,3 +269,16 @@
 body.menu-open {
   overflow: hidden;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .site-header::before,
+  .site-header::after,
+  .nav-link,
+  .nav-menu-btn,
+  .site-header__wordmark,
+  .mobile-menu,
+  .mobile-menu__link {
+    transition: none !important;
+  }
+}
