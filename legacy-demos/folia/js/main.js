@@ -6,7 +6,7 @@
  */
 
 import { CATEGORIES, PRODUCTS, formatPrice } from './products.js';
-import { initProductPage } from './product.js';
+import { initMobileMenu, initProductPage } from './product.js';
 import { cartApi } from './cartApi.js';
 import { FREE_DELIVERY_THRESHOLD_PENCE, initBagDrawer, syncBagFromCart } from './bag.js';
 import { initFooter, subscribe } from './footer.js';
@@ -57,89 +57,6 @@ function initHeaderStateObserver() {
   );
 
   observer.observe(sentinel);
-}
-
-function initMobileMenu() {
-  const openBtn = document.getElementById('menu-open-btn');
-  const closeBtn = document.getElementById('menu-close-btn');
-  const menu = document.getElementById('mobile-menu');
-
-  if (!openBtn || !closeBtn || !menu) return;
-
-  const focusableSelector = 'a[href], button:not([disabled])';
-
-  function setBackgroundInert(inert) {
-    const regions = [
-      document.getElementById('main-content'),
-      document.getElementById('site-footer'),
-      document.querySelector('.site-header__bar'),
-    ];
-    for (const el of regions) {
-      if (!el) continue;
-      if (inert) {
-        el.setAttribute('inert', '');
-      } else {
-        el.removeAttribute('inert');
-      }
-    }
-  }
-
-  function openMenu() {
-    menu.setAttribute('data-open', 'true');
-    menu.setAttribute('aria-hidden', 'false');
-    openBtn.setAttribute('aria-expanded', 'true');
-    document.body.classList.add('menu-open');
-    setBackgroundInert(true);
-    closeBtn.focus();
-  }
-
-  function closeMenu({ restoreFocus = true } = {}) {
-    if (menu.getAttribute('data-open') !== 'true') return;
-    menu.setAttribute('data-open', 'false');
-    menu.setAttribute('aria-hidden', 'true');
-    openBtn.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('menu-open');
-    setBackgroundInert(false);
-    if (restoreFocus) {
-      openBtn.focus();
-    }
-  }
-
-  openBtn.addEventListener('click', openMenu);
-  closeBtn.addEventListener('click', () => closeMenu({ restoreFocus: true }));
-
-  menu.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      const isSearchLink = link.hasAttribute('data-nav-search');
-      closeMenu({ restoreFocus: !isSearchLink });
-    });
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (menu.getAttribute('data-open') !== 'true') return;
-
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      closeMenu({ restoreFocus: true });
-      return;
-    }
-
-    if (event.key === 'Tab') {
-      const focusables = Array.from(menu.querySelectorAll(focusableSelector));
-      if (focusables.length === 0) return;
-
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
-
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    }
-  });
 }
 
 function initEditorialReveal() {

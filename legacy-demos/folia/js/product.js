@@ -193,16 +193,26 @@ export function initMobileMenu() {
     openBtn.setAttribute('aria-expanded', 'true');
     document.body.classList.add('menu-open');
     setBackgroundInert(true);
+    if (typeof menu.showModal === 'function' && !menu.open) {
+      try {
+        menu.showModal();
+      } catch {
+        // Fallback if already open or non-dialog element
+      }
+    }
     closeBtn.focus();
   }
 
   function closeMenu({ restoreFocus = true } = {}) {
-    if (menu.getAttribute('data-open') !== 'true') return;
+    if (menu.getAttribute('data-open') !== 'true' && !menu.open) return;
     menu.setAttribute('data-open', 'false');
     menu.setAttribute('aria-hidden', 'true');
     openBtn.setAttribute('aria-expanded', 'false');
     document.body.classList.remove('menu-open');
     setBackgroundInert(false);
+    if (typeof menu.close === 'function' && menu.open) {
+      menu.close();
+    }
     if (restoreFocus) {
       openBtn.focus();
     }
@@ -211,10 +221,32 @@ export function initMobileMenu() {
   openBtn.addEventListener('click', openMenu);
   closeBtn.addEventListener('click', () => closeMenu({ restoreFocus: true }));
 
+  // Light-dismiss when tapping the backdrop outside the drawer panel
+  menu.addEventListener('click', (event) => {
+    if (event.target === menu) {
+      closeMenu({ restoreFocus: true });
+    }
+  });
+
+  // Sync state if the native dialog closes via Escape or platform action
+  menu.addEventListener('close', () => {
+    if (menu.getAttribute('data-open') === 'true') {
+      closeMenu({ restoreFocus: true });
+    }
+  });
+
   menu.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
       closeMenu({ restoreFocus: false });
     });
+  });
+
+  // Close drawer automatically if viewport widens to desktop layout
+  const desktopMedia = window.matchMedia('(min-width: 900px)');
+  desktopMedia.addEventListener('change', (event) => {
+    if (event.matches) {
+      closeMenu({ restoreFocus: false });
+    }
   });
 
   document.addEventListener('keydown', (event) => {

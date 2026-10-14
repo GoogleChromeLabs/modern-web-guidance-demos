@@ -55,7 +55,7 @@
   position: absolute;
   left: max(var(--gutter), env(safe-area-inset-left, 0px));
   /* Mobile first: bottom-left at roughly 60vw wide, clear of the plant on the right */
-  bottom: clamp(2rem, 6svh, 3.5rem);
+  bottom: clamp(6.5rem, 16svh, 9.5rem);
   margin: 0;
   font-family: var(--font-display);
   font-weight: var(--font-weight-regular);

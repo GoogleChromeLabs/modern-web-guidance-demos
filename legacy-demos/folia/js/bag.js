@@ -707,9 +707,12 @@ export function openBagDrawer({ triggerEl } = {}) {
   // Close mobile menu first if it was open
   const mobileMenu = document.getElementById('mobile-menu');
   const menuOpenBtn = document.getElementById('menu-open-btn');
-  if (mobileMenu?.getAttribute('data-open') === 'true') {
+  if (mobileMenu?.getAttribute('data-open') === 'true' || mobileMenu?.open) {
     mobileMenu.setAttribute('data-open', 'false');
     mobileMenu.setAttribute('aria-hidden', 'true');
+    if (typeof mobileMenu.close === 'function' && mobileMenu.open) {
+      mobileMenu.close();
+    }
     menuOpenBtn?.setAttribute('aria-expanded', 'false');
     document.body.classList.remove('menu-open');
   }
@@ -755,8 +758,19 @@ export function closeBagDrawer({ restoreFocus = true } = {}) {
   document.body.classList.remove('bag-open');
   setBackgroundPageInert(false);
 
-  if (restoreFocus && lastDrawerTriggerEl && typeof lastDrawerTriggerEl.focus === 'function') {
-    lastDrawerTriggerEl.focus();
+  if (restoreFocus) {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuOpenBtn = document.getElementById('menu-open-btn');
+    if (
+      lastDrawerTriggerEl &&
+      mobileMenu &&
+      mobileMenu.contains(lastDrawerTriggerEl) &&
+      mobileMenu.getAttribute('data-open') !== 'true'
+    ) {
+      menuOpenBtn?.focus();
+    } else if (lastDrawerTriggerEl && typeof lastDrawerTriggerEl.focus === 'function') {
+      lastDrawerTriggerEl.focus();
+    }
   }
 }
 

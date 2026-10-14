@@ -25,16 +25,6 @@
   <div class="page-shell">
     <header id="site-header" class="site-header" data-state="scrolled" aria-label="Site header">
       <nav class="site-header__bar" aria-label="Primary">
-        <button
-          type="button"
-          id="menu-open-btn"
-          class="nav-menu-btn"
-          aria-expanded="false"
-          aria-controls="mobile-menu"
-        >
-          Menu
-        </button>
-
         <ul class="nav-group nav-group--left">
           <li><a href="/?category=large#shop" class="nav-link">Large plants</a></li>
           <li><a href="/?category=small#shop" class="nav-link">Small plants</a></li>
@@ -60,6 +50,17 @@
             >Bag (0)</a>
           </li>
         </ul>
+
+        <button
+          type="button"
+          id="menu-open-btn"
+          class="nav-menu-btn"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          Menu
+        </button>
       </nav>
 
       <div id="bag-scrim" class="bag-scrim" data-open="false" aria-hidden="true"></div>
@@ -117,43 +118,58 @@
       </div>
     </header>
 
-    <!-- Full-screen overlay menu for viewports under 900px -->
-    <div
+    <!-- Slide-over navigation drawer for viewports under 900px -->
+    <dialog
       id="mobile-menu"
       class="mobile-menu"
-      role="dialog"
-      aria-modal="true"
       aria-label="Site navigation"
       aria-hidden="true"
+      closedby="any"
       data-open="false"
     >
       <div class="mobile-menu__top">
+        <a href="/" class="mobile-menu__wordmark" aria-label="Folia home">FOLIA</a>
         <button type="button" id="menu-close-btn" class="nav-menu-btn mobile-menu__close">
           Close
         </button>
-        <span class="mobile-menu__wordmark" aria-hidden="true">FOLIA</span>
-        <a
-          href="#bag"
-          class="nav-link"
-          style="justify-self: end;"
-          aria-haspopup="dialog"
-          aria-expanded="false"
-          aria-controls="bag-drawer"
-          data-bag-trigger
-        >Bag (0)</a>
       </div>
 
-      <ul class="mobile-menu__list">
-        <li><a href="/?category=large#shop" class="mobile-menu__link">Large plants</a></li>
-        <li><a href="/?category=small#shop" class="mobile-menu__link">Small plants</a></li>
-        <li><a href="/?category=pots#shop" class="mobile-menu__link">Pots</a></li>
-        <li><a href="/?category=care#shop" class="mobile-menu__link">Care</a></li>
-      </ul>
+      <nav class="mobile-menu__body" aria-label="Mobile navigation">
+        <p class="mobile-menu__eyebrow">Collection</p>
+        <ul class="mobile-menu__list">
+          <li class="mobile-menu__item">
+            <a href="/?category=large#shop" class="mobile-menu__link">Large plants</a>
+          </li>
+          <li class="mobile-menu__item">
+            <a href="/?category=small#shop" class="mobile-menu__link">Small plants</a>
+          </li>
+          <li class="mobile-menu__item">
+            <a href="/?category=pots#shop" class="mobile-menu__link">Pots</a>
+          </li>
+          <li class="mobile-menu__item">
+            <a href="/?category=care#shop" class="mobile-menu__link">Care</a>
+          </li>
+          <li class="mobile-menu__item">
+            <a href="/#about" class="mobile-menu__link">About</a>
+          </li>
+        </ul>
+      </nav>
 
       <div class="mobile-menu__footer">
-        <a href="/#shop" class="nav-link">Search</a>
+        <div class="mobile-menu__utilities">
+          <a href="/#shop" class="nav-link mobile-menu__utility">Search</a>
+          <a
+            href="#bag"
+            class="nav-link mobile-menu__utility"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+            aria-controls="bag-drawer"
+            data-bag-trigger
+          >Bag (0)</a>
+        </div>
+        <p class="mobile-menu__note">Free delivery over £75 · 2 to 4 working days</p>
       </div>
-    </div>
+    </dialog>
 
     <main id="main-content" class="site-main product-main" tabindex="-1">
       <article id="product-view" class="product">
