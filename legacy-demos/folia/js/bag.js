@@ -706,10 +706,18 @@ export function openBagDrawer({ triggerEl } = {}) {
 
   // Close mobile menu first if it was open
   const mobileMenu = document.getElementById('mobile-menu');
+  const menuScrim = document.getElementById('menu-scrim');
   const menuOpenBtn = document.getElementById('menu-open-btn');
   if (mobileMenu?.getAttribute('data-open') === 'true') {
     mobileMenu.setAttribute('data-open', 'false');
     mobileMenu.setAttribute('aria-hidden', 'true');
+    mobileMenu.removeAttribute('data-dragging');
+    mobileMenu.style.transform = '';
+    menuScrim?.setAttribute('data-open', 'false');
+    menuScrim?.removeAttribute('data-dragging');
+    if (menuScrim) {
+      menuScrim.style.opacity = '';
+    }
     menuOpenBtn?.setAttribute('aria-expanded', 'false');
     document.body.classList.remove('menu-open');
   }
