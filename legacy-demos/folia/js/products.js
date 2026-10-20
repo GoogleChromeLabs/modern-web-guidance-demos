@@ -49,11 +49,11 @@ export const PRODUCTS = [
     ],
     price: 14500,
     category: 'large',
-    image: '/public/images/cells/ficus-lyrata.jpg',
+    image: './images/cells/ficus-lyrata.jpg',
     images: [
-      '/public/images/products/fiddle-leaf-fig/01.jpg',
-      '/public/images/products/fiddle-leaf-fig/02.jpg',
-      '/public/images/products/fiddle-leaf-fig/03.jpg',
+      './images/products/fiddle-leaf-fig/01.jpg',
+      './images/products/fiddle-leaf-fig/02.jpg',
+      './images/products/fiddle-leaf-fig/03.jpg',
     ],
     alts: [
       'Full-length studio portrait of a Fiddle leaf fig (Ficus lyrata, 120 cm) in a charcoal stoneware pot against a mid-grey backdrop',
@@ -85,10 +85,10 @@ export const PRODUCTS = [
     ],
     price: 18900,
     category: 'large',
-    image: '/public/images/cells/olive-tree.jpg',
+    image: './images/cells/olive-tree.jpg',
     images: [
-      '/public/images/products/olive-tree/01.jpg',
-      '/public/images/products/olive-tree/02.jpg',
+      './images/products/olive-tree/01.jpg',
+      './images/products/olive-tree/02.jpg',
     ],
     alts: [
       'Olive tree (Olea europaea, 140 cm) with silvery-green foliage in a studio pot against a mid-grey backdrop',
@@ -113,10 +113,10 @@ export const PRODUCTS = [
     ],
     price: 21000,
     category: 'large',
-    image: '/public/images/cells/strelitzia-nicolai.jpg',
+    image: './images/cells/strelitzia-nicolai.jpg',
     images: [
-      '/public/images/products/strelitzia-nicolai/01.jpg',
-      '/public/images/products/strelitzia-nicolai/02.jpg',
+      './images/products/strelitzia-nicolai/01.jpg',
+      './images/products/strelitzia-nicolai/02.jpg',
     ],
     alts: [
       'Bird of paradise (Strelitzia nicolai, 150 cm) with tall fan-like leaves in a studio pot against a mid-grey backdrop',
@@ -141,8 +141,8 @@ export const PRODUCTS = [
     ],
     price: 5800,
     category: 'small',
-    image: '/public/images/cells/zamioculcas-zamiifolia.jpg',
-    images: ['/public/images/cells/zamioculcas-zamiifolia.jpg'],
+    image: './images/cells/zamioculcas-zamiifolia.jpg',
+    images: ['./images/cells/zamioculcas-zamiifolia.jpg'],
     alts: [
       'ZZ plant (Zamioculcas zamiifolia, 55 cm) with glossy dark green arching stems in a studio pot against a mid-grey backdrop',
     ],
@@ -164,10 +164,10 @@ export const PRODUCTS = [
     ],
     price: 5200,
     category: 'small',
-    image: '/public/images/cells/calathea-orbifolia.jpg',
+    image: './images/cells/calathea-orbifolia.jpg',
     images: [
-      '/public/images/products/calathea-orbifolia/01.jpg',
-      '/public/images/products/calathea-orbifolia/02.jpg',
+      './images/products/calathea-orbifolia/01.jpg',
+      './images/products/calathea-orbifolia/02.jpg',
     ],
     alts: [
       'Round-leaf calathea (Goeppertia orbifolia, 45 cm) with silver-banded round leaves in a studio pot against a mid-grey backdrop',
@@ -192,8 +192,8 @@ export const PRODUCTS = [
     ],
     price: 4800,
     category: 'small',
-    image: '/public/images/cells/dracaena-angolensis.jpg',
-    images: ['/public/images/cells/dracaena-angolensis.jpg'],
+    image: './images/cells/dracaena-angolensis.jpg',
+    images: ['./images/cells/dracaena-angolensis.jpg'],
     alts: [
       'Cylindrical snake plant (Dracaena angolensis, 60 cm) with upright tubular spears in a studio pot against a mid-grey backdrop',
     ],
@@ -217,10 +217,10 @@ export const PRODUCTS = [
     ],
     price: 9800,
     category: 'large',
-    image: '/public/images/cells/monstera-deliciosa.jpg',
+    image: './images/cells/monstera-deliciosa.jpg',
     images: [
-      '/public/images/products/monstera-deliciosa/01.jpg',
-      '/public/images/products/monstera-deliciosa/02.jpg',
+      './images/products/monstera-deliciosa/01.jpg',
+      './images/products/monstera-deliciosa/02.jpg',
     ],
     alts: [
       'Swiss cheese plant (Monstera deliciosa, 90 cm) with fenestrated dark green leaves in a studio pot against a mid-grey backdrop',
@@ -245,8 +245,8 @@ export const PRODUCTS = [
     ],
     price: 3800,
     category: 'small',
-    image: '/public/images/cells/philodendron-hederaceum.jpg',
-    images: ['/public/images/cells/philodendron-hederaceum.jpg'],
+    image: './images/cells/philodendron-hederaceum.jpg',
+    images: ['./images/cells/philodendron-hederaceum.jpg'],
     alts: [
       'Heartleaf philodendron (Philodendron hederaceum, 35 cm) with trailing heart-shaped leaves in a studio pot against a mid-grey backdrop',
     ],
@@ -268,8 +268,8 @@ export const PRODUCTS = [
     ],
     price: 7900,
     category: 'large',
-    image: '/public/images/cells/ficus-elastica-burgundy.jpg',
-    images: ['/public/images/cells/ficus-elastica-burgundy.jpg'],
+    image: './images/cells/ficus-elastica-burgundy.jpg',
+    images: ['./images/cells/ficus-elastica-burgundy.jpg'],
     alts: [
       "Rubber plant (Ficus elastica 'Burgundy', 100 cm) with near-black leathery foliage in a studio pot against a mid-grey backdrop",
     ],
@@ -291,10 +291,10 @@ export const PRODUCTS = [
     ],
     price: 4400,
     category: 'small',
-    image: '/public/images/cells/alocasia-polly.jpg',
+    image: './images/cells/alocasia-polly.jpg',
     images: [
-      '/public/images/products/alocasia-polly/01.jpg',
-      '/public/images/products/alocasia-polly/02.jpg',
+      './images/products/alocasia-polly/01.jpg',
+      './images/products/alocasia-polly/02.jpg',
     ],
     alts: [
       "Alocasia 'Polly' (Alocasia × amazonica 'Polly', 45 cm) with arrow-shaped leaves and pale veins in a studio pot against a mid-grey backdrop",
@@ -320,8 +320,8 @@ export const PRODUCTS = [
     ],
     price: 9200,
     category: 'large',
-    image: '/public/images/cells/yucca-elephantipes.jpg',
-    images: ['/public/images/cells/yucca-elephantipes.jpg'],
+    image: './images/cells/yucca-elephantipes.jpg',
+    images: ['./images/cells/yucca-elephantipes.jpg'],
     alts: [
       'Yucca (Yucca elephantipes, 110 cm) with a thick woody cane and sword-like leaves in a studio pot against a mid-grey backdrop',
     ],
@@ -344,8 +344,8 @@ export const PRODUCTS = [
     ],
     price: 8400,
     category: 'small',
-    image: '/public/images/cells/euphorbia-ammak.jpg',
-    images: ['/public/images/cells/euphorbia-ammak.jpg'],
+    image: './images/cells/euphorbia-ammak.jpg',
+    images: ['./images/cells/euphorbia-ammak.jpg'],
     alts: [
       'Candelabra euphorbia (Euphorbia ammak, 80 cm) with ribbed columnar stems in a studio pot against a mid-grey backdrop',
     ],

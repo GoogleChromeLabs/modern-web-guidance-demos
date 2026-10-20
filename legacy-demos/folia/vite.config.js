@@ -10,7 +10,13 @@ function productRouteRewrite() {
   const rewriteMiddleware = (req, _res, next) => {
     if (req.url) {
       const [pathname, search = ''] = req.url.split('?');
-      if (pathname === '/products' || pathname.startsWith('/products/')) {
+      if (
+        pathname.startsWith('/products/') &&
+        /\.[a-z0-9]+$/i.test(pathname) &&
+        !pathname.endsWith('.html')
+      ) {
+        req.url = `${pathname.slice('/products'.length)}${search ? `?${search}` : ''}`;
+      } else if (pathname === '/products' || pathname.startsWith('/products/')) {
         req.url = `/product.html${search ? `?${search}` : ''}`;
       }
     }
