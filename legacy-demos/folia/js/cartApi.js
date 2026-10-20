@@ -8,7 +8,13 @@
  * timeout, JSON parsing, and typed CartApiError instances.
  */
 
+import { getStorefrontRootPrefix } from './products.js';
+
 const REQUEST_TIMEOUT_MS = 8000;
+
+function cartEndpoint(subpath = '') {
+  return `${getStorefrontRootPrefix()}api/cart${subpath}`;
+}
 
 export class CartApiError extends Error {
   /**
@@ -161,7 +167,7 @@ async function requestJson(path, { method = 'GET', headers = {}, body, signal } 
  * @returns {Promise<{ lines: Array<{ productId: string, variantId: string, quantity: number }>, updatedAt: string }>}
  */
 export function getCart({ signal } = {}) {
-  return requestJson('/api/cart', { method: 'GET', signal });
+  return requestJson(cartEndpoint(), { method: 'GET', signal });
 }
 
 /**
@@ -179,7 +185,7 @@ export function addCartLine({ productId, variantId, quantity = 1, idempotencyKey
   if (idempotencyKey) {
     headers['Idempotency-Key'] = idempotencyKey;
   }
-  return requestJson('/api/cart/lines', {
+  return requestJson(cartEndpoint('/lines'), {
     method: 'POST',
     headers,
     body: { productId, variantId, quantity },
@@ -199,7 +205,7 @@ export function addCartLine({ productId, variantId, quantity = 1, idempotencyKey
 export function updateCartLine({ productId, variantId, quantity, signal }) {
   const encodedProduct = encodeURIComponent(productId);
   const encodedVariant = encodeURIComponent(variantId);
-  return requestJson(`/api/cart/lines/${encodedProduct}/${encodedVariant}`, {
+  return requestJson(cartEndpoint(`/lines/${encodedProduct}/${encodedVariant}`), {
     method: 'PATCH',
     body: { quantity },
     signal,
@@ -217,7 +223,7 @@ export function updateCartLine({ productId, variantId, quantity, signal }) {
 export function removeCartLine({ productId, variantId, signal }) {
   const encodedProduct = encodeURIComponent(productId);
   const encodedVariant = encodeURIComponent(variantId);
-  return requestJson(`/api/cart/lines/${encodedProduct}/${encodedVariant}`, {
+  return requestJson(cartEndpoint(`/lines/${encodedProduct}/${encodedVariant}`), {
     method: 'DELETE',
     signal,
   });

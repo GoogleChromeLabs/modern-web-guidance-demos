@@ -10,7 +10,11 @@
 
 import { http, HttpResponse, delay } from 'msw';
 import { setupWorker } from 'msw/browser';
-import { getProductById, resolveProductVariant } from '../products.js';
+import {
+  getProductById,
+  getStorefrontRootPrefix,
+  resolveProductVariant,
+} from '../products.js';
 import { loadBagLines, persistBagLinesQuietly, MAX_LINE_QTY } from '../bag.js';
 
 const IDEMPOTENCY_TTL_MS = 60_000;
@@ -134,14 +138,14 @@ function validateProductAndVariant(productId, variantId) {
 
 const handlers = [
   // GET /api/cart
-  http.get('/api/cart', async ({ request }) => {
+  http.get('*/api/cart', async ({ request }) => {
     await delay(computeGetDelayMs(request.url));
     const db = readDb();
     return HttpResponse.json(toPublicCart(db), { status: 200 });
   }),
 
   // POST /api/cart/lines
-  http.post('/api/cart/lines', async ({ request }) => {
+  http.post('*/api/cart/lines', async ({ request }) => {
     await delay(computeWriteDelayMs(request.url));
 
     let body;
@@ -214,7 +218,7 @@ const handlers = [
   }),
 
   // PATCH /api/cart/lines/:productId/:variantId
-  http.patch('/api/cart/lines/:productId/:variantId', async ({ request, params }) => {
+  http.patch('*/api/cart/lines/:productId/:variantId', async ({ request, params }) => {
     await delay(computeWriteDelayMs(request.url));
 
     const productId = String(params.productId || '');
@@ -272,7 +276,7 @@ const handlers = [
   }),
 
   // DELETE /api/cart/lines/:productId/:variantId
-  http.delete('/api/cart/lines/:productId/:variantId', async ({ request, params }) => {
+  http.delete('*/api/cart/lines/:productId/:variantId', async ({ request, params }) => {
     await delay(computeWriteDelayMs(request.url));
 
     const productId = String(params.productId || '');
@@ -307,11 +311,15 @@ export function startCartMockWorker() {
     // Ensure initial localStorage DB record exists
     readDb();
     const worker = setupWorker(...handlers);
+    const serviceWorkerUrl = new URL(
+      `${getStorefrontRootPrefix()}mockServiceWorker.js`,
+      window.location.href
+    ).pathname;
     workerStartPromise = worker.start({
       onUnhandledRequest: 'bypass',
       quiet: true,
       serviceWorker: {
-        url: '/mockServiceWorker.js',
+        url: serviceWorkerUrl,
       },
     });
   }

@@ -68,7 +68,7 @@ export const PRODUCTS = [
       water: 'When the top 5 cm of soil feels dry, usually every 7 to 10 days.',
       pets: 'Toxic to cats and dogs if eaten.',
     },
-    href: '/products/ficus-lyrata',
+    href: './product.html?id=ficus-lyrata',
   },
   {
     id: 'olive-tree',
@@ -97,7 +97,7 @@ export const PRODUCTS = [
     description:
       'A pruned Mediterranean standard with narrow, silvery-green leaves and a pale woody trunk. Suited to sun-drenched corners and south-facing windows.',
     pots: [...DEFAULT_POTS],
-    href: '/products/olive-tree',
+    href: './product.html?id=olive-tree',
   },
   {
     id: 'strelitzia-nicolai',
@@ -125,7 +125,7 @@ export const PRODUCTS = [
     description:
       'Tall, fan-arranged stems carrying broad, paddle-shaped leaves that split naturally with age. Built for high ceilings and generous floor space.',
     pots: [...DEFAULT_POTS],
-    href: '/products/strelitzia-nicolai',
+    href: './product.html?id=strelitzia-nicolai',
   },
   {
     id: 'zamioculcas-zamiifolia',
@@ -149,7 +149,7 @@ export const PRODUCTS = [
     description:
       'Waxy, deep green leaflets arranged symmetrically along fleshy, water-storing stems. Exceptionally tolerant of low light and irregular watering.',
     pots: [...DEFAULT_POTS],
-    href: '/products/zamioculcas-zamiifolia',
+    href: './product.html?id=zamioculcas-zamiifolia',
   },
   {
     id: 'calathea-orbifolia',
@@ -176,7 +176,7 @@ export const PRODUCTS = [
     description:
       'Wide, pleated leaves striped with pale silver-green brushstrokes that rise and fold quietly between day and night.',
     pots: [...DEFAULT_POTS],
-    href: '/products/calathea-orbifolia',
+    href: './product.html?id=calathea-orbifolia',
   },
   {
     id: 'dracaena-angolensis',
@@ -200,7 +200,7 @@ export const PRODUCTS = [
     description:
       'Rigid, cylindrical spears banded in muted sage and deep forest green. A minimalist vertical form that thrives on neglect.',
     pots: [...DEFAULT_POTS],
-    href: '/products/dracaena-angolensis',
+    href: './product.html?id=dracaena-angolensis',
   },
   {
     id: 'monstera-deliciosa',
@@ -229,7 +229,7 @@ export const PRODUCTS = [
     description:
       'Heavy, perforated leaves that cast graphic shadows across plaster and stone. Trained upright on a discreet central support.',
     pots: [...DEFAULT_POTS],
-    href: '/products/monstera-deliciosa',
+    href: './product.html?id=monstera-deliciosa',
   },
   {
     id: 'philodendron-hederaceum',
@@ -253,7 +253,7 @@ export const PRODUCTS = [
     description:
       'Softly trailing stems of matte, heart-shaped foliage. Ideal for open shelving, stone plinths, or shaded studies.',
     pots: [...DEFAULT_POTS],
-    href: '/products/philodendron-hederaceum',
+    href: './product.html?id=philodendron-hederaceum',
   },
   {
     id: 'ficus-elastica-burgundy',
@@ -276,7 +276,7 @@ export const PRODUCTS = [
     description:
       'Thick, oval leaves in deep espresso and oxblood tones emerging from ruby sheaths. A strong dark vertical accent.',
     pots: [...DEFAULT_POTS],
-    href: '/products/ficus-elastica-burgundy',
+    href: './product.html?id=ficus-elastica-burgundy',
   },
   {
     id: 'alocasia-polly',
@@ -303,7 +303,7 @@ export const PRODUCTS = [
     description:
       'Arrowhead leaves with scalloped margins and high-contrast ivory ribs over deep green blades.',
     pots: [...DEFAULT_POTS],
-    href: '/products/alocasia-polly',
+    href: './product.html?id=alocasia-polly',
   },
   {
     id: 'yucca-elephantipes',
@@ -328,7 +328,7 @@ export const PRODUCTS = [
     description:
       'Stout, rugged canes crowned with rosettes of firm, sword-shaped leaves. Thrives in bright, dry interiors.',
     pots: [...DEFAULT_POTS],
-    href: '/products/yucca-elephantipes',
+    href: './product.html?id=yucca-elephantipes',
   },
   {
     id: 'euphorbia-ammak',
@@ -352,7 +352,7 @@ export const PRODUCTS = [
     description:
       'Ribbed, four-angled succulent columns with ascending arms that read like carved stone against plain walls.',
     pots: [...DEFAULT_POTS],
-    href: '/products/euphorbia-ammak',
+    href: './product.html?id=euphorbia-ammak',
   },
 ];
 
@@ -407,6 +407,16 @@ export function resolveProductVariant(product, variantId) {
     potSize,
     label: potSize ? `${pot.label}, ${potSize.label}` : pot.label,
   };
+}
+
+/**
+ * Returns the relative prefix back to the storefront directory root from the
+ * current location ('../' on '/products/<slug>' routes, './' everywhere else).
+ * @param {string} [pathname]
+ * @returns {string}
+ */
+export function getStorefrontRootPrefix(pathname = window.location.pathname) {
+  return /\/products\/[^/]*$/.test(pathname) ? '../' : './';
 }
 
 /**

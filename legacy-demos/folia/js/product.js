@@ -5,7 +5,13 @@
  * Folia Storefront — Product Detail Page Controller (/products/[id])
  */
 
-import { CATEGORIES, formatPrice, formatVariantId, getProductById } from './products.js';
+import {
+  CATEGORIES,
+  formatPrice,
+  formatVariantId,
+  getProductById,
+  getStorefrontRootPrefix,
+} from './products.js';
 import { cartApi, CartApiError } from './cartApi.js';
 import { initBagDrawer, openBagDrawer, syncBagFromCart, incrementBagLine } from './bag.js';
 import { initFooter, subscribe } from './footer.js';
@@ -36,7 +42,7 @@ const PRODUCT_MAIN_TEMPLATE = `
     </div>
 
     <div id="product-info" class="product__info">
-      <a id="product-back-link" href="/#shop" class="product__back-link">
+      <a id="product-back-link" href="./#shop" class="product__back-link">
         Back to collection
       </a>
 
@@ -131,7 +137,7 @@ const PRODUCT_MAIN_TEMPLATE = `
     <p class="product-not-found__text">
       The specimen you are looking for is not in the current collection.
     </p>
-    <a id="not-found-back-link" href="/#shop" class="product-not-found__link">
+    <a id="not-found-back-link" href="./#shop" class="product-not-found__link">
       Back to collection
     </a>
   </section>
@@ -272,8 +278,9 @@ function resolveBackToCollectionHref() {
     outParams.set('q', query);
   }
 
+  const rootPrefix = getStorefrontRootPrefix();
   const qs = outParams.toString();
-  return qs ? `/?${qs}#shop` : '/#shop';
+  return qs ? `${rootPrefix}?${qs}#shop` : `${rootPrefix}#shop`;
 }
 
 function extractProductIdFromLocation() {
@@ -282,8 +289,9 @@ function extractProductIdFromLocation() {
   if (queryId) return queryId;
 
   const segments = window.location.pathname.split('/').filter(Boolean);
-  if (segments[0] === 'products' && segments[1]) {
-    return segments[1];
+  const productsIndex = segments.lastIndexOf('products');
+  if (productsIndex !== -1 && segments[productsIndex + 1]) {
+    return segments[productsIndex + 1];
   }
   return '';
 }
@@ -299,25 +307,39 @@ function setDocumentMeta(title, description) {
   metaDesc.setAttribute('content', description);
 }
 
+function normalizeProductShellLinks(rootPrefix) {
+  const header = document.getElementById('site-header');
+  if (header) {
+    const wordmark = header.querySelector('.site-header__wordmark');
+    if (wordmark) {
+      wordmark.setAttribute('href', rootPrefix);
+    }
+  }
+
+  document.querySelectorAll('a[data-nav-search]').forEach((searchLink) => {
+    searchLink.setAttribute('href', `${rootPrefix}#shop`);
+    searchLink.removeAttribute('data-nav-search');
+  });
+
+  if (rootPrefix !== './') {
+    document.querySelectorAll('a[href^="./"]').forEach((anchor) => {
+      if (anchor.closest('#main-content')) return;
+      const currentHref = anchor.getAttribute('href') || '';
+      anchor.setAttribute('href', `${rootPrefix}${currentHref.slice(2)}`);
+    });
+  }
+}
+
 function ensureProductDomShell() {
   const header = document.getElementById('site-header');
   if (header) {
     header.setAttribute('data-state', 'scrolled');
-    const wordmark = header.querySelector('.site-header__wordmark');
-    if (wordmark) {
-      wordmark.setAttribute('href', '/');
-    }
   }
 
   const sentinel = document.getElementById('scroll-sentinel');
   if (sentinel) {
     sentinel.remove();
   }
-
-  document.querySelectorAll('a[data-nav-search]').forEach((searchLink) => {
-    searchLink.setAttribute('href', '/#shop');
-    searchLink.removeAttribute('data-nav-search');
-  });
 
   const mainEl = document.getElementById('main-content');
   if (mainEl && !document.getElementById('product-view')) {
@@ -327,9 +349,11 @@ function ensureProductDomShell() {
 }
 
 export function initProductPage() {
+  const rootPrefix = getStorefrontRootPrefix();
   ensureProductDomShell();
   initBagDrawer();
   initFooter();
+  normalizeProductShellLinks(rootPrefix);
 
   const pageController = new AbortController();
   const abortPageRequests = () => {

@@ -395,7 +395,7 @@ const BAG_DRAWER_HTML = `
     <div id="bag-drawer-body" class="bag-drawer__body">
       <div id="bag-empty" class="bag-drawer__empty">
         <p class="bag-drawer__empty-text">Your bag is empty.</p>
-        <a href="/#shop" id="bag-continue-link" class="bag-drawer__continue-link">
+        <a href="./#shop" id="bag-continue-link" class="bag-drawer__continue-link">
           Continue shopping
         </a>
       </div>

@@ -41,10 +41,10 @@ const FOOTER_TEMPLATE = `
       <div class="site-footer__col">
         <h2 class="site-footer__heading">Shop</h2>
         <ul class="site-footer__list">
-          <li><a href="/?category=large#shop" class="site-footer__link" data-category="large">Large plants</a></li>
-          <li><a href="/?category=small#shop" class="site-footer__link" data-category="small">Small plants</a></li>
-          <li><a href="/?category=pots#shop" class="site-footer__link" data-category="pots">Pots</a></li>
-          <li><a href="/?category=care#shop" class="site-footer__link" data-category="care">Care</a></li>
+          <li><a href="./?category=large#shop" class="site-footer__link" data-category="large">Large plants</a></li>
+          <li><a href="./?category=small#shop" class="site-footer__link" data-category="small">Small plants</a></li>
+          <li><a href="./?category=pots#shop" class="site-footer__link" data-category="pots">Pots</a></li>
+          <li><a href="./?category=care#shop" class="site-footer__link" data-category="care">Care</a></li>
         </ul>
       </div>
 
@@ -61,7 +61,7 @@ const FOOTER_TEMPLATE = `
       <div class="site-footer__col">
         <h2 class="site-footer__heading">Folia</h2>
         <ul class="site-footer__list">
-          <li><a href="/#about" class="site-footer__link">About</a></li>
+          <li><a href="./#about" class="site-footer__link">About</a></li>
           <li><a href="#" class="site-footer__link" data-stub-link>Journal</a></li>
           <li><a href="#" class="site-footer__link" data-stub-link>Stockists</a></li>
         </ul>

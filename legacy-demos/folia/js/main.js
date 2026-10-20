@@ -339,7 +339,12 @@ function initLookbook() {
       const isVisible = matchesCategory && matchesQuery;
 
       record.element.hidden = !isVisible;
-      record.link.href = `${record.product.href}${filterQueryString}`;
+      if (filterQueryString) {
+        const separator = record.product.href.includes('?') ? '&' : '?';
+        record.link.href = `${record.product.href}${separator}${filterQueryString.slice(1)}`;
+      } else {
+        record.link.href = record.product.href;
+      }
       if (isVisible) {
         visibleCount += 1;
       }
@@ -508,7 +513,7 @@ function initStory() {
     window.scrollTo({ top: targetTop, behavior });
   }
 
-  document.querySelectorAll('a[href="#about"], a[href="/#about"]').forEach((link) => {
+  document.querySelectorAll('a[href="#about"], a[href="./#about"], a[href="/#about"]').forEach((link) => {
     link.addEventListener('click', (event) => {
       event.preventDefault();
       const url = new URL(window.location.href);
@@ -525,9 +530,7 @@ function initStory() {
   }
 }
 
-const isProductRoute =
-  window.location.pathname === '/products' ||
-  window.location.pathname.startsWith('/products/');
+const isProductRoute = /\/products(?:\/|$)/.test(window.location.pathname);
 
 if (isProductRoute) {
   initMobileMenu();

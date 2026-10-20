@@ -10,14 +10,14 @@ function productRouteRewrite() {
   const rewriteMiddleware = (req, _res, next) => {
     if (req.url) {
       const [pathname, search = ''] = req.url.split('?');
-      if (
-        pathname.startsWith('/products/') &&
-        /\.[a-z0-9]+$/i.test(pathname) &&
-        !pathname.endsWith('.html')
-      ) {
-        req.url = `${pathname.slice('/products'.length)}${search ? `?${search}` : ''}`;
-      } else if (pathname === '/products' || pathname.startsWith('/products/')) {
-        req.url = `/product.html${search ? `?${search}` : ''}`;
+      const productsMatch = pathname.match(/^(.*?)\/products(?:\/(.*))?$/);
+      if (productsMatch) {
+        const [, prefix, rest = ''] = productsMatch;
+        if (rest && /\.[a-z0-9]+$/i.test(rest) && !rest.endsWith('.html')) {
+          req.url = `${prefix}/${rest}${search ? `?${search}` : ''}`;
+        } else {
+          req.url = `${prefix}/product.html${search ? `?${search}` : ''}`;
+        }
       }
     }
     next();
@@ -35,6 +35,7 @@ function productRouteRewrite() {
 }
 
 export default defineConfig({
+  base: './',
   plugins: [productRouteRewrite()],
   build: {
     rollupOptions: {
