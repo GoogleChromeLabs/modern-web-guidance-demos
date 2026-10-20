@@ -1,6 +1,6 @@
 # 🚀 Modern Web Guidance Demos
 
-Welcome to **Modern Web Guidance Demos** — a collection of self-contained web applications designed for testing AI coding agents with **[Modern Web Guidance (MWG)](https://developer.chrome.com/docs/modern-web-guidance)** and **[Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp)**.
+Welcome to **Modern Web Guidance Demos** — a collection of self-contained web applications designed for testing AI coding agents with **[Modern Web Guidance (MWG)](https://developer.chrome.com/docs/modern-web-guidance)** and **[Chrome DevTools for agents](https://developer.chrome.com/docs/devtools/agents)**.
 
 Each application provides a realistic baseline codebase where you can give your coding agent product- and UX-level prompts, verify its work in a real Chrome browser, and compare implementations built **without** vs. **with** Modern Web Guidance.
 
@@ -54,31 +54,20 @@ npm run dev
 
 ## 🧪 Agent Tooling Setup
 
-### 1. Chrome DevTools for Agents (`chrome-devtools-mcp`)
+### 1. Chrome DevTools for agents
 
-Configure **[Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp)** so your coding agent can inspect live DOM/CSS state, interact with pages in Chrome, and verify visual and keyboard behavior:
+Set up **[Chrome DevTools for agents](https://developer.chrome.com/docs/devtools/agents)** so your coding agent can inspect live DOM and CSS state, interact with pages in Chrome, and verify visual and keyboard behavior. Follow the [installation instructions on Chrome for Developers](https://developer.chrome.com/docs/devtools/agents) for your preferred IDE or CLI.
 
-```json
-{
-  "mcpServers": {
-    "chrome-devtools": {
-      "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest"]
-    }
-  }
-}
-```
+### 2. Modern Web Guidance
 
-### 2. Modern Web Guidance Skill
-
-To add **[Modern Web Guidance](https://github.com/GoogleChrome/modern-web-guidance)** to a workspace when running a guided session:
+To install **[Modern Web Guidance](https://developer.chrome.com/docs/modern-web-guidance)** in a workspace when running a guided session:
 
 ```bash
-npx skills add GoogleChrome/modern-web-guidance
+npx modern-web-guidance@latest install
 ```
 
 > [!TIP]
-> For clean before/after comparisons, create two separate branches or `git worktree` checkouts—run your prompt first **without** the `modern-web-guidance` skill installed, then install the skill in the second checkout, restart your agent session so the skill loads cleanly, and run the exact same prompt.
+> For clean before/after comparisons, create two separate branches or `git worktree` checkouts—run your prompt first **without** Modern Web Guidance installed, then run `npx modern-web-guidance@latest install` in the second checkout, restart your agent session so the skills load cleanly, and run the exact same prompt.
 
 ---
 

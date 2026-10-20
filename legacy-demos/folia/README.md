@@ -1,6 +1,6 @@
 # Folia — Architectural Botanicals Storefront
 
-**Folia** is an editorial plant storefront built with vanilla HTML, CSS, and JavaScript on Vite. It serves as a realistic, self-contained playground for evaluating how AI coding agents build new features, refine UI interactions, and verification-test changes in a real browser with **[Modern Web Guidance](https://developer.chrome.com/docs/modern-web-guidance)** and **[Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp)**.
+**Folia** is an editorial plant storefront built with vanilla HTML, CSS, and JavaScript on Vite. It serves as a realistic, self-contained playground for evaluating how AI coding agents build new features, refine UI interactions, and verification-test changes in a real browser with **[Modern Web Guidance](https://developer.chrome.com/docs/modern-web-guidance)** and **[Chrome DevTools for agents](https://developer.chrome.com/docs/devtools/agents)**.
 
 ---
 
@@ -46,7 +46,7 @@ legacy-demos/folia/
 ### Prerequisites
 
 - **Node.js 20.19+** (or **22.12+**)
-- **Google Chrome** (for interactive browser inspection and Chrome DevTools MCP verification)
+- **Google Chrome** (for interactive browser inspection and [Chrome DevTools for agents](https://developer.chrome.com/docs/devtools/agents) verification)
 
 ### Quick Start
 
@@ -75,30 +75,11 @@ When running `npm run dev`, append query parameters to any storefront URL to tes
 
 To evaluate how **[Modern Web Guidance](https://developer.chrome.com/docs/modern-web-guidance)** affects code quality, platform usage, and accessibility, run the **exact same prompt** in two isolated environments: a baseline **Control** run and a **Guided** run.
 
-### 1. Configure Chrome DevTools for Agents (Both Runs)
+### 1. Set Up Chrome DevTools for agents (Both Runs)
 
-Enable **[Chrome DevTools MCP](https://github.com/ChromeDevTools/chrome-devtools-mcp)** in your coding agent for **both** control and guided runs so the agent can open Folia in Chrome, inspect computed styles and DOM state, test keyboard/pointer flows, and verify changes against the rules in [`AGENTS.md`](./AGENTS.md):
+Enable **[Chrome DevTools for agents](https://developer.chrome.com/docs/devtools/agents)** in your coding agent for **both** control and guided runs so the agent can open Folia in Chrome, inspect computed styles and DOM state, test keyboard/pointer flows, and verify changes against the rules in [`AGENTS.md`](./AGENTS.md).
 
-```json
-{
-  "mcpServers": {
-    "chrome-devtools": {
-      "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest"]
-    }
-  }
-}
-```
-
-Or register it via your agent CLI:
-
-```bash
-# Gemini CLI
-gemini mcp add chrome-devtools npx chrome-devtools-mcp@latest
-
-# Claude Code
-claude mcp add chrome-devtools -- npx -y chrome-devtools-mcp@latest
-```
+Follow the [Chrome DevTools for agents setup instructions](https://developer.chrome.com/docs/devtools/agents) for your IDE or CLI before starting either run.
 
 ### 2. Run a Side-by-Side Comparison
 
@@ -109,14 +90,14 @@ claude mcp add chrome-devtools -- npx -y chrome-devtools-mcp@latest
    ```
 2. **Control run (`../folia-control` — without Modern Web Guidance):**
    - Ensure `modern-web-guidance` is **not** installed globally or inside `../folia-control`.
-   - Start a fresh agent session inside `../folia-control/legacy-demos/folia`, paste a prompt from below, and let the agent implement and verify it with Chrome DevTools MCP.
+   - Start a fresh agent session inside `../folia-control/legacy-demos/folia`, paste a prompt from below, and let the agent implement and verify it with Chrome DevTools for agents.
 3. **Guided run (`../folia-guided` — with Modern Web Guidance):**
-   - Install the [Modern Web Guidance skill](https://github.com/GoogleChrome/modern-web-guidance) inside `../folia-guided`:
+   - Install **[Modern Web Guidance](https://developer.chrome.com/docs/modern-web-guidance)** inside `../folia-guided`:
      ```bash
      cd ../folia-guided
-     npx skills add GoogleChrome/modern-web-guidance
+     npx modern-web-guidance@latest install
      ```
-   - Relaunch your agent CLI/IDE so the newly added skill is loaded into a fresh session, navigate to `legacy-demos/folia`, and paste the **exact same prompt**.
+   - Relaunch your agent CLI/IDE so the installed skills load into a fresh session, navigate to `legacy-demos/folia`, and paste the **exact same prompt**.
 4. **Compare outcomes:**
    - Diff both branches against the base commit (`git diff setup_folia_storefront_demo..folia-control` vs. `git diff setup_folia_storefront_demo..folia-guided`) to compare custom JavaScript volume, CSS complexity, keyboard/screen-reader behavior, fallback strategy, and live interaction quality in Chrome.
 
