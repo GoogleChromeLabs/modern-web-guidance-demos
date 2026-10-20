@@ -116,8 +116,3 @@ Frame prompts around **what shoppers should experience**, not which browser APIs
 3. **Drawer & mobile menu transitions and focus handling**
    > Polish the mobile navigation menu and slide-over bag drawer so both opening and closing transitions run smoothly without abrupt snaps, background content cannot be scrolled or focused while an overlay is open, and `Escape` or backdrop clicks dismiss cleanly. Verify open, close, and keyboard behavior in Chrome DevTools.
 
-4. **Scroll & gallery polish**
-   > Improve the scroll experience across the sticky site header, editorial section reveal, and multi-photo product gallery so state changes and slide indicators stay responsive and free of layout shifts across viewports while honoring reduced-motion preferences. Verify computed styles and runtime behavior in Chrome DevTools.
-
-5. **Resilient async cart feedback**
-   > Test the product page add-to-bag flow and bag drawer updates under `?latency=1500` and `?fail=0.5`, tightening loading, disabled, error-announcement, and retry states so rapid clicks or slow responses never leave controls stuck or out of sync. Verify all states live in Chrome DevTools.

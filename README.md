@@ -14,7 +14,7 @@ Each application provides a realistic baseline codebase where you can give your 
 ├── LICENSE                            # Apache 2.0 License
 ├── CONTRIBUTING.md                    # Google CLA and contribution guidelines
 └── legacy-demos/
-    ├── folia/                         # Botanical storefront (multi-page Vite app + MSW cart API)
+    ├── folia/                         # Botanical storefront (multi-page Vite app + mock cart API)
     │   ├── README.md                  # App overview, network flags, A/B workflow & prompts
     │   ├── AGENTS.md                  # Browser verification rules for coding agents
     │   ├── index.html                 # Home, editorial showcase & filterable lookbook
