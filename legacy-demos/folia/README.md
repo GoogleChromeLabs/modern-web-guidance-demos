@@ -24,8 +24,9 @@ legacy-demos/folia/
 │   ├── tokens.css      # Color, typography, spacing, and motion tokens
 │   └── base.css        # Layout, component, and responsive styles
 ├── js/
-│   ├── main.js         # Home entry, mobile menu, lookbook filters, search
+│   ├── main.js         # Home entry, editorial reveal, lookbook filters, search
 │   ├── product.js      # Product detail view, variant selection, add-to-bag states
+│   ├── nav.js          # Shared mobile navigation menu and section scroll helpers
 │   ├── products.js     # 12-specimen catalogue data and variant helpers
 │   ├── bag.js          # Shared localStorage bag store and slide-over drawer
 │   ├── cartApi.js      # Fetch client with timeout and abort handling
@@ -99,7 +100,7 @@ Follow the [Chrome DevTools for agents setup instructions](https://developer.chr
      ```
    - Relaunch your agent CLI/IDE so the installed skills load into a fresh session, navigate to `legacy-demos/folia`, and paste the **exact same prompt**.
 4. **Compare outcomes:**
-   - Diff both branches against the base commit (`git diff setup_folia_storefront_demo..folia-control` vs. `git diff setup_folia_storefront_demo..folia-guided`) to compare custom JavaScript volume, CSS complexity, keyboard/screen-reader behavior, fallback strategy, and live interaction quality in Chrome.
+   - Diff both branches against the base commit (`git diff HEAD..folia-control` vs. `git diff HEAD..folia-guided`) to compare custom JavaScript volume, CSS complexity, keyboard/screen-reader behavior, fallback strategy, and live interaction quality in Chrome.
 
 ---
 

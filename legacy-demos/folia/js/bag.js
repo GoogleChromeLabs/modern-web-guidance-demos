@@ -6,6 +6,7 @@
  */
 
 import { formatPrice, getProductById, resolveProductVariant } from './products.js';
+import { scrollToSection } from './nav.js';
 
 export const BAG_STORAGE_KEY = 'folia-bag';
 export const MAX_LINE_QTY = 9;
@@ -813,17 +814,7 @@ export function initBagDrawer() {
     if (shopSection) {
       event.preventDefault();
       window.location.hash = '#shop';
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const headerHeight =
-        parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 64;
-      const targetTop = Math.max(
-        0,
-        shopSection.getBoundingClientRect().top + window.scrollY - headerHeight
-      );
-      window.scrollTo({
-        top: targetTop,
-        behavior: prefersReducedMotion ? 'auto' : 'smooth',
-      });
+      scrollToSection(shopSection);
     }
   });
 

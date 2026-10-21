@@ -6,7 +6,7 @@
  */
 
 import { CATEGORIES, PRODUCTS, formatPrice } from './products.js';
-import { initProductPage } from './product.js';
+import { initMobileMenu, scrollToSection } from './nav.js';
 import { cartApi } from './cartApi.js';
 import { FREE_DELIVERY_THRESHOLD_PENCE, initBagDrawer, syncBagFromCart } from './bag.js';
 import { initFooter, subscribe } from './footer.js';
@@ -57,89 +57,6 @@ function initHeaderStateObserver() {
   );
 
   observer.observe(sentinel);
-}
-
-function initMobileMenu() {
-  const openBtn = document.getElementById('menu-open-btn');
-  const closeBtn = document.getElementById('menu-close-btn');
-  const menu = document.getElementById('mobile-menu');
-
-  if (!openBtn || !closeBtn || !menu) return;
-
-  const focusableSelector = 'a[href], button:not([disabled])';
-
-  function setBackgroundInert(inert) {
-    const regions = [
-      document.getElementById('main-content'),
-      document.getElementById('site-footer'),
-      document.querySelector('.site-header__bar'),
-    ];
-    for (const el of regions) {
-      if (!el) continue;
-      if (inert) {
-        el.setAttribute('inert', '');
-      } else {
-        el.removeAttribute('inert');
-      }
-    }
-  }
-
-  function openMenu() {
-    menu.setAttribute('data-open', 'true');
-    menu.setAttribute('aria-hidden', 'false');
-    openBtn.setAttribute('aria-expanded', 'true');
-    document.body.classList.add('menu-open');
-    setBackgroundInert(true);
-    closeBtn.focus();
-  }
-
-  function closeMenu({ restoreFocus = true } = {}) {
-    if (menu.getAttribute('data-open') !== 'true') return;
-    menu.setAttribute('data-open', 'false');
-    menu.setAttribute('aria-hidden', 'true');
-    openBtn.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('menu-open');
-    setBackgroundInert(false);
-    if (restoreFocus) {
-      openBtn.focus();
-    }
-  }
-
-  openBtn.addEventListener('click', openMenu);
-  closeBtn.addEventListener('click', () => closeMenu({ restoreFocus: true }));
-
-  menu.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      const isSearchLink = link.hasAttribute('data-nav-search');
-      closeMenu({ restoreFocus: !isSearchLink });
-    });
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (menu.getAttribute('data-open') !== 'true') return;
-
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      closeMenu({ restoreFocus: true });
-      return;
-    }
-
-    if (event.key === 'Tab') {
-      const focusables = Array.from(menu.querySelectorAll(focusableSelector));
-      if (focusables.length === 0) return;
-
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
-
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    }
-  });
 }
 
 function initEditorialReveal() {
@@ -372,18 +289,6 @@ function initLookbook() {
     }
   }
 
-  function scrollToShop({ instant = false } = {}) {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const behavior = instant || prefersReducedMotion ? 'auto' : 'smooth';
-    const headerHeight =
-      parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 64;
-    const targetTop = Math.max(
-      0,
-      shopSection.getBoundingClientRect().top + window.scrollY - headerHeight
-    );
-    window.scrollTo({ top: targetTop, behavior });
-  }
-
   // 4. Filter button group click handler
   filtersContainer.addEventListener('click', (event) => {
     const btn = event.target.closest('button[data-filter-category]');
@@ -450,7 +355,7 @@ function initLookbook() {
       searchInput.value = '';
       applyLookbookState();
       syncUrlState('#shop');
-      scrollToShop();
+      scrollToSection(shopSection);
     });
   });
 
@@ -459,7 +364,7 @@ function initLookbook() {
     link.addEventListener('click', (event) => {
       event.preventDefault();
       syncUrlState('#shop');
-      scrollToShop();
+      scrollToSection(shopSection);
       searchInput.focus({ preventScroll: true });
     });
   });
@@ -470,7 +375,7 @@ function initLookbook() {
   // If loaded directly with #shop (e.g. /?category=small#shop), position #shop under fixed header
   if (window.location.hash === '#shop') {
     requestAnimationFrame(() => {
-      scrollToShop({ instant: true });
+      scrollToSection(shopSection, { instant: true });
     });
   }
 }
@@ -501,31 +406,19 @@ function initStory() {
 
   if (!storySection) return;
 
-  function scrollToStory({ instant = false } = {}) {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const behavior = instant || prefersReducedMotion ? 'auto' : 'smooth';
-    const headerHeight =
-      parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 64;
-    const targetTop = Math.max(
-      0,
-      storySection.getBoundingClientRect().top + window.scrollY - headerHeight
-    );
-    window.scrollTo({ top: targetTop, behavior });
-  }
-
   document.querySelectorAll('a[href="#about"], a[href="./#about"], a[href="/#about"]').forEach((link) => {
     link.addEventListener('click', (event) => {
       event.preventDefault();
       const url = new URL(window.location.href);
       url.hash = '#about';
       window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
-      scrollToStory();
+      scrollToSection(storySection);
     });
   });
 
   if (window.location.hash === '#about') {
     requestAnimationFrame(() => {
-      scrollToStory({ instant: true });
+      scrollToSection(storySection, { instant: true });
     });
   }
 }
@@ -535,7 +428,9 @@ const isProductRoute = /\/products(?:\/|$)/.test(window.location.pathname);
 if (isProductRoute) {
   initMobileMenu();
   initBagDrawer();
-  initProductPage();
+  import('./product.js').then(({ initProductPage }) => {
+    initProductPage();
+  });
   initFooter();
 } else {
   initHeaderStateObserver();

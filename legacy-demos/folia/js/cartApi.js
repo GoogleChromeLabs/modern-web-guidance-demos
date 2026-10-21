@@ -229,35 +229,9 @@ export function removeCartLine({ productId, variantId, signal }) {
   });
 }
 
-/**
- * Computes total item quantity across all cart lines.
- * @param {{ lines?: Array<{ quantity?: number }> } | null | undefined} cart
- * @returns {number}
- */
-export function getCartItemCount(cart) {
-  if (!cart || !Array.isArray(cart.lines)) return 0;
-  return cart.lines.reduce((sum, line) => sum + (Number(line.quantity) || 0), 0);
-}
-
-/**
- * Updates all header and mobile menu Bag (N) labels in the DOM.
- * @param {{ lines?: Array<{ quantity?: number }> } | null | undefined} cart
- */
-export function syncBagCountElements(cart) {
-  const count = getCartItemCount(cart);
-  const label = `Bag (${count})`;
-  document.querySelectorAll('[data-bag-trigger], a[href="#bag"]').forEach((el) => {
-    if (el.textContent !== label) {
-      el.textContent = label;
-    }
-  });
-}
-
 export const cartApi = {
   getCart,
   addLine: addCartLine,
   updateLine: updateCartLine,
   removeLine: removeCartLine,
-  getCartItemCount,
-  syncBagCountElements,
 };
