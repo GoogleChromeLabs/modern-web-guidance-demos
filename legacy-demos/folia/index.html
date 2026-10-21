@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--
+  Copyright 2026 Google LLC
+  SPDX-License-Identifier: Apache-2.0
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Folia — Architectural botanicals and rare specimen plants chosen for sculptural form, shipped in plain boxes with light and watering care notes.">
+  <title>Folia | Architectural Botanicals</title>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Inter+Tight:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./css/base.css">
+</head>
+
+<body id="top">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- 1px sentinel at the top of the page for IntersectionObserver nav state switching -->
+  <div id="scroll-sentinel" class="scroll-sentinel" aria-hidden="true"></div>
+
+  <div class="page-shell">
+    <header id="site-header" class="site-header" data-state="top" aria-label="Site header">
+      <nav class="site-header__bar" aria-label="Primary">
+        <button
+          type="button"
+          id="menu-open-btn"
+          class="nav-menu-btn"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          Menu
+        </button>
+
+        <ul class="nav-group nav-group--left">
+          <li><a href="./?category=large#shop" class="nav-link" data-category="large">Large plants</a></li>
+          <li><a href="./?category=small#shop" class="nav-link" data-category="small">Small plants</a></li>
+          <li><a href="./?category=pots#shop" class="nav-link" data-category="pots">Pots</a></li>
+          <li><a href="./?category=care#shop" class="nav-link" data-category="care">Care</a></li>
+        </ul>
+
+        <a href="#top" class="site-header__wordmark" aria-label="Folia home">FOLIA</a>
+
+        <ul class="nav-group nav-group--right">
+          <li><a href="#shop" class="nav-link" data-nav-search>Search</a></li>
+          <li>
+            <a
+              href="#bag"
+              id="nav-bag-btn"
+              class="nav-link"
+              aria-haspopup="dialog"
+              aria-expanded="false"
+              aria-controls="bag-drawer"
+              aria-live="polite"
+              aria-atomic="true"
+              data-bag-trigger
+            >Bag (0)</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div id="bag-scrim" class="bag-scrim" data-open="false" aria-hidden="true"></div>
+
+      <div
+        id="bag-drawer"
+        class="bag-drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="bag-drawer-title"
+        aria-hidden="true"
+        data-open="false"
+      >
+        <div class="bag-drawer__header">
+          <h2 id="bag-drawer-title" class="bag-drawer__title">
+            Bag <span id="bag-drawer-count" class="bag-drawer__count">(0)</span>
+          </h2>
+          <button type="button" id="bag-close-btn" class="bag-drawer__close">
+            Close
+          </button>
+        </div>
+
+        <div id="bag-drawer-body" class="bag-drawer__body">
+          <div id="bag-empty" class="bag-drawer__empty">
+            <p class="bag-drawer__empty-text">Your bag is empty.</p>
+            <a href="./#shop" id="bag-continue-link" class="bag-drawer__continue-link">
+              Continue shopping
+            </a>
+          </div>
+
+          <ul id="bag-lines" class="bag-drawer__lines" role="list" hidden></ul>
+        </div>
+
+        <div id="bag-drawer-footer" class="bag-drawer__footer" hidden>
+          <div class="bag-drawer__subtotal-row">
+            <span class="bag-drawer__subtotal-label">Subtotal</span>
+            <span id="bag-subtotal" class="bag-drawer__subtotal-value">£0</span>
+          </div>
+          <p id="bag-delivery-note" class="bag-drawer__delivery" aria-live="polite">
+            Add £75 for free delivery
+          </p>
+          <button type="button" id="bag-checkout-btn" class="bag-drawer__checkout-btn">
+            Checkout
+          </button>
+          <p
+            id="bag-checkout-msg"
+            class="bag-drawer__checkout-msg"
+            role="status"
+            aria-live="polite"
+            hidden
+          >
+            Checkout is not built yet
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Full-screen overlay menu for viewports under 900px -->
+    <div
+      id="mobile-menu"
+      class="mobile-menu"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Site navigation"
+      aria-hidden="true"
+      data-open="false"
+    >
+      <div class="mobile-menu__top">
+        <button type="button" id="menu-close-btn" class="nav-menu-btn mobile-menu__close">
+          Close
+        </button>
+        <span class="mobile-menu__wordmark" aria-hidden="true">FOLIA</span>
+        <a
+          href="#bag"
+          class="nav-link"
+          style="justify-self: end;"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls="bag-drawer"
+          data-bag-trigger
+        >Bag (0)</a>
+      </div>
+
+      <ul class="mobile-menu__list">
+        <li><a href="./?category=large#shop" class="mobile-menu__link" data-category="large">Large plants</a></li>
+        <li><a href="./?category=small#shop" class="mobile-menu__link" data-category="small">Small plants</a></li>
+        <li><a href="./?category=pots#shop" class="mobile-menu__link" data-category="pots">Pots</a></li>
+        <li><a href="./?category=care#shop" class="mobile-menu__link" data-category="care">Care</a></li>
+      </ul>
+
+      <div class="mobile-menu__footer">
+        <a href="#shop" class="nav-link" data-nav-search>Search</a>
+      </div>
+    </div>
+
+    <main id="main-content" class="site-main" tabindex="-1">
+      <section class="hero" aria-label="Featured botanical showcase">
+        <div class="hero__media">
+          <img
+            src="/images/plant-hero-1600.jpg"
+            srcset="/images/plant-hero-800.jpg 800w, /images/plant-hero-1600.jpg 1600w"
+            sizes="100vw"
+            alt="Sculptural fiddle-leaf fig tree in a dark charcoal stone planter standing against a warm plaster wall with soft botanical shadows"
+            class="hero__image"
+            width="1600"
+            height="893"
+            fetchpriority="high"
+          >
+        </div>
+
+        <div class="hero__content">
+          <h1 class="hero__wordmark">FOLIA</h1>
+        </div>
+      </section>
+
+      <section id="dark-foliage" class="editorial" aria-labelledby="editorial-title">
+        <picture class="editorial__picture">
+          <source
+            media="(max-width: 699.98px)"
+            srcset="/images/editorial-mobile-800.jpg 800w, /images/editorial-mobile-1600.jpg 1600w"
+            sizes="100vw"
+            width="1600"
+            height="2000"
+          >
+          <img
+            src="/images/editorial-desktop-1600.jpg"
+            srcset="/images/editorial-desktop-800.jpg 800w, /images/editorial-desktop-1600.jpg 1600w"
+            sizes="100vw"
+            alt="Seven plants with near-black foliage in black pots, lined up against a white studio background"
+            class="editorial__image"
+            width="1600"
+            height="1066"
+            loading="lazy"
+            decoding="async"
+          >
+        </picture>
+
+        <div class="editorial__overlay">
+          <div id="editorial-text" class="editorial__text">
+            <h2 id="editorial-title" class="editorial__title">Dark Foliage</h2>
+            <p class="editorial__subtitle">
+              <span>Sculptural plants in black.</span>
+              <span>Chosen for low light.</span>
+            </p>
+            <p class="editorial__volume">Vol. 1</p>
+            <a href="#shop" class="editorial__cta" data-category="all">Shop the collection</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="shop" class="lookbook" aria-labelledby="lookbook-heading">
+        <h2 id="lookbook-heading" class="visually-hidden">Shop catalogue</h2>
+
+        <div id="lookbook-bar" class="lookbook__bar">
+          <div
+            id="lookbook-filters"
+            class="lookbook__filters"
+            role="group"
+            aria-label="Filter by category"
+          ></div>
+
+          <div class="lookbook__tools">
+            <div class="lookbook__search">
+              <label for="lookbook-search" class="lookbook__search-label">Search</label>
+              <input
+                id="lookbook-search"
+                class="lookbook__search-input"
+                type="search"
+                placeholder="Search plants"
+                autocomplete="off"
+                spellcheck="false"
+              >
+            </div>
+            <p id="lookbook-count" class="lookbook__count" aria-live="polite" aria-atomic="true">
+              12 pieces
+            </p>
+          </div>
+        </div>
+
+        <ul id="lookbook-grid" class="lookbook__grid" role="list"></ul>
+
+        <div id="lookbook-empty" class="lookbook__empty" hidden>
+          <p id="lookbook-empty-text" class="lookbook__empty-text">Nothing matches that search</p>
+          <button type="button" id="lookbook-reset-btn" class="lookbook__reset-btn">
+            Show everything
+          </button>
+        </div>
+      </section>
+
+      <section id="about" class="story" aria-labelledby="about-heading">
+        <img
+          src="/images/story-1600.jpg"
+          srcset="/images/story-800.jpg 800w, /images/story-1600.jpg 1600w"
+          sizes="(min-width: 900px) 50vw, 100vw"
+          alt="Open white shipping box with a small ZZ plant in a white pot, wrapped in tissue paper and tied with jute twine"
+          class="story__image"
+          width="1600"
+          height="2000"
+          loading="lazy"
+          decoding="async"
+        >
+
+        <div class="story__content">
+          <div class="story__header">
+            <p class="story__label">About Folia</p>
+            <h2 id="about-heading" class="story__heading">Folia is Latin for leaves.</h2>
+            <p class="story__body">
+              We keep the range small and choose every plant for its shape. Each one arrives in a plain box with a care card that says how much light and water it needs.
+            </p>
+          </div>
+
+          <dl id="story-details" class="story__details">
+            <div class="story__detail-row">
+              <dt class="story__term">Delivery</dt>
+              <dd class="story__detail">2 to 4 working days, free over £75</dd>
+            </div>
+            <div class="story__detail-row">
+              <dt class="story__term">Packaging</dt>
+              <dd class="story__detail">Plain box, tissue and jute twine</dd>
+            </div>
+            <div class="story__detail-row">
+              <dt class="story__term">Care</dt>
+              <dd class="story__detail">A card in every box with light and watering notes</dd>
+            </div>
+            <div class="story__detail-row">
+              <dt class="story__term">Returns</dt>
+              <dd class="story__detail">14 days if a plant arrives damaged</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+    </main>
+
+    <footer id="site-footer" class="site-footer">
+      <div class="site-footer__top">
+        <form id="footer-newsletter-form" class="site-footer__newsletter" novalidate>
+          <label for="footer-newsletter-email" class="site-footer__newsletter-label">
+            News of new collections
+          </label>
+          <div class="site-footer__newsletter-row">
+            <input
+              id="footer-newsletter-email"
+              name="email"
+              type="email"
+              class="site-footer__newsletter-input"
+              placeholder="Email address"
+              autocomplete="email"
+              aria-describedby="footer-newsletter-status"
+              required
+            >
+            <button
+              type="submit"
+              id="footer-newsletter-submit"
+              class="site-footer__newsletter-btn"
+            >Subscribe</button>
+          </div>
+          <p
+            id="footer-newsletter-status"
+            class="site-footer__newsletter-status"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          ></p>
+        </form>
+
+        <div class="site-footer__columns">
+          <div class="site-footer__col">
+            <h2 class="site-footer__heading">Shop</h2>
+            <ul class="site-footer__list">
+              <li><a href="./?category=large#shop" class="site-footer__link" data-category="large">Large plants</a></li>
+              <li><a href="./?category=small#shop" class="site-footer__link" data-category="small">Small plants</a></li>
+              <li><a href="./?category=pots#shop" class="site-footer__link" data-category="pots">Pots</a></li>
+              <li><a href="./?category=care#shop" class="site-footer__link" data-category="care">Care</a></li>
+            </ul>
+          </div>
+
+          <div class="site-footer__col">
+            <h2 class="site-footer__heading">Help</h2>
+            <ul class="site-footer__list">
+              <li><a href="#" class="site-footer__link" data-stub-link>Delivery</a></li>
+              <li><a href="#" class="site-footer__link" data-stub-link>Plant care</a></li>
+              <li><a href="#" class="site-footer__link" data-stub-link>Returns</a></li>
+              <li><a href="#" class="site-footer__link" data-stub-link>Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="site-footer__col">
+            <h2 class="site-footer__heading">Folia</h2>
+            <ul class="site-footer__list">
+              <li><a href="./#about" class="site-footer__link">About</a></li>
+              <li><a href="#" class="site-footer__link" data-stub-link>Journal</a></li>
+              <li><a href="#" class="site-footer__link" data-stub-link>Stockists</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="site-footer__wordmark" aria-hidden="true">FOLIA</div>
+
+      <div class="site-footer__legal">
+        <p class="site-footer__legal-item">© 2026 Folia</p>
+        <p class="site-footer__legal-item">Prototype storefront. Prices and copy are placeholders.</p>
+      </div>
+
+      <div
+        id="footer-toast"
+        class="site-footer__toast"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        data-visible="false"
+      ></div>
+    </footer>
+  </div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+
+</html>

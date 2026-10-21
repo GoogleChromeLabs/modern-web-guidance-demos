@@ -1,0 +1,16 @@
+{
+  "name": "folia",
+  "version": "1.0.0",
+  "description": "Folia — Architectural Botanicals Storefront Demo",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "msw": "^2.10.1",
+    "vite": "^8.0.16"
+  }
+}

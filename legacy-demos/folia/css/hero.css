@@ -1,0 +1,80 @@
+/**
+ * Copyright 2026 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Folia Storefront — Hero Section
+ */
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 480px;
+  overflow: hidden;
+  background-color: var(--bone);
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1376 / 768;
+  object-fit: cover;
+  /* On narrow viewports, keep the plant & planter anchored to the right so the 60vw wordmark never covers the subject */
+  object-position: 61% 50%;
+}
+
+@media (min-width: 768px) {
+  .hero__image {
+    object-position: 70% 50%;
+  }
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
+}
+
+/* Page's only h1: FOLIA wordmark in Bodoni Moda, uppercase, 0.22em letter-spacing */
+.hero__wordmark {
+  position: absolute;
+  left: max(var(--gutter), env(safe-area-inset-left, 0px));
+  /* Mobile first: bottom-left at roughly 60vw wide, clear of the plant on the right */
+  bottom: clamp(2rem, 6svh, 3.5rem);
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-regular);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  line-height: 0.92;
+  color: var(--hero-ink);
+  font-size: clamp(2.5rem, 15.2vw, 5.25rem);
+  max-width: 62vw;
+  user-select: none;
+}
+
+/* Tablet & Desktop: left-aligned in the empty left side, vertically centered slightly below center, 40-45vw wide, never crossing 50vw */
+@media (min-width: 768px) {
+  .hero__wordmark {
+    bottom: auto;
+    top: 54%;
+    transform: translateY(-50%);
+    font-size: clamp(4.25rem, 10.6vw, 10.25rem);
+    max-width: calc(50vw - var(--gutter));
+  }
+}

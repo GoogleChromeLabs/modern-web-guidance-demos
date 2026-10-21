@@ -1,0 +1,142 @@
+/**
+ * Copyright 2026 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Folia Storefront — Design Tokens
+ */
+
+:root {
+  color-scheme: light dark;
+
+  /* Raw Palette Primitives */
+  --palette-bone: #F4F1EC;
+  --palette-stone: #D9D3C9;
+  --palette-greige: #A8A196;
+  --palette-charcoal: #1F1F1D;
+  --palette-leaf: #3E4A3D;
+
+  /* Core Theme Tokens (Light Mode Default) */
+  --bone: #F4F1EC;
+  --raised: var(--bone);
+  --stone: #D9D3C9;
+  --greige: #6B655E;
+  --charcoal: #1F1F1D;
+  --leaf: #3E4A3D;
+
+  /* Semantic Color Aliases */
+  --bg: var(--bone);
+  --fg: var(--charcoal);
+  --line: var(--stone);
+  --muted: var(--greige);
+  --accent: var(--leaf);
+  --color-page: var(--bg);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --color-text: var(--fg);
+  --color-accent: var(--accent);
+  --nav-ink: var(--palette-charcoal);
+  --hero-ink: var(--palette-charcoal);
+  --lookbook-grey: #8F8F8D;
+  --lookbook-line: rgba(0, 0, 0, 0.5);
+
+  /* Typography — Families */
+  --font-display: 'Bodoni Moda', Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Typography — Weights */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  /* Typography — Letter Spacing */
+  --tracking-wordmark: 0.22em;
+  --tracking-label: 0.14em;
+  --tracking-body: 0.01em;
+  --tracking-heading: -0.01em;
+
+  /* Typography — Fluid Scale (Mobile-first from 400px) */
+  --text-xs: 0.75rem;                         /* 12px — small uppercase labels */
+  --text-sm: 0.875rem;                        /* 14px — secondary copy */
+  --text-base: 1rem;                          /* 16px — body copy */
+  --text-lg: clamp(1.125rem, 2vw, 1.375rem);  /* 18px–22px */
+  --text-xl: clamp(1.5rem, 3.5vw, 2.25rem);   /* 24px–36px */
+  --text-2xl: clamp(2rem, 5vw, 3.5rem);       /* 32px–56px — large display headings */
+
+  /* Line Heights */
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
+  --leading-normal: 1.55;
+
+  /* Spacing & Layout Scale (Mobile-first, 16px minimum side gutter) */
+  --gutter: 16px;
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.5rem;    /* 24px */
+  --space-6: 2rem;      /* 32px */
+  --space-7: 3rem;      /* 48px */
+  --space-8: 4.5rem;    /* 72px */
+  --space-9: 6rem;      /* 96px */
+
+  --container-max: 1440px;
+  --header-h: 64px;
+  --header-height: var(--header-h);
+
+  /* Architectural Constraints: Square corners, no shadows */
+  --radius: 0px;
+  --shadow: none;
+  --border-hairline: 1px solid var(--color-line);
+
+  /* Image Aspect Ratios */
+  --aspect-cell: 2 / 3;
+  --aspect-portrait: 3 / 4;
+  --aspect-editorial: 4 / 5;
+  --aspect-square: 1 / 1;
+  --aspect-landscape: 16 / 10;
+
+  /* Motion */
+  --transition-quiet: 200ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-quiet: 0ms;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 32px;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --gutter: 48px;
+  }
+}
+
+/* Dark Theme Variant following prefers-color-scheme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bone: #151513;
+    --raised: #1E1E1B;
+    --stone: #2C2A26;
+    --greige: #9B9489;
+    --charcoal: #F4F1EC;
+    --leaf: #5E705C;
+
+    --bg: var(--bone);
+    --fg: var(--charcoal);
+    --line: var(--stone);
+    --muted: var(--greige);
+    --accent: var(--leaf);
+    --color-page: var(--bg);
+    --color-line: var(--line);
+    --color-muted: var(--muted);
+    --color-text: var(--fg);
+    --color-accent: var(--accent);
+  }
+}

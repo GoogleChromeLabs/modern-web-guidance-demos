@@ -1,0 +1,5 @@
+- Only use Chrome DevTools for agents for browser verification, screencasts and screenshots.
+
+## Browser Verification & Automation
+- **Deterministic Synchronization**: When using Chrome DevTools to interact with or test the UI, never use arbitrary sleep timers (like the `schedule` tool) to wait for transitions. You must use `evaluate_script` to synchronize with the browser's native lifecycle APIs (e.g., awaiting `Promise.allSettled(element.getAnimations({ subtree: true }).map(a => a.finished))`).
+- **Programmatic Style Assertion**: Before capturing screenshots or concluding a UI task, programmatically verify that the intended CSS rules and computed styles were applied by the browser using Chrome DevTools for agents (e.g., `get_css_styles` or `getComputedStyle`), proving that invalid declarations weren't silently ignored.

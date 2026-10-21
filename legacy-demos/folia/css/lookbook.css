@@ -1,0 +1,428 @@
+/**
+ * Copyright 2026 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Folia Storefront — Section 3: Product Lookbook Grid, Sticky Filter Bar & Search
+ */
+
+.visually-hidden {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.lookbook {
+  --charcoal: var(--palette-charcoal);
+  width: 100%;
+  min-height: calc(100vh - var(--header-h, 64px));
+  min-height: calc(100svh - var(--header-h, 64px));
+  background-color: var(--lookbook-grey);
+  scroll-margin-top: calc(var(--header-h, 64px) + env(safe-area-inset-top, 0px));
+}
+
+/* Sticky filter, search, and live-count bar */
+.lookbook__bar {
+  position: sticky;
+  top: calc(var(--header-h, 64px) + env(safe-area-inset-top, 0px));
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-5);
+  padding-block: var(--space-3);
+  padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
+  background-color: var(--lookbook-grey);
+  border-bottom: 1px solid var(--lookbook-line);
+}
+
+.lookbook__filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: clamp(1rem, 2vw, 1.75rem);
+}
+
+.lookbook__filter-btn {
+  display: inline-flex;
+  align-items: center;
+  padding-block: var(--space-1);
+  padding-inline: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--text-xs);
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--charcoal);
+  opacity: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.lookbook__filter-btn[aria-pressed='true'] {
+  font-weight: var(--font-weight-semibold);
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+  text-decoration-thickness: 1px;
+}
+
+.lookbook__filter-btn:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+  text-decoration-thickness: 1px;
+}
+
+.lookbook__filter-btn:focus-visible {
+  outline: 1.5px solid var(--charcoal);
+  outline-offset: 4px;
+}
+
+.lookbook__tools {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2rem);
+}
+
+.lookbook__search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.lookbook__search-label {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--text-xs);
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--charcoal);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.lookbook__search-input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: clamp(8.5rem, 14vw, 12rem);
+  padding-block: 0.15rem;
+  padding-inline: 0;
+  border: 0;
+  border-bottom: 1px solid var(--charcoal);
+  border-radius: 0;
+  background: transparent;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--text-xs);
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  color: var(--charcoal);
+}
+
+.lookbook__search-input::placeholder {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--charcoal);
+  opacity: 1;
+}
+
+.lookbook__search-input::-webkit-search-decoration,
+.lookbook__search-input::-webkit-search-cancel-button,
+.lookbook__search-input::-webkit-search-results-button,
+.lookbook__search-input::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.lookbook__search-input:focus {
+  outline: none;
+}
+
+.lookbook__search-input:focus-visible {
+  outline: 1.5px solid var(--charcoal);
+  outline-offset: 4px;
+}
+
+.lookbook__count {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--text-xs);
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--charcoal);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 679.98px) {
+  .lookbook__filters,
+  .lookbook__tools {
+    width: 100%;
+  }
+
+  .lookbook__tools {
+    justify-content: space-between;
+  }
+
+  .lookbook__search {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .lookbook__search-input {
+    width: 100%;
+    max-width: 11.5rem;
+  }
+}
+
+/* Lookbook Grid: 2 cols (<600px), 3 cols (600-999px), 6 cols (>=1000px) */
+/* Per-cell right and bottom 1px dark hairlines (rgba(0,0,0,0.5)), plain grey background */
+.lookbook__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: var(--lookbook-grey);
+  border: 0;
+}
+
+@media (min-width: 600px) {
+  .lookbook__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .lookbook__grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.lookbook__grid[hidden],
+.lookbook__item[hidden],
+.lookbook__empty[hidden] {
+  display: none !important;
+}
+
+.lookbook__item {
+  position: relative;
+  min-width: 0;
+  background-color: var(--lookbook-grey);
+  border-right: 1px solid var(--lookbook-line);
+  border-bottom: 1px solid var(--lookbook-line);
+}
+
+/* Under 600px (2 columns): remove right border on last column and bottom border on last row */
+@media (max-width: 599.98px) {
+  .lookbook__item:nth-child(2n of :not([hidden])) {
+    border-right: 0;
+  }
+
+  .lookbook__item:nth-child(2n + 1 of :not([hidden])):nth-last-child(-n + 2 of :not([hidden])),
+  .lookbook__item:nth-child(2n + 1 of :not([hidden])):nth-last-child(-n + 2 of :not([hidden]))
+    ~ .lookbook__item:not([hidden]) {
+    border-bottom: 0;
+  }
+}
+
+/* 600px to 999.98px (3 columns): remove right border on last column and bottom border on last row */
+@media (min-width: 600px) and (max-width: 999.98px) {
+  .lookbook__item:nth-child(3n of :not([hidden])) {
+    border-right: 0;
+  }
+
+  .lookbook__item:nth-child(3n + 1 of :not([hidden])):nth-last-child(-n + 3 of :not([hidden])),
+  .lookbook__item:nth-child(3n + 1 of :not([hidden])):nth-last-child(-n + 3 of :not([hidden]))
+    ~ .lookbook__item:not([hidden]) {
+    border-bottom: 0;
+  }
+}
+
+/* 1000px and up (6 columns): remove right border on last column and bottom border on last row */
+@media (min-width: 1000px) {
+  .lookbook__item:nth-child(6n of :not([hidden])) {
+    border-right: 0;
+  }
+
+  .lookbook__item:nth-child(6n + 1 of :not([hidden])):nth-last-child(-n + 6 of :not([hidden])),
+  .lookbook__item:nth-child(6n + 1 of :not([hidden])):nth-last-child(-n + 6 of :not([hidden]))
+    ~ .lookbook__item:not([hidden]) {
+    border-bottom: 0;
+  }
+}
+
+.lookbook__cell {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: var(--aspect-cell);
+  background-color: var(--lookbook-grey);
+  overflow: hidden;
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+/* Focus-visible: high-contrast 2px white + charcoal inset outline on the cell */
+.lookbook__cell:focus-visible {
+  outline: 2px solid #FFFFFF;
+  outline-offset: -4px;
+  box-shadow: inset 0 0 0 2px var(--palette-charcoal);
+}
+
+.lookbook__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: var(--aspect-cell);
+  object-fit: cover;
+  object-position: center center;
+  background-color: var(--lookbook-grey);
+}
+
+/* Cell Caption Overlay: Name, Latin name, and Price in small white uppercase Inter Tight */
+.lookbook__caption {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: var(--space-6) var(--space-3) var(--space-3);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.72) 0%,
+    rgba(0, 0, 0, 0.52) 65%,
+    transparent 100%
+  );
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--text-xs);
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  opacity: 1;
+  pointer-events: none;
+}
+
+.lookbook__caption-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.lookbook__name {
+  min-width: 0;
+  font-weight: var(--font-weight-regular);
+  color: #FFFFFF;
+  overflow-wrap: break-word;
+}
+
+.lookbook__price {
+  flex-shrink: 0;
+  font-weight: var(--font-weight-regular);
+  color: #FFFFFF;
+  white-space: nowrap;
+}
+
+.lookbook__latin {
+  font-weight: var(--font-weight-light);
+  color: #FFFFFF;
+}
+
+/* On viewports >= 600px with hover capability, hide caption until hover or keyboard focus */
+@media (min-width: 600px) and (hover: hover) {
+  .lookbook__caption {
+    padding: var(--space-6) var(--space-4) var(--space-4);
+    font-size: var(--text-xs);
+    opacity: 0;
+    transition: opacity 200ms ease;
+  }
+
+  .lookbook__cell:hover .lookbook__caption,
+  .lookbook__cell:focus-visible .lookbook__caption {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lookbook__caption {
+    transition: none !important;
+  }
+}
+
+/* Empty State (No search results or unpopulated category like Pots / Care) */
+.lookbook__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  min-height: clamp(18rem, 45vh, 26rem);
+  padding: var(--space-8) var(--gutter);
+  background-color: var(--lookbook-grey);
+  text-align: center;
+}
+
+.lookbook__empty-text {
+  margin: 0;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: 0.75rem; /* 12px */
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--charcoal);
+}
+
+.lookbook__reset-btn {
+  display: inline-flex;
+  align-items: center;
+  padding-block: var(--space-1);
+  padding-inline: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  font-size: 0.75rem; /* 12px */
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--charcoal);
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+  text-decoration-thickness: 1px;
+  cursor: pointer;
+}
+
+.lookbook__reset-btn:hover {
+  text-underline-offset: 0.25em;
+}
+
+.lookbook__reset-btn:focus-visible {
+  outline: 1.5px solid var(--charcoal);
+  outline-offset: 4px;
+}
