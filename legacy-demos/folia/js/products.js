@@ -420,6 +420,21 @@ export function getStorefrontRootPrefix(pathname = window.location.pathname) {
 }
 
 /**
+ * Resolves a storefront-relative './...' asset path so it points at the same
+ * canonical URL from both root pages ('./images/...') and '/products/<slug>'
+ * routes ('../images/...').
+ * @param {string} assetPath
+ * @param {string} [pathname]
+ * @returns {string}
+ */
+export function resolveStorefrontAssetUrl(assetPath, pathname = window.location.pathname) {
+  if (typeof assetPath !== 'string' || !assetPath.startsWith('./')) {
+    return assetPath;
+  }
+  return `${getStorefrontRootPrefix(pathname)}${assetPath.slice(2)}`;
+}
+
+/**
  * Finds a product by its id or alias slug.
  * @param {string} id
  * @returns {object | undefined}

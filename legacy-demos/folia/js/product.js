@@ -11,6 +11,7 @@ import {
   formatVariantId,
   getProductById,
   getStorefrontRootPrefix,
+  resolveStorefrontAssetUrl,
 } from './products.js';
 import { cartApi, CartApiError } from './cartApi.js';
 import { initBagDrawer, openBagDrawer, syncBagFromCart, incrementBagLine } from './bag.js';
@@ -240,6 +241,11 @@ function normalizeProductShellLinks(rootPrefix) {
   });
 
   if (rootPrefix !== './') {
+    document.querySelectorAll('link[rel="icon"][href^="./"]').forEach((iconLink) => {
+      const currentHref = iconLink.getAttribute('href') || '';
+      iconLink.setAttribute('href', `${rootPrefix}${currentHref.slice(2)}`);
+    });
+
     document.querySelectorAll('a[href^="./"]').forEach((anchor) => {
       if (anchor.closest('#main-content')) return;
       const currentHref = anchor.getAttribute('href') || '';
@@ -370,7 +376,7 @@ export function initProductPage() {
 
       const img = document.createElement('img');
       img.className = 'product__media-image';
-      img.src = src;
+      img.src = resolveStorefrontAssetUrl(src);
       img.alt = alts[index] || `${product.name} (${product.latin}) — view ${index + 1}`;
       img.width = 848;
       img.height = 1264;

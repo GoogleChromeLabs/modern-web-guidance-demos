@@ -5,7 +5,12 @@
  * Folia Storefront — Shared Bag State ("folia-bag") & Slide-Over Drawer
  */
 
-import { formatPrice, getProductById, resolveProductVariant } from './products.js';
+import {
+  formatPrice,
+  getProductById,
+  resolveProductVariant,
+  resolveStorefrontAssetUrl,
+} from './products.js';
 import { scrollToSection } from './nav.js';
 
 export const BAG_STORAGE_KEY = 'folia-bag';
@@ -221,10 +226,11 @@ export function getEnrichedBagState(lines = inMemoryLines) {
     subtotalPence += linePricePence;
     totalItems += quantity;
 
-    const thumbSrc =
+    const thumbSrc = resolveStorefrontAssetUrl(
       Array.isArray(product.images) && product.images.length > 0
         ? product.images[0]
-        : product.image;
+        : product.image
+    );
     const thumbAlt =
       Array.isArray(product.alts) && product.alts.length > 0
         ? product.alts[0]
