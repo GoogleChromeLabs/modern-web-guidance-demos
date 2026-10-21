@@ -297,17 +297,19 @@ export function initProductPage() {
     { capture: true }
   );
 
-  // Sync initial bag count from GET /api/cart without blocking page render
-  cartApi
-    .getCart({ signal: pageController.signal })
-    .then((cart) => {
-      if (!pageController.signal.aborted) {
-        syncBagFromCart(cart);
-      }
-    })
-    .catch(() => {
-      // Ignore initial background sync errors or aborts
-    });
+  // Sync initial bag count from GET /api/cart in dev mode without blocking page render
+  if (import.meta.env.DEV) {
+    cartApi
+      .getCart({ signal: pageController.signal })
+      .then((cart) => {
+        if (!pageController.signal.aborted) {
+          syncBagFromCart(cart);
+        }
+      })
+      .catch(() => {
+        // Ignore initial background sync errors or aborts
+      });
+  }
 
   const productView = document.getElementById('product-view');
   const notFoundView = document.getElementById('product-not-found');

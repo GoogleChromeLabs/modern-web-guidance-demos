@@ -441,16 +441,18 @@ if (isProductRoute) {
   initLookbook();
   initStory();
 
-  const homeController = new AbortController();
-  window.addEventListener('pagehide', () => homeController.abort(), { once: true });
-  cartApi
-    .getCart({ signal: homeController.signal })
-    .then((cart) => {
-      if (!homeController.signal.aborted) {
-        syncBagFromCart(cart);
-      }
-    })
-    .catch(() => {
-      // Ignore background cart fetch abort or error
-    });
+  if (import.meta.env.DEV) {
+    const homeController = new AbortController();
+    window.addEventListener('pagehide', () => homeController.abort(), { once: true });
+    cartApi
+      .getCart({ signal: homeController.signal })
+      .then((cart) => {
+        if (!homeController.signal.aborted) {
+          syncBagFromCart(cart);
+        }
+      })
+      .catch(() => {
+        // Ignore background cart fetch abort or error
+      });
+  }
 }
