@@ -20,9 +20,18 @@ The storefront ships with two entry points and a shared client-side shopping bag
 legacy-demos/folia/
 ├── index.html          # Storefront home, editorial section, and lookbook grid
 ├── product.html        # Product detail page shell
+├── mockServiceWorker.js # Dev-only MSW service worker script (excluded from dist/)
 ├── css/
 │   ├── tokens.css      # Color, typography, spacing, and motion tokens
-│   └── base.css        # Layout, component, and responsive styles
+│   ├── base.css        # Base reset, layout shell, and stylesheet imports
+│   ├── nav.css         # Fixed editorial header and mobile navigation overlay
+│   ├── hero.css        # Full-bleed hero showcase
+│   ├── editorial.css   # Art-directed "Dark Foliage" editorial section
+│   ├── lookbook.css    # Filterable plant grid, sticky filter bar, and search
+│   ├── story.css       # Brand story (#about) section
+│   ├── product.css     # Product detail gallery, variant selectors, and care notes
+│   ├── bag.css         # Slide-over shopping bag drawer
+│   └── footer.css      # Site-wide editorial footer and newsletter form
 ├── js/
 │   ├── main.js         # Home entry, editorial reveal, lookbook filters, search
 │   ├── product.js      # Product detail view, variant selection, add-to-bag states
@@ -34,8 +43,7 @@ legacy-demos/folia/
 │   └── mocks/
 │       └── cartMock.js # Dev-only MSW cart handlers & latency/failure simulation
 ├── public/
-│   ├── images/         # Static media served from images/ at runtime (omit /public in URLs)
-│   └── mockServiceWorker.js
+│   └── images/         # Static media served from images/ at runtime (omit /public in URLs)
 ├── AGENTS.md           # Agent browser verification rules
 └── vite.config.js      # Multi-page build config and /products/<slug> route rewrite
 ```
