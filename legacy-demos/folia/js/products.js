@@ -51,7 +51,7 @@ export const PRODUCTS = [
     category: 'large',
     image: './images/cells/ficus-lyrata.jpg',
     images: [
-      './images/products/fiddle-leaf-fig/01.jpg',
+      './images/cells/ficus-lyrata.jpg',
       './images/products/fiddle-leaf-fig/02.jpg',
       './images/products/fiddle-leaf-fig/03.jpg',
     ],
@@ -87,7 +87,7 @@ export const PRODUCTS = [
     category: 'large',
     image: './images/cells/olive-tree.jpg',
     images: [
-      './images/products/olive-tree/01.jpg',
+      './images/cells/olive-tree.jpg',
       './images/products/olive-tree/02.jpg',
     ],
     alts: [
@@ -115,7 +115,7 @@ export const PRODUCTS = [
     category: 'large',
     image: './images/cells/strelitzia-nicolai.jpg',
     images: [
-      './images/products/strelitzia-nicolai/01.jpg',
+      './images/cells/strelitzia-nicolai.jpg',
       './images/products/strelitzia-nicolai/02.jpg',
     ],
     alts: [
@@ -166,7 +166,7 @@ export const PRODUCTS = [
     category: 'small',
     image: './images/cells/calathea-orbifolia.jpg',
     images: [
-      './images/products/calathea-orbifolia/01.jpg',
+      './images/cells/calathea-orbifolia.jpg',
       './images/products/calathea-orbifolia/02.jpg',
     ],
     alts: [
@@ -219,7 +219,7 @@ export const PRODUCTS = [
     category: 'large',
     image: './images/cells/monstera-deliciosa.jpg',
     images: [
-      './images/products/monstera-deliciosa/01.jpg',
+      './images/cells/monstera-deliciosa.jpg',
       './images/products/monstera-deliciosa/02.jpg',
     ],
     alts: [
@@ -293,7 +293,7 @@ export const PRODUCTS = [
     category: 'small',
     image: './images/cells/alocasia-polly.jpg',
     images: [
-      './images/products/alocasia-polly/01.jpg',
+      './images/cells/alocasia-polly.jpg',
       './images/products/alocasia-polly/02.jpg',
     ],
     alts: [
