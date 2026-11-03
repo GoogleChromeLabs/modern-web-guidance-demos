@@ -6,7 +6,7 @@ name: Deploy Demos to GitHub Pages
 on:
   push:
     branches:
-      - solutions
+      - main
   workflow_dispatch:
 
 permissions:
@@ -27,8 +27,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: solutions
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
