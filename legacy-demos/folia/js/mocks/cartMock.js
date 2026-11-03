@@ -2,10 +2,9 @@
  * Copyright 2026 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  *
- * Folia Storefront — Dev-Only MSW Mock Cart API
+ * Folia Storefront — MSW Mock Cart API
  *
  * Persists state in localStorage under "folia-mock-db".
- * Never imported or bundled in production builds (guarded by import.meta.env.DEV).
  */
 
 import { http, HttpResponse, delay } from 'msw';

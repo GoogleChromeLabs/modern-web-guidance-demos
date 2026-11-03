@@ -36,20 +36,17 @@ export class CartApiError extends Error {
 
 let mockReadyPromise = null;
 
-function ensureMockReadyIfDev() {
-  if (import.meta.env.DEV) {
-    if (!mockReadyPromise) {
-      mockReadyPromise = import('./mocks/cartMock.js').then((mod) =>
-        mod.startCartMockWorker()
-      );
-    }
-    return mockReadyPromise;
+function ensureMockReady() {
+  if (!mockReadyPromise) {
+    mockReadyPromise = import('./mocks/cartMock.js').then((mod) =>
+      mod.startCartMockWorker()
+    );
   }
-  return Promise.resolve();
+  return mockReadyPromise;
 }
 
 async function requestJson(path, { method = 'GET', headers = {}, body, signal } = {}) {
-  await ensureMockReadyIfDev();
+  await ensureMockReady();
 
   if (signal?.aborted) {
     throw new CartApiError('Request aborted by caller.', {
