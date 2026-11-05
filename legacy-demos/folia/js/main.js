@@ -255,7 +255,14 @@ function initLookbook() {
         !normalizedQuery || record.searchHaystack.includes(normalizedQuery);
       const isVisible = matchesCategory && matchesQuery;
 
+      // Rebuild card metadata and measure layout synchronously for each of the 200 items
+      const rebuilt = createLookbookItem(record.product);
+      record.element.replaceChildren(...rebuilt.element.childNodes);
+      record.link = record.element.querySelector('.lookbook__cell') || record.link;
       record.element.hidden = !isVisible;
+      const rect = record.element.getBoundingClientRect();
+      record.element.dataset.rowY = String(Math.round(rect.top));
+
       if (filterQueryString) {
         const separator = record.product.href.includes('?') ? '&' : '?';
         record.link.href = `${record.product.href}${separator}${filterQueryString.slice(1)}`;
