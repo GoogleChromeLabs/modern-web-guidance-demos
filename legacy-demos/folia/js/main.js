@@ -148,6 +148,15 @@ function createLookbookItem(product) {
   };
 }
 
+export const HOME_PRODUCT_LIMIT = 12;
+
+function isLookbookPage() {
+  return (
+    document.body?.dataset.page === 'lookbook' ||
+    /\/lookbook(?:\.html)?(?:\/|$)/.test(window.location.pathname)
+  );
+}
+
 function initLookbook() {
   const shopSection = document.getElementById('shop');
   const filtersContainer = document.getElementById('lookbook-filters');
@@ -162,9 +171,14 @@ function initLookbook() {
     return;
   }
 
+  const onLookbookPage = isLookbookPage();
+  const catalogProducts = onLookbookPage
+    ? PRODUCTS
+    : PRODUCTS.slice(0, HOME_PRODUCT_LIMIT);
+
   // 1. Generate filter buttons from data so categories with 0 products (pots, care) are omitted
   const populatedCategories = CATEGORIES.filter((cat) =>
-    PRODUCTS.some((product) => product.category === cat.id)
+    catalogProducts.some((product) => product.category === cat.id)
   );
   const filterDefinitions = [{ id: 'all', label: 'All' }, ...populatedCategories];
   const filterButtons = [];
@@ -183,7 +197,7 @@ function initLookbook() {
   filtersContainer.replaceChildren(filterFragment);
 
   // 2. Render all product cells once; toggle [hidden] when filtering
-  const itemRecords = PRODUCTS.map((product) => createLookbookItem(product));
+  const itemRecords = catalogProducts.map((product) => createLookbookItem(product));
   const gridFragment = document.createDocumentFragment();
   for (const record of itemRecords) {
     gridFragment.append(record.element);
@@ -255,13 +269,17 @@ function initLookbook() {
         !normalizedQuery || record.searchHaystack.includes(normalizedQuery);
       const isVisible = matchesCategory && matchesQuery;
 
-      // Rebuild card metadata and measure layout synchronously for each of the 200 items
-      const rebuilt = createLookbookItem(record.product);
-      record.element.replaceChildren(...rebuilt.element.childNodes);
-      record.link = record.element.querySelector('.lookbook__cell') || record.link;
-      record.element.hidden = !isVisible;
-      const rect = record.element.getBoundingClientRect();
-      record.element.dataset.rowY = String(Math.round(rect.top));
+      if (onLookbookPage) {
+        // Rebuild card metadata and measure layout synchronously for each of the 200 items
+        const rebuilt = createLookbookItem(record.product);
+        record.element.replaceChildren(...rebuilt.element.childNodes);
+        record.link = record.element.querySelector('.lookbook__cell') || record.link;
+        record.element.hidden = !isVisible;
+        const rect = record.element.getBoundingClientRect();
+        record.element.dataset.rowY = String(Math.round(rect.top));
+      } else {
+        record.element.hidden = !isVisible;
+      }
 
       if (filterQueryString) {
         const separator = record.product.href.includes('?') ? '&' : '?';
@@ -283,7 +301,7 @@ function initLookbook() {
       const categoryDef = CATEGORIES.find((c) => c.id === state.category);
       const categoryHasProducts =
         state.category === 'all' ||
-        PRODUCTS.some((p) => p.category === state.category);
+        catalogProducts.some((p) => p.category === state.category);
 
       if (!categoryHasProducts && categoryDef?.emptyMessage && !normalizedQuery) {
         emptyTextEl.textContent = categoryDef.emptyMessage;

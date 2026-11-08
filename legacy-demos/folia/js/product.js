@@ -175,14 +175,20 @@ function resolveBackToCollectionHref() {
 
   let category = (currentParams.get('category') || '').toLowerCase().trim();
   let query = (currentParams.get('q') || '').trim();
+  let fromLookbook = false;
 
-  // Fallback to same-origin referrer if the URL itself didn't carry query params
-  if (!category && !query && document.referrer) {
+  if (document.referrer) {
     try {
       const refUrl = new URL(document.referrer);
       if (refUrl.origin === window.location.origin) {
-        category = (refUrl.searchParams.get('category') || '').toLowerCase().trim();
-        query = (refUrl.searchParams.get('q') || '').trim();
+        if (/\/lookbook(?:\.html)?(?:\/|$)/.test(refUrl.pathname)) {
+          fromLookbook = true;
+        }
+        // Fallback to same-origin referrer if the URL itself didn't carry query params
+        if (!category && !query) {
+          category = (refUrl.searchParams.get('category') || '').toLowerCase().trim();
+          query = (refUrl.searchParams.get('q') || '').trim();
+        }
       }
     } catch {
       // Ignore malformed referrer
@@ -198,8 +204,9 @@ function resolveBackToCollectionHref() {
   }
 
   const rootPrefix = getStorefrontRootPrefix();
+  const baseTarget = fromLookbook ? `${rootPrefix}lookbook.html` : rootPrefix;
   const qs = outParams.toString();
-  return qs ? `${rootPrefix}?${qs}#shop` : `${rootPrefix}#shop`;
+  return qs ? `${baseTarget}?${qs}#shop` : `${baseTarget}#shop`;
 }
 
 function extractProductIdFromLocation() {

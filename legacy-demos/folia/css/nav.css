@@ -132,6 +132,14 @@
   outline-offset: 4px;
 }
 
+.nav-link[aria-current='page'],
+.mobile-menu__link[aria-current='page'] {
+  font-weight: var(--font-weight-semibold);
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+  text-decoration-thickness: 1px;
+}
+
 /* Compact Centered Wordmark (Visible in Scrolled State) */
 .site-header__wordmark {
   justify-self: center;
