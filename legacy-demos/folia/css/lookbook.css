@@ -29,6 +29,11 @@
   scroll-margin-top: calc(var(--header-h, 64px) + env(safe-area-inset-top, 0px));
 }
 
+.lookbook-main {
+  padding-top: calc(var(--header-h, 64px) + env(safe-area-inset-top, 0px));
+  background-color: var(--lookbook-grey);
+}
+
 /* Sticky filter, search, and live-count bar */
 .lookbook__bar {
   position: sticky;

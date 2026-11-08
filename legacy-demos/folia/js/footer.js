@@ -45,6 +45,7 @@ const FOOTER_TEMPLATE = `
           <li><a href="./?category=small#shop" class="site-footer__link" data-category="small">Small plants</a></li>
           <li><a href="./?category=pots#shop" class="site-footer__link" data-category="pots">Pots</a></li>
           <li><a href="./?category=care#shop" class="site-footer__link" data-category="care">Care</a></li>
+          <li><a href="./lookbook.html" class="site-footer__link">Lookbook</a></li>
         </ul>
       </div>
 

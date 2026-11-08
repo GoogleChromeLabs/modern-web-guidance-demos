@@ -41,6 +41,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(import.meta.dirname, 'index.html'),
+        lookbook: resolve(import.meta.dirname, 'lookbook.html'),
         product: resolve(import.meta.dirname, 'product.html'),
       },
     },
