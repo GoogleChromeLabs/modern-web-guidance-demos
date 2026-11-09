@@ -269,16 +269,12 @@ function initLookbook() {
         !normalizedQuery || record.searchHaystack.includes(normalizedQuery);
       const isVisible = matchesCategory && matchesQuery;
 
+      record.element.hidden = !isVisible;
+
       if (onLookbookPage) {
-        // Rebuild card metadata and measure layout synchronously for each of the 200 items
-        const rebuilt = createLookbookItem(record.product);
-        record.element.replaceChildren(...rebuilt.element.childNodes);
-        record.link = record.element.querySelector('.lookbook__cell') || record.link;
-        record.element.hidden = !isVisible;
+        // Keep each card's vertical offset up to date after toggling it.
         const rect = record.element.getBoundingClientRect();
         record.element.dataset.rowY = String(Math.round(rect.top));
-      } else {
-        record.element.hidden = !isVisible;
       }
 
       if (filterQueryString) {
