@@ -1,6 +1,3 @@
-.agents/
-.claude/
-.gemini/
 .DS_Store
 dist/
 node_modules/
