@@ -1,7 +1,7 @@
 {
   "name": "folia",
   "version": "1.0.0",
-  "description": "Folia — Architectural Botanicals Storefront Demo",
+  "description": "Folia — Architectural Botanicals Storefront",
   "type": "module",
   "scripts": {
     "start": "vite",
